@@ -45,7 +45,11 @@
   .btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--wood2)}
   .btn.ghost{background:var(--paper2);color:#8a6b3f}
   /* minigame */
-  #mini{position:fixed;inset:0;z-index:12;display:none;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 30%,#2a2620,#0c0a07 74%);backdrop-filter:blur(2px)}
+  #mini{position:fixed;inset:0;z-index:12;display:none;flex-direction:column;align-items:center;justify-content:center;background:#0c0a07;overflow:hidden}
+  #mini::before{content:'';position:absolute;inset:-60px;background-image:var(--map-bg,none);background-size:cover;background-position:center;
+    filter:blur(16px) brightness(.42) saturate(.85);transform:scale(1.08);z-index:0}
+  #mini::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 30%,rgba(20,16,10,.35),rgba(6,4,2,.8) 78%);z-index:1}
+  #monWrap{position:relative;z-index:2}
   /* ===== CRT MONITOR SHELL ===== */
   #monWrap{display:flex;flex-direction:column;align-items:center;animation:crtOn .5s ease}
   @keyframes crtOn{0%{transform:scale(.9);opacity:0}55%{transform:scale(1.01)}100%{transform:scale(1);opacity:1}}
