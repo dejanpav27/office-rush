@@ -2,9 +2,9 @@
 // Main game logic. Loaded after sprites-data.js, map-data.js, koda-data.js.
 
 
-function setMiniBackdrop(){document.getElementById('mini').style.setProperty('--map-bg',`url(${MAP_BG.src})`);}
+function setMiniBackdrop(){document.getElementById('miniBg').style.backgroundImage=`url("${MAP_BG.src}")`;}
 if(MAP_BG.complete)setMiniBackdrop();else MAP_BG.addEventListener('load',setMiniBackdrop);
-document.getElementById('monitor').style.setProperty('--monitor-img',`url(data:image/png;base64,${MONITOR_IMG_B64})`);
+document.getElementById('monitor').style.backgroundImage=`url("data:image/png;base64,${MONITOR_IMG_B64}")`;
 
 const cv=document.getElementById('game'),ctx=cv.getContext('2d');
 let viewW=window.innerWidth,viewH=window.innerHeight;

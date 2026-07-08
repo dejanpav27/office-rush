@@ -46,7 +46,7 @@
   .btn.ghost{background:var(--paper2);color:#8a6b3f}
   /* minigame */
   #mini{position:fixed;inset:0;z-index:12;display:none;flex-direction:column;align-items:center;justify-content:center;background:#0c0a07;overflow:hidden}
-  #mini::before{content:'';position:absolute;inset:-60px;background-image:var(--map-bg,none);background-size:cover;background-position:center;
+  #miniBg{position:absolute;inset:-60px;background-size:cover;background-position:center;
     filter:blur(7px) brightness(.8) saturate(.92);transform:scale(1.05);z-index:0}
   #mini::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(10,8,5,.08),rgba(6,4,2,.42) 88%);z-index:1}
   #monWrap{position:relative;z-index:2}
@@ -54,15 +54,14 @@
   #monWrap{position:relative;z-index:2;display:flex;justify-content:center;animation:crtOn .5s ease}
   @keyframes crtOn{0%{transform:scale(.9);opacity:0}55%{transform:scale(1.01)}100%{transform:scale(1);opacity:1}}
   /* real CRT monitor photo (js/monitor-data.js) as the frame */
-  #monitor{position:relative;width:min(720px,92vw);aspect-ratio:780/642;
-    background-image:var(--monitor-img,none);background-size:100% 100%;background-repeat:no-repeat;
+  #monitor{position:relative;width:min(720px,92vw);aspect-ratio:780/643;
+    background-size:100% 100%;background-repeat:no-repeat;
     filter:drop-shadow(0 26px 50px rgba(0,0,0,.6))}
-  /* the recessed black glass frame — sits inside the photo's screen cutout */
-  #miniBox{position:absolute;left:12.05%;top:15.73%;right:23.59%;bottom:20.25%;overflow:hidden;text-align:center;
+  /* the Win95 window — fills the photo's transparent window cutout exactly */
+  #miniBox{position:absolute;left:11.79%;top:15.40%;right:23.21%;bottom:32.35%;overflow:hidden;text-align:center;
     display:flex;flex-direction:column;
-    border-radius:10px/14px;
     background:#0d1310;
-    box-shadow:inset 0 0 22px rgba(0,0,0,.85)}
+    box-shadow:none}
   /* the phosphor picture area */
   #winbar,#screenBody{position:relative;z-index:2}
   #miniBox > #winbar{border-radius:16px 16px 0 0}
