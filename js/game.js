@@ -379,7 +379,7 @@ function startTest(){
   const order=['brana','sonja','pedja','nina','daniel','teonem','steve','dejan'];
   NPCS=order.map(id=>{const p=POOLS[id];
     const tasks=p.pool.map((t,i)=>({...t,id:id+'_'+i,done:false}));
-    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:200+Math.random()*500,tasks};});
+    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:400+Math.random()*700,tasks};});
   // player = a neutral controllable (use nino sprite as "tester")
   player={id:'nino',name:'Tester',x:6.25*TS,y:12.25*TS,r:12};
   document.getElementById('start').style.display='none';
@@ -396,7 +396,7 @@ function startGame(chosenId){
   const order=all.filter(id=>id!==chosenId);
   NPCS=order.map(id=>{const p=POOLS[id];
     const tasks=shuffle(p.pool).slice(0,TASKS_PER_NPC).map((t,i)=>({...t,id:id+'_'+i,done:false}));
-    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:200+Math.random()*500,tasks};});
+    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:400+Math.random()*700,tasks};});
   player={id:chosenId,name:cap(chosenId),x:6.25*TS,y:12.25*TS,r:12};
   document.getElementById('start').style.display='none';
   document.getElementById('whoami').textContent='playing: '+cap(chosenId);
@@ -1315,7 +1315,7 @@ function updateNPCs(){
   NPCS.forEach(n=>{
     // ambient speech, independent of movement
     n.speechTimer--;
-    if(n.speechTimer<=0){n.speech=randIdleLine(n.id);n.speechUntil=frame+170;n.speechTimer=260+Math.random()*520;}
+    if(n.speechTimer<=0){n.speech=randIdleLine(n.id);n.speechUntil=frame+320;n.speechTimer=480+Math.random()*760;}
     // wander state machine
     if(n.wState==='idle'){
       n.wTimer--;
