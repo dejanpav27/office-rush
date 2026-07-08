@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OFFICE RUSH — Task Board</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="wrap"><canvas id="game" width="1100" height="680" style="display:block"></canvas></div>
+<div id="hud">
+  <div class="panel" id="tasks"><h3 onclick="document.getElementById('tasks').classList.toggle('min')">&#128203; TASK BOARD <span class="tg">[_]</span></h3><div class="taskBody" id="taskList"></div></div>
+  <div class="panel" id="right">
+    <div id="timer">07:00</div><div style="font-size:11px;color:#9a7a4d">shift remaining</div>
+    <div id="score">0 / 0 done</div>
+    <div style="margin-top:6px;font-size:12px" id="whoami"></div><div id="carry"></div>
+    <button id="fsBtn" onclick="toggleFS()" style="margin-top:6px;background:var(--accent);color:#fff8ea;border:2px solid var(--wood2);border-radius:6px;padding:3px 8px;font-family:inherit;font-weight:bold;font-size:11px;cursor:pointer">&#9974; Fullscreen</button>
+  </div>
+</div>
+<div id="dialog"><div class="who" id="dWho"></div><div class="txt" id="dTxt"></div>
+  <div class="choices" id="dChoices"></div><div class="hint">Walk up and press E</div></div>
+<div id="mini"><div id="monWrap">
+  <div id="monitor"><div id="miniBox">
+    <div id="winbar"><span id="miniTitle"></span><span class="winx">&#215;</span></div>
+    <div id="screenBody"><p id="miniDesc"></p>
+      <div id="miniStage"></div><div id="miniTimer" style="display:none"><div id="miniTimerFill"></div></div></div>
+  </div><div id="monLED"></div></div>
+  <div id="monNeck"></div><div id="monBase"></div>
+</div></div>
+<div class="screen" id="modeScreen">
+  <h1>OFFICE RUSH</h1><h2>&#9670; TASK BOARD EDITION &#9670;</h2>
+  <p>Choose a mode.</p>
+  <div class="chars" style="margin-top:20px">
+    <div class="char" id="modePlay" style="min-width:190px"><div class="n">&#9654; PLAY</div><div class="d">Pick a character, clear the whole board before the shift ends.</div></div>
+    <div class="char" id="modeTest" style="min-width:190px"><div class="n">&#128295; TEST</div><div class="d">No timer. Every NPC has every task — try each mini-game freely.</div></div>
+  </div>
+</div>
+<div class="screen" id="start" style="display:none">
+  <h1>OFFICE RUSH</h1><h2>&#9670; PICK YOUR CHARACTER &#9670;</h2>
+  <div class="chars" id="pickChars"></div>
+  <div class="controls"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move &nbsp;&bull;&nbsp;<kbd>E</kbd> interact &nbsp;&bull;&nbsp;<kbd>F</kbd> special action</div>
+</div>
+<div class="screen" id="end" style="display:none">
+  <h1 id="endTitle">SHIFT OVER</h1><h2 id="endSub"></h2><p id="endMsg"></p>
+  <button class="btn" style="margin-top:20px" onclick="location.reload()">Play again</button>
+</div>
+<script src="js/sprites-data.js"></script>
+<script src="js/map-data.js"></script>
+<script src="js/koda-data.js"></script>
+<script src="js/game.js"></script>
+</body>
+</html>
