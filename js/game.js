@@ -54,7 +54,7 @@ function drawSprite(g,cx,cy,id,scale,bob,flip){
   const w=img.naturalWidth||64,h=img.naturalHeight||90;
   const dw=w*0.22*s, dh=h*0.22*s; // smaller characters
   g.save();
-  g.fillStyle='rgba(40,20,5,.3)';g.beginPath();g.ellipse(cx,cy+dh*0.42,dw*0.32,dw*0.13,0,0,7);g.fill();
+  g.fillStyle='rgba(40,20,5,.32)';g.beginPath();g.ellipse(cx,cy+dh*0.16,dw*0.3,dw*0.11,0,0,7);g.fill();
   if(img.complete&&img.naturalWidth>0){
     if(flip===-1){g.translate(cx,0);g.scale(-1,1);g.drawImage(img,-dw/2,cy-dh*0.86+b,dw,dh);}
     else g.drawImage(img,cx-dw/2,cy-dh*0.86+b,dw,dh);
@@ -1374,7 +1374,7 @@ function loop(){if(state==='end')return;
   {const kx=15*TS+TS/2,ky=8*TS+TS/2,kb=Math.sin(frame/26)*1.0;
    if(KODA_IMG.complete&&KODA_IMG.naturalWidth>0){
      const kh=TS*0.62,kw=KODA_IMG.naturalWidth*(kh/KODA_IMG.naturalHeight);
-     ctx.fillStyle='rgba(40,20,5,.28)';ctx.beginPath();ctx.ellipse(kx,ky+kh*0.42,kw*0.34,kw*0.12,0,0,7);ctx.fill();
+     ctx.fillStyle='rgba(40,20,5,.3)';ctx.beginPath();ctx.ellipse(kx,ky+kh*0.24,kw*0.3,kw*0.1,0,0,7);ctx.fill();
      ctx.drawImage(KODA_IMG,kx-kw/2,ky-kh*0.78+kb,kw,kh);}}
   const allDone=allTasks().every(t=>t.done);
   const bx=19*TS+TS/2,by=5*TS+TS/2;drawSprite(ctx,bx,by,'nino',1.1,Math.sin(frame/20)*1.2);
