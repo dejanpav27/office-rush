@@ -1,10 +1,11 @@
 // Office Rush — Task Board Edition
-// Main game logic. Loaded after sprites-data.js, map-data.js, koda-data.js.
+// Main game logic. Loaded after sprites-data.js, map-data.js, koda-data.js, monitor-data.js, bike-data.js.
 
 
 function setMiniBackdrop(){document.getElementById('miniBg').style.backgroundImage=`url("${MAP_BG.src}")`;}
 if(MAP_BG.complete)setMiniBackdrop();else MAP_BG.addEventListener('load',setMiniBackdrop);
 document.getElementById('monitor').style.backgroundImage=`url("data:image/png;base64,${MONITOR_IMG_B64}")`;
+const BIKE_IMG=new Image();BIKE_IMG.src='data:image/png;base64,'+BIKE_IMG_B64;
 
 const cv=document.getElementById('game'),ctx=cv.getContext('2d');
 let viewW=window.innerWidth,viewH=window.innerHeight;
@@ -1414,9 +1415,17 @@ function loop(){if(state==='end')return;
     player.x=bikeX; player.y=0*TS+TS/2+8;
     const by2=player.y,dir=bikeDir;
     ctx.save();
-    ctx.fillStyle='#222';ctx.beginPath();ctx.arc(bikeX-14*dir,by2+14,6,0,7);ctx.fill();ctx.beginPath();ctx.arc(bikeX+14*dir,by2+14,6,0,7);ctx.fill();
-    ctx.strokeStyle='#c94f4f';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(bikeX-14*dir,by2+14);ctx.lineTo(bikeX+14*dir,by2+14);ctx.stroke();
-    ctx.fillStyle='rgba(180,180,190,.5)';for(let k=1;k<=3;k++){ctx.fillRect(bikeX-(20+k*8)*dir,by2+8+k*2,10,2);}
+    if(BIKE_IMG.complete&&BIKE_IMG.naturalWidth>0){
+      const bh=56,bw=BIKE_IMG.naturalWidth*(bh/BIKE_IMG.naturalHeight);
+      ctx.fillStyle='rgba(20,10,5,.3)';ctx.beginPath();ctx.ellipse(bikeX,by2+bh*0.4,bw*0.4,7,0,0,7);ctx.fill();
+      // source photo faces right; flip horizontally when riding left
+      if(dir===-1){ctx.translate(bikeX,0);ctx.scale(-1,1);ctx.drawImage(BIKE_IMG,-bw/2,by2-bh*0.72,bw,bh);}
+      else ctx.drawImage(BIKE_IMG,bikeX-bw/2,by2-bh*0.72,bw,bh);
+    }else{
+      ctx.fillStyle='#222';ctx.beginPath();ctx.arc(bikeX-14*dir,by2+14,6,0,7);ctx.fill();ctx.beginPath();ctx.arc(bikeX+14*dir,by2+14,6,0,7);ctx.fill();
+      ctx.strokeStyle='#c94f4f';ctx.lineWidth=4;ctx.beginPath();ctx.moveTo(bikeX-14*dir,by2+14);ctx.lineTo(bikeX+14*dir,by2+14);ctx.stroke();
+      ctx.fillStyle='rgba(180,180,190,.5)';for(let k=1;k<=3;k++){ctx.fillRect(bikeX-(20+k*8)*dir,by2+8+k*2,10,2);}
+    }
     ctx.restore();}
   // NINA pet Koda hearts
   if(petting){if(frame%6===0)pettingHearts.push({x:15*TS+TS/2+(Math.random()*14-7),y:8*TS+TS/2-10,life:0});}
