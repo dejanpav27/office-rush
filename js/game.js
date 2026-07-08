@@ -4,6 +4,7 @@
 
 function setMiniBackdrop(){document.getElementById('mini').style.setProperty('--map-bg',`url(${MAP_BG.src})`);}
 if(MAP_BG.complete)setMiniBackdrop();else MAP_BG.addEventListener('load',setMiniBackdrop);
+document.getElementById('monitor').style.setProperty('--monitor-img',`url(data:image/png;base64,${MONITOR_IMG_B64})`);
 
 const cv=document.getElementById('game'),ctx=cv.getContext('2d');
 let viewW=window.innerWidth,viewH=window.innerHeight;
