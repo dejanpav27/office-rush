@@ -48,13 +48,16 @@ const LOOKS={
 const SPRITES={};
 Object.keys(SPRITE_B64).forEach(id=>{const im=new Image();im.src='data:image/png;base64,'+SPRITE_B64[id];SPRITES[id]=im;});
 
-function drawSprite(g,cx,cy,id,scale,bob){
+function drawSprite(g,cx,cy,id,scale,bob,flip){
   const img=SPRITES[id];const s=(scale||2);const b=bob||0;
   const w=img.naturalWidth||64,h=img.naturalHeight||90;
   const dw=w*0.22*s, dh=h*0.22*s; // smaller characters
   g.save();
   g.fillStyle='rgba(40,20,5,.3)';g.beginPath();g.ellipse(cx,cy+dh*0.42,dw*0.32,dw*0.13,0,0,7);g.fill();
-  if(img.complete&&img.naturalWidth>0) g.drawImage(img,cx-dw/2,cy-dh*0.86+b,dw,dh);
+  if(img.complete&&img.naturalWidth>0){
+    if(flip===-1){g.translate(cx,0);g.scale(-1,1);g.drawImage(img,-dw/2,cy-dh*0.86+b,dw,dh);}
+    else g.drawImage(img,cx-dw/2,cy-dh*0.86+b,dw,dh);
+  }
   g.restore();
 }
 
@@ -230,6 +233,20 @@ const POOLS={
  ]},
 };
 
+// Ambient "thought bubble" lines — fire randomly while an NPC is just standing/wandering,
+// no interaction needed. Pure flavor, matches each character's `desc` trait.
+const IDLE_LINES={
+  dejan:["Need a smoke in 5.","Gromix compiles... probably.","One more coffee.","Where's my lighter...","Terrace. Now."],
+  teonem:["Client's calling again.","'Out in town', as always.","Big deal closing, trust me.","Gotta run — meeting.","Sales never sleeps."],
+  steve:["*vape cloud*","Zagreb client's happy.","Beard's getting long.","Croatia's booming, boss.","One more puff."],
+  brana:["...I see everything.","Noted. *writes it down*","Watching. Always watching.","Interesting... very interesting.","Nothing gets past me."],
+  sonja:["Payroll doesn't run itself.","Numbers check out.","Quiet day, good day.","Don't ask me twice.","Almost done reconciling."],
+  pedja:["Two meters of nerves.","Still learning the ropes.","Was easier waiting tables.","Hope I don't mess this up.","Getting the hang of it!"],
+  nina:["This desk needs realigning.","Everything has its place.","Dad's watching, be sharp.","Control the chaos.","Not good enough. Again."],
+  daniel:["*adjusts palette* ...nice.","Big vibes today, man.","This gradient though.","Design's basically therapy.","Feeling the flow."],
+};
+function randIdleLine(id){const arr=IDLE_LINES[id];return arr?arr[Math.floor(Math.random()*arr.length)]:'';}
+
 const MAP=[
  [10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10],
  [1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -362,7 +379,7 @@ function startTest(){
   const order=['brana','sonja','pedja','nina','daniel','teonem','steve','dejan'];
   NPCS=order.map(id=>{const p=POOLS[id];
     const tasks=p.pool.map((t,i)=>({...t,id:id+'_'+i,done:false}));
-    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,tasks};});
+    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:200+Math.random()*500,tasks};});
   // player = a neutral controllable (use nino sprite as "tester")
   player={id:'nino',name:'Tester',x:6.25*TS,y:12.25*TS,r:12};
   document.getElementById('start').style.display='none';
@@ -379,7 +396,7 @@ function startGame(chosenId){
   const order=all.filter(id=>id!==chosenId);
   NPCS=order.map(id=>{const p=POOLS[id];
     const tasks=shuffle(p.pool).slice(0,TASKS_PER_NPC).map((t,i)=>({...t,id:id+'_'+i,done:false}));
-    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,tasks};});
+    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:200+Math.random()*500,tasks};});
   player={id:chosenId,name:cap(chosenId),x:6.25*TS,y:12.25*TS,r:12};
   document.getElementById('start').style.display='none';
   document.getElementById('whoami').textContent='playing: '+cap(chosenId);
@@ -460,7 +477,7 @@ function interact(){
     const choices=n.tasks.map((t,i)=>({label:(i+1)+'. '+(ML[t.type]||t.type),fn:()=>{closeDialog();startTask(n,t);}}));
     choices.push({label:'Close',cls:'ghost',fn:closeDialog});
     openDialog(n.name+' — pick a task to test',n.desc,choices);return;}
-  if(npcDone(n)){openDialog(n.name,'All done here. Appreciate it.',[{label:'Ok',fn:closeDialog}]);return;}
+  if(npcDone(n)){const extra=Math.random()<0.5?' '+randIdleLine(n.id):'';openDialog(n.name,'All done here. Appreciate it.'+extra,[{label:'Ok',fn:closeDialog}]);return;}
   const t=nextTask(n);startTask(n,t);
 }
 function startTask(n,t){
@@ -1279,7 +1296,50 @@ function drawNameTag(px,py,name,done){
     ctx.strokeText(done?'\u2713':'!',px,py+2);
     ctx.fillText(done?'\u2713':'!',px,py+2);}
 }
+function drawSpeechBubble(px,py,text){
+  ctx.save();ctx.font='11px monospace';ctx.textAlign='center';
+  const padX=8,padY=5,w=ctx.measureText(text).width+padX*2,h=16+padY;
+  const bx=px-w/2,by=py-h;
+  ctx.globalAlpha=0.94;
+  ctx.fillStyle='#f5f0e0';ctx.strokeStyle='rgba(0,0,0,.55)';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.roundRect?ctx.roundRect(bx,by,w,h,6):ctx.rect(bx,by,w,h);ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.moveTo(px-5,by+h);ctx.lineTo(px+5,by+h);ctx.lineTo(px,by+h+7);ctx.closePath();
+  ctx.fillStyle='#f5f0e0';ctx.fill();ctx.stroke();
+  ctx.fillStyle='#2a2015';ctx.fillText(text,px,by+h-6);
+  ctx.restore();
+}
 
+// Gentle idle wander (short leash around desk) + random ambient thought-bubble lines.
+const WANDER_LEASH=1.35, WANDER_SPEED=0.016;
+function updateNPCs(){
+  NPCS.forEach(n=>{
+    // ambient speech, independent of movement
+    n.speechTimer--;
+    if(n.speechTimer<=0){n.speech=randIdleLine(n.id);n.speechUntil=frame+170;n.speechTimer=260+Math.random()*520;}
+    // wander state machine
+    if(n.wState==='idle'){
+      n.wTimer--;
+      if(n.wTimer<=0){
+        const ang=Math.random()*Math.PI*2,dist=Math.random()*WANDER_LEASH;
+        const tx=n.homeX+Math.cos(ang)*dist, ty=n.homeY+Math.sin(ang)*dist;
+        const px=tx*TS+TS/2, py=ty*TS+TS/2;
+        if(canMove(px,py,10)){n.wTarget={x:tx,y:ty};n.wState='walk';}
+        else n.wTimer=30+Math.random()*60;
+      }
+    }else if(n.wState==='walk'){
+      const dx=n.wTarget.x-n.x, dy=n.wTarget.y-n.y, d=Math.hypot(dx,dy);
+      if(d<0.04){n.x=n.wTarget.x;n.y=n.wTarget.y;n.wState='idle';n.wTimer=90+Math.random()*220;}
+      else{
+        const stepX=(dx/d)*WANDER_SPEED, stepY=(dy/d)*WANDER_SPEED;
+        const nx=n.x+stepX, ny=n.y+stepY;
+        const pxn=nx*TS+TS/2, pyn=ny*TS+TS/2;
+        if(canMove(pxn,ny*TS+TS/2,10))n.x=nx; else n.wState='idle',n.wTimer=60;
+        if(canMove(n.x*TS+TS/2,pyn,10))n.y=ny;
+        if(Math.abs(stepX)>0.0008)n.face=stepX<0?-1:1;
+      }
+    }
+  });
+}
 function loop(){if(state==='end')return;
   frame++;
   let moving=false;
@@ -1293,6 +1353,7 @@ function loop(){if(state==='end')return;
     if(keys['a']||keys['arrowleft'])nx-=sp;if(keys['d']||keys['arrowright'])nx+=sp;
     moving=(nx!==player.x||ny!==player.y);
     if(canMove(nx,player.y,player.r))player.x=nx;if(canMove(player.x,ny,player.r))player.y=ny;}
+  if(state==='play')updateNPCs();
   updateCamera();
   ctx.clearRect(0,0,viewW,viewH);
   ctx.save();ctx.translate(offX,offY);ctx.scale(zoom,zoom);
@@ -1303,9 +1364,11 @@ function loop(){if(state==='end')return;
     ctx.fillRect(x*FTS,y*FTS,FTS-1,FTS-1);}}
   drawItems();
   NPCS.forEach((n,i)=>{const px=n.x*TS+TS/2,py=n.y*TS+TS/2;
-    const bob=Math.sin(frame/22+i)*1.2;
-    drawSprite(ctx,px,py,n.id,1,bob);
-    drawNameTag(px,py-42,n.name,npcDone(n));});
+    const walking=n.wState==='walk';
+    const bob=walking?Math.sin(frame/4)*2:Math.sin(frame/22+i)*1.2;
+    drawSprite(ctx,px,py,n.id,1,bob,n.face);
+    drawNameTag(px,py-42,n.name,npcDone(n));
+    if(n.speech&&frame<n.speechUntil)drawSpeechBubble(px,py-56,n.speech);});
   // Koda the dog next to Nina's desk
   {const kx=15*TS+TS/2,ky=8*TS+TS/2,kb=Math.sin(frame/26)*1.0;
    if(KODA_IMG.complete&&KODA_IMG.naturalWidth>0){
