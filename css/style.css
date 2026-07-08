@@ -58,24 +58,25 @@
     background-image:var(--monitor-img,none);background-size:100% 100%;background-repeat:no-repeat;
     filter:drop-shadow(0 26px 50px rgba(0,0,0,.6))}
   /* the recessed black glass frame — sits inside the photo's screen cutout */
-  #miniBox{position:absolute;left:11.96%;top:15.68%;right:23.45%;bottom:20.09%;overflow:hidden;text-align:center;
-    border-radius:14px/18px;padding:10px;
+  #miniBox{position:absolute;left:12.05%;top:15.73%;right:23.59%;bottom:20.25%;overflow:hidden;text-align:center;
+    display:flex;flex-direction:column;
+    border-radius:10px/14px;
     background:#0d1310;
-    box-shadow:inset 0 0 26px rgba(0,0,0,.9)}
+    box-shadow:inset 0 0 22px rgba(0,0,0,.85)}
   /* the phosphor picture area */
   #winbar,#screenBody{position:relative;z-index:2}
   #miniBox > #winbar{border-radius:16px 16px 0 0}
   #miniBox{--glass:linear-gradient(#eef3ec,#dbe6db)}
   /* inner glass tint (behind content) */
-  #miniBox::before{content:'';position:absolute;inset:14px;border-radius:22px/30px;z-index:1;pointer-events:none;
+  #miniBox::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
     background:radial-gradient(120% 120% at 50% 40%,rgba(120,255,180,.05),transparent 55%)}
   /* scanlines + curvature vignette + phosphor bleed + glare — OVER content */
-  #miniBox::after{content:'';position:absolute;inset:14px;border-radius:22px/30px;z-index:5;pointer-events:none;
+  #miniBox::after{content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
     background:
-      linear-gradient(120deg,rgba(255,255,255,.26),rgba(255,255,255,0) 32%,rgba(255,255,255,0) 72%,rgba(255,255,255,.07)),
-      radial-gradient(130% 130% at 50% 50%,transparent 56%,rgba(0,0,0,.5) 100%),
-      repeating-linear-gradient(rgba(0,0,0,.13) 0 1px,transparent 1px 3px),
-      linear-gradient(90deg,rgba(255,0,60,.045),rgba(0,255,90,.028) 50%,rgba(0,80,255,.045));
+      linear-gradient(120deg,rgba(255,255,255,.22),rgba(255,255,255,0) 32%,rgba(255,255,255,0) 72%,rgba(255,255,255,.06)),
+      radial-gradient(130% 130% at 50% 50%,transparent 60%,rgba(0,0,0,.45) 100%),
+      repeating-linear-gradient(rgba(0,0,0,.11) 0 1px,transparent 1px 3px),
+      linear-gradient(90deg,rgba(255,0,60,.04),rgba(0,255,90,.025) 50%,rgba(0,80,255,.04));
     animation:crtFlicker 5s ease-in-out infinite}
   @keyframes crtFlicker{0%,100%{opacity:1}47%{opacity:.965}52%{opacity:.99}}
   #miniBox.win{animation:miniWin .5s ease}
@@ -87,8 +88,9 @@
   .winx{width:18px;height:16px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;color:#000;
     background:#c3c3c3;border:2px solid;border-color:#fff #404040 #404040 #fff;line-height:1}
   /* screen desktop */
-  #screenBody{padding:18px 20px 20px;background:linear-gradient(#dfeadf,#cfe0d6);
-    border:2px solid;border-color:#404040 #dfdfdf #dfdfdf #404040}
+  #screenBody{flex:1;padding:18px 20px 20px;background:linear-gradient(#dfeadf,#cfe0d6);
+    border:2px solid;border-color:#404040 #dfdfdf #dfdfdf #404040;
+    display:flex;flex-direction:column;justify-content:center;overflow:auto}
   #miniBox p{color:#20321f;font-size:12.5px;margin:0 auto 15px;max-width:400px;line-height:1.55}
   /* Win95 beveled buttons — scoped to the screen */
   #miniBox .btn{background:#c3c3c3;color:#000;border:2px solid;border-color:#fff #404040 #404040 #fff;border-radius:0;

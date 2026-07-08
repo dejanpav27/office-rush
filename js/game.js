@@ -484,6 +484,7 @@ function closeDialog(){dialogOpen=false;document.getElementById('dialog').style.
 
 /* ---- minigame framework ---- */
 function openMini(title,desc,useTimer){miniOpen=true;
+  setMiniBackdrop();
   document.getElementById('miniTitle').textContent=title;document.getElementById('miniDesc').textContent=desc;
   const st=document.getElementById('miniStage');st.innerHTML='';
   document.getElementById('mini').style.display='flex';
