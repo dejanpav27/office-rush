@@ -416,13 +416,79 @@ function drawPerson(g,cx,cy,look,scale,bob,facing){
   g.restore();
 }
 
+/* ── SAVE SYSTEM (localStorage, 3 slots) ─────────────── */
+const SLOT_KEY=i=>'officeRush_slot_'+i;
+const NUM_SLOTS=3;
+let currentSlot=null,currentUser=null;
+function blankUser(name){return{name:name,created:Date.now(),coins:0,unlockedNPCs:[],
+  stats:{bestScore:0,totalCoins:0,weeksPlayed:0,weeksSurvived:0}};}
+function loadSlot(i){try{const raw=localStorage.getItem(SLOT_KEY(i));return raw?JSON.parse(raw):null;}catch(e){return null;}}
+function saveSlot(i,user){try{localStorage.setItem(SLOT_KEY(i),JSON.stringify(user));}catch(e){}}
+function saveCurrent(){if(currentSlot!==null&&currentUser)saveSlot(currentSlot,currentUser);}
+
+/* ── SCREEN NAVIGATION ───────────────────────────────── */
+const SCREENS=['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end'];
+function showScreen(id){SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display=(s===id)?'flex':'none';});}
+
 /* mode select */
-document.getElementById('modePlay').onclick=()=>{
-  document.getElementById('modeScreen').style.display='none';
-  document.getElementById('start').style.display='flex';};
-document.getElementById('modeTest').onclick=()=>{
-  document.getElementById('modeScreen').style.display='none';
-  startTest();};
+document.getElementById('modePlay').onclick=()=>{renderSlots();showScreen('userSelect');};
+document.getElementById('modeTest').onclick=()=>{document.getElementById('modeScreen').style.display='none';startTest();};
+
+/* user select — render 3 slots */
+function renderSlots(){
+  const list=document.getElementById('slotList');list.innerHTML='';
+  for(let i=0;i<NUM_SLOTS;i++){
+    const u=loadSlot(i);const d=document.createElement('div');d.className='char';d.style.minWidth='150px';
+    if(u){
+      d.innerHTML='<div class="n">'+esc(u.name)+'</div>'+
+        '<div class="d">Best: '+u.stats.bestScore+' pt<br>Coins: '+u.coins+'<br>Weeks: '+u.stats.weeksSurvived+'/'+u.stats.weeksPlayed+'</div>'+
+        '<div class="slotDel" data-slot="'+i+'">&#128465; delete</div>';
+      d.onclick=(e)=>{if(e.target.classList.contains('slotDel'))return;openUser(i);};
+    }else{
+      d.innerHTML='<div class="n" style="color:var(--wood)">Empty</div><div class="d">+ New game</div>';
+      d.onclick=()=>{newGameSlot=i;document.getElementById('newGameName').value='';showScreen('newGame');setTimeout(()=>document.getElementById('newGameName').focus(),50);};
+    }
+    list.appendChild(d);
+  }
+  // wire delete buttons
+  list.querySelectorAll('.slotDel').forEach(b=>b.onclick=(e)=>{e.stopPropagation();
+    const i=+b.dataset.slot;if(confirm('Delete this save slot?')){localStorage.removeItem(SLOT_KEY(i));renderSlots();}});
+}
+document.getElementById('userSelectBack').onclick=()=>showScreen('modeScreen');
+
+/* new game */
+let newGameSlot=null;
+function createNewGame(){
+  const name=(document.getElementById('newGameName').value||'').trim()||'Player';
+  const u=blankUser(name);saveSlot(newGameSlot,u);openUser(newGameSlot);
+}
+document.getElementById('newGameCreate').onclick=createNewGame;
+document.getElementById('newGameName').addEventListener('keydown',e=>{if(e.key==='Enter')createNewGame();});
+document.getElementById('newGameBack').onclick=()=>{renderSlots();showScreen('userSelect');};
+
+/* user menu */
+function openUser(i){currentSlot=i;currentUser=loadSlot(i)||blankUser('Player');renderUserMenu();showScreen('userMenu');}
+function renderUserMenu(){
+  const u=currentUser;
+  document.getElementById('userMenuName').textContent=u.name.toUpperCase();
+  document.getElementById('userStats').innerHTML=
+    '<div style="font-size:13px;line-height:1.9;color:var(--inkbrown)">'+
+      '<div>&#11088; Best score: <b>'+u.stats.bestScore+' pt</b></div>'+
+      '<div>&#129689; Coins: <b>'+u.coins+'</b></div>'+
+      '<div>&#128197; Weeks played: <b>'+u.stats.weeksPlayed+'</b></div>'+
+      '<div>&#127942; Weeks survived: <b>'+u.stats.weeksSurvived+'</b></div>'+
+    '</div>';
+}
+document.getElementById('userPlay').onclick=()=>{document.getElementById('modeScreen').style.display='none';showScreen('start');};
+document.getElementById('userShop').onclick=()=>{document.getElementById('shopCoins').textContent='Your coins: '+(currentUser?currentUser.coins:0);showScreen('shopScreen');};
+document.getElementById('userMenuBack').onclick=()=>{renderSlots();showScreen('userSelect');};
+document.getElementById('shopBack').onclick=()=>{renderUserMenu();showScreen('userMenu');};
+
+/* start (character pick) back button */
+document.getElementById('startBack').onclick=()=>{if(currentSlot!==null){renderUserMenu();showScreen('userMenu');}else{showScreen('modeScreen');}};
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+
 
 /* start screen with sprite previews */
 const pick=document.getElementById('pickChars');
@@ -475,7 +541,7 @@ function startGame(chosenId){
     const tasks=shuffle(p.pool).slice(0,TASKS_PER_NPC).map((t,i)=>({...t,id:id+'_'+i,done:false}));
     return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:400+Math.random()*700,tasks};});
   player={id:chosenId,name:cap(chosenId),x:6.25*TS,y:12.25*TS,r:12};
-  document.getElementById('start').style.display='none';
+  SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display='none';});
   document.getElementById('whoami').textContent='playing: '+cap(chosenId);
   state='play';renderTasks();
   timerId=setInterval(()=>{if(dialogOpen||miniOpen||state==='paused')return;time--;
@@ -504,13 +570,13 @@ function resumeGame(){
   loop(); // loop() bailed out while paused; restart it
 }
 function quitToMenu(){
-  // stop timer + loop, hide pause, return to the mode-select main menu
+  // stop timer + loop, hide pause, return to user menu (or mode-select in test mode)
   clearInterval(timerId);
   state='start';prevState=null;
   const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
   closeMini&&closeMini();
-  const start=document.getElementById('start');if(start)start.style.display='none';
-  const mode=document.getElementById('modeScreen');if(mode)mode.style.display='flex';
+  if(currentSlot!==null&&!testMode){renderUserMenu();showScreen('userMenu');}
+  else{showScreen('modeScreen');}
 }
 
 function allTasks(){return NPCS.flatMap(n=>n.tasks);}

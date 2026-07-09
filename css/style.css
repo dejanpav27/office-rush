@@ -286,3 +286,9 @@
 #pauseOverlay h2{color:var(--wood2);text-align:center;letter-spacing:3px;font-size:20px;margin-bottom:6px}
 #pauseOverlay .btn.ghost{background:var(--paper2);color:var(--wood2)}
 #pauseOverlay .pauseHint{text-align:center;font-size:11px;color:#9a7a4d;margin-top:4px}
+
+/* ── save slots ── */
+.slotDel{margin-top:8px;font-size:10px;color:var(--red);cursor:pointer;opacity:.7}
+.slotDel:hover{opacity:1;text-decoration:underline}
+#userStats{padding:14px 18px}
+#newGameName:focus{outline:2px solid var(--accent)}
