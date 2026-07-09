@@ -703,11 +703,11 @@ function miniRhythm(n,t){const st=openMini('RHYTHM','Press SPACE each time the d
     else{done=true;cancelAnimationFrame(raf);fail(n,'Off beat. [E]');}}});}
 
 function miniSlider(n,t){const target=20+Math.floor(Math.random()*60);
-  const st=openMini('DIAL IT IN','Set the slider to '+target+' (max 3 off), then SPACE.');
-  st.innerHTML='<input type="range" min="0" max="100" value="50" id="sld" style="width:80%;accent-color:var(--accent)"><div id="sldVal" class="typed">50</div>';
+  const st=openMini('DIAL IT IN','← Feel it out → Find the sweet spot, then SPACE. (±3 off is fine)');
+  st.innerHTML='<input type="range" min="0" max="100" value="50" id="sld" style="width:80%;accent-color:var(--accent)"><div id="sldVal" class="typed" style="color:var(--wood);font-size:12px">· · ·</div>';
   const sld=document.getElementById('sld'),val=document.getElementById('sldVal');
-  sld.oninput=()=>val.textContent=sld.value;
-  setKey(e=>{if(e.key===' '){e.preventDefault();Math.abs(+sld.value-target)<=3?(closeMini(),finish(n,t)):fail(n,'Not close enough. [E]');}});}
+  sld.oninput=()=>{const diff=Math.abs(+sld.value-target);val.textContent=diff<=3?'🟢 Close!':diff<=10?'· · ·':'· ·';};
+  setKey(e=>{if(e.key===' '){e.preventDefault();const diff=Math.abs(+sld.value-target);diff<=3?(closeMini(),finish(n,t)):fail(n,'Off by '+diff+'. [E]');}});}
 
 function miniLockpick(n,t){const st=openMini('LOCKPICK','SPACE to set each pin in the green zone. 3 pins.');
   st.innerHTML='<div id="barWrap"><div id="barZone"></div><div id="barCursor"></div></div><div id="pins" class="typed">Pin 1 / 3</div>';
@@ -1135,9 +1135,12 @@ function miniMaze(n,t){
     g.fillStyle='var(--green)';g.beginPath();g.arc((COLS-.5)*CS,(ROWS-.5)*CS,9,0,7);g.fill();
     g.fillStyle='var(--accent)';g.beginPath();g.arc(pr,pc,7,0,7);g.fill();};
   draw();st.appendChild(cv);
-  const mv=(dr,dc)=>{if(done)return;const cr=Math.round(pr/CS-.5),cc2=Math.round(pc/CS-.5);
-    const nr=cc2+dr,nc=cr+dc;if(nr<0||nr>=ROWS||nc<0||nc>=COLS)return;
-    const ok=dr!==0?!wh.h[cc2+Math.max(0,dr)][cr]:!wh.v[cc2][cr+Math.max(0,dc)];
+  // pr=pixel-x (col), pc=pixel-y (row)
+  const mv=(dr,dc)=>{if(done)return;
+    const row=Math.round(pc/CS-.5),col=Math.round(pr/CS-.5);
+    const nr=row+dr,nc=col+dc;
+    if(nr<0||nr>=ROWS||nc<0||nc>=COLS)return;
+    const ok=dr!==0?!wh.h[row+Math.max(0,dr)][col]:!wh.v[row][col+Math.max(0,dc)];
     if(!ok)return;pr=nc*CS+CS/2;pc=nr*CS+CS/2;draw();
     if(nc===COLS-1&&nr===ROWS-1){done=true;stopT();miniWin(n,t);}};
   setKey(e=>{const m={'w':[-1,0],'ArrowUp':[-1,0],'s':[1,0],'ArrowDown':[1,0],'a':[0,-1],'ArrowLeft':[0,-1],'d':[0,1],'ArrowRight':[0,1]}[e.key];
