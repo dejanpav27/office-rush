@@ -85,6 +85,8 @@ const POOLS={
    {type:'priority',cards:[{l:'Prod is DOWN',p:1},{l:'Client demo in 1h',p:2},{l:'Code review',p:3},{l:'Update Jira',p:4}],hint:'What burns first?',ask:"Everything is on fire. Tell me what burns first.",reward:'"Correct. Jira can wait until 2027."'},
    {type:'jam',ask:"Printer ate the deploy sheet. Yank it out — mind the direction.",reward:'"Free. Now it prints. Barely."'},
    {type:'circuit',ask:"Server rack lost power. Re-route the wire tiles so it boots.",reward:'"Green lights. Gromix lives again."'},
+   {type:'wire',pairs:[['HDMI','Projector'],['Ethernet','Router'],['Power','Wall socket']],hint:'Match each cable to the right port before the client demo.',ask:"Client demo in 2 minutes and nothing's plugged in right. Fix it.",reward:'"Screen\'s up. Cutting it close, but up."'},
+   {type:'splice',pairs:[['Black','Slot 1'],['Cyan','Slot 2'],['Magenta','Slot 3']],hint:'Match each cartridge to its slot.',ask:"Printer's out of ink and I need three colors right now. Load them right.",reward:'"Printing again. You just saved my afternoon."'},
  ]},
  teonem:{desc:'Sales, always "out in town"',home:{x:10,y:9},pool:[
    {type:'deliver',item:'contract',itemLabel:'contract',to:'nino',ask:"Running into town (work!). Take this contract to Nino.",reward:'"Legend. I never left, clear?" *left*'},
@@ -106,6 +108,8 @@ const POOLS={
    {type:'overload',ask:"Two leads calling in at once — keep both warm, don't drop either.",reward:'"Both closed. I contain multitudes."'},
    {type:'splice',pairs:[['Objection: too expensive','Show ROI math'],['Objection: no time','Offer 15-min call'],['Objection: thinking','Book follow-up date']],hint:'Match each objection to the counter.',ask:"Match each client objection to the right counter-move.",reward:'"Textbook. You could sell air."'},
    {type:'calendar',ask:"Book me three demos this week — no clashes, I'm 'in town' a lot.",reward:'"Slotted clean. I close from anywhere."'},
+   {type:'maze',ask:"Move this car to the showroom floor for me — don't scuff anything on the way.",reward:'"Parked pretty. Client\'s gonna love it."'},
+   {type:'choose',q:'Client is picking up the car — what do you say?',opts:[{t:'Walk them through every feature, unhurried',ok:true},{t:'Toss the keys and wave',ok:false},{t:'Ask if they want the extended warranty five times',ok:false}],ask:"Handover time. Client's here for the car — do it right.",reward:'"Perfect handover. That\'s a referral right there."'},
  ]},
  steve:{desc:'Beard, vape, sells in Croatia',home:{x:4,y:2},pool:[
    {type:'fetch',item:'vape',itemLabel:'vape',ask:"Left my vape by the entrance. No fog, no deals.",reward:'*huge cloud* "Now we do business."'},
@@ -126,6 +130,9 @@ const POOLS={
    {type:'signal',ask:"Catch the call the instant it connects across the border.",reward:'"Connected clean. No lag, no lost deal."'},
    {type:'splice',pairs:[['Dobar dan','Good day'],['Racun, molim','Invoice, please'],['Dogovoreno','Deal']],hint:'Match Croatian to English.',ask:"Match my Croatian phrases so I don't embarrass myself in Zagreb.",reward:'"Bok! Now I sound like a local."'},
    {type:'qralign',ask:"Scan this Croatian client's QR invoice — line it up, hold steady.",reward:'*vapor* "Locked. Deal logged."'},
+   {type:'splice',pairs:[['Golf GTI','ZG-341-KL'],['Passat','ZG-852-MN'],['Octavia','ZG-119-RT']],hint:'Match each car to its plate.',ask:"Match each car on the lot to its actual plate. Zagreb inventory's a mess.",reward:'*vapor* "All matched. Inventory\'s clean."'},
+   {type:'crack',ask:"Which car is the client asking about? I'll say warmer or colder on the stock number.",reward:'*vapor* "That\'s the one. Good guess, chief."'},
+   {type:'barcode',ask:"Parts shipment just came in from Zagreb — scan it in. Steady hand, not too fast.",reward:'*vapor* "Logged. Croatia never disappoints."'},
  ]},
  brana:{desc:'Watches everyone (secretly)',home:{x:3,y:9},pool:[
    {type:'fetch',item:'logsheet',itemLabel:'attendance log',ask:"Bring that sheet by the entrance. I do not track people... just get it.",reward:'*hides it* "I did not ask for this. But I did."'},
@@ -147,6 +154,9 @@ const POOLS={
    {type:'splice',pairs:[['Teonem','arrived 09:47'],['Steve','arrived 08:55'],['Pedja','arrived 08:30']],hint:'Match each person to their arrival time.',ask:"Match each person to when they REALLY arrived. I have it memorized. Allegedly.",reward:'"All correct. I always know. Always."'},
    {type:'impostor',word:'I was here at 8:00',odd:'traffic was crazy',hint:'Four honest, one excuse.',ask:"Five people told me when they arrived. One is making excuses. Spot it.",reward:'"Noted. Filed. Never mentioned again. (Mentioned daily.)"'},
    {type:'docsort',ask:"Stamp the signed timesheets, reject the blanks. I'm... auditing.",reward:'"All sorted. Nothing gets past me."'},
+   {type:'choose',q:'Caller wants IT support — which extension?',opts:[{t:'Transfer to Dejan',ok:true},{t:'Transfer to Sonja',ok:false},{t:'Hang up',ok:false}],ask:"Phone's ringing. I know exactly who needs this, obviously — do you?",reward:'"Correct. I was testing you."'},
+   {type:'priority',cards:[{l:'Get everyone to the exit',p:1},{l:'Call the fire department',p:2},{l:'Grab the visitor log',p:3},{l:'Lock your desk',p:4}],hint:'Drill\'s starting. What matters first?',ask:"Fire drill. I've mentally rehearsed this daily — what happens first?",reward:'"Correct. I would know."'},
+   {type:'crack',ask:"This visitor badge doesn't look right to me. Higher or lower — guess the real badge number.",reward:'"Fake. I knew it. I know everything."'},
  ]},
  sonja:{desc:'Quiet, runs payroll',home:{x:4,y:11},pool:[
    {type:'deliver',item:'router',itemLabel:'the router',to:'nino',ask:"Payroll needs internet. Give the router to Nino to reset.",reward:'barely audible: "...thank you."'},
@@ -167,6 +177,8 @@ const POOLS={
    {type:'noise',real:'INV-207 \u20ac1.850 DUE',fakes:['INV-201 \u20ac920 PAID','INV-114 \u20ac340 PAID','INV-166 \u20ac780 PAID','INV-090 \u20ac210 PAID'],hint:'Find the one UNPAID invoice.',ask:"One invoice in this ledger is still unpaid. Find it.",reward:'"...there it is. Caught before it caused trouble."'},
    {type:'priority',cards:[{l:'Salaries (today!)',p:1},{l:'Office rent',p:2},{l:'Software licenses',p:3},{l:"Nino's new chair",p:4}],hint:'What gets paid first?',ask:"Not everything can be paid today. Order the payments, please.",reward:'"...salaries first. Always. Good."'},
    {type:'cash',ask:"Count the petty-cash drawer to the exact figure. Quietly.",reward:'"...balances to the cent. Perfect."'},
+   {type:'choose',q:'Payroll hotline is ringing — pick the professional reply.',opts:[{t:'"Payroll, this is Sonja, how can I help?"',ok:true},{t:'"What."',ok:false},{t:'"Call back later, obviously."',ok:false}],ask:"Phone won't stop ringing. Answer it properly, please.",reward:'"...good. Professional. Quietly proud."'},
+   {type:'memory',ask:"Remember the voicemail number, then play it back for me. Quietly.",reward:'"...correct. Not one digit off."'},
  ]},
  pedja:{desc:'Ex-waiter, 2m tall, rookie',home:{x:4,y:3},pool:[
    {type:'timing',ask:"Holding a glass on the top shelf — say NOW at the right moment.",reward:'*hops down* "No tip, but we are good."'},
@@ -189,6 +201,9 @@ const POOLS={
    {type:'recipe',ask:"Old waiter skills — make the boss's coffee to the exact recipe.",reward:'"Nailed the measures. Some things you don\'t forget."'},
    {type:'park',ask:"New guy job: park the client's car in the bay. No scratches, please.",reward:'"Parked clean. Rookie\'s earning his keep."'},
    {type:'scrub',ask:"Give the showroom car a wash — scrub every dirty patch.",reward:'"Spotless. I miss bussing tables less now."'},
+   {type:'checklist',items:['Tires','Fuel','Lights','Mirrors','Paperwork'],ask:"Delivery vehicle needs the full check before it leaves. Every item, fast.",reward:'"All checked. Ready to roll."'},
+   {type:'gauge',ask:"Fill the tank for delivery — don't overshoot, don't undershoot.",reward:'"Tank\'s full. Didn\'t spill a drop, this time."'},
+   {type:'count',ask:"Count what's missing from the supply shelf and restock exactly that much.",reward:'"Shelf\'s full again. Rookie delivers."'},
  ]},
  nina:{desc:"Boss's daughter, control freak",home:{x:13,y:9},pool:[
    {type:'simon',ask:"Do EXACTLY as I say, in order. Because I am always right. Repeat.",reward:'"See? Works when you listen to ME."'},
@@ -210,6 +225,8 @@ const POOLS={
    {type:'noise',real:'Nina approved this',fakes:['Team approved this','Nino approved this','Client approved this','HR approved this'],hint:'Find the only approval that counts.',ask:"Find the ONLY approval that matters in this pile.",reward:'"Correct. Mine. The rest are suggestions."'},
    {type:'dragfile',ask:"These files are in the WRONG folders. Fix it. Properly. My way.",reward:'"Finally organized. Was that so hard?"'},
    {type:'inspect',ask:"Inspect the returned vehicle — find every scratch. Miss nothing.",reward:'"Three flaws. I\'d have found a fourth. Good enough."'},
+   {type:'arrange',items:[['🪑','chair'],['📽️','proj'],['💻','laptop']],hint:'Drag each item onto its marked spot. My way, exactly.',ask:"Set up the meeting room. Chair, projector, laptop — precisely where I want them.",reward:'"Perfect. Finally, someone who listens."'},
+   {type:'pincode',ask:"Memorize the conference dial-in code. I will not repeat it. I already didn't.",reward:'"Correct. Obviously. I chose that code."'},
  ]},
  daniel:{desc:'Designer, chill, big vibes',home:{x:4,y:5},pool:[
    {type:'choose',q:'Which design has the best vibe?',opts:[{t:'Clean & minimal',ok:true},{t:'5 fonts, 3 gradients',ok:false},{t:'Default bootstrap',ok:false}],ask:"Yo, which design has the best vibe? Just feel it. *smoke*",reward:'*thumbs up through haze* "Flawless vibe, respect."'},
@@ -231,6 +248,9 @@ const POOLS={
    {type:'signal',ask:"Catch the animation at its peak frame — that's the money shot.",reward:'"That is THE frame. Ship it."'},
    {type:'impostor',word:'#2E4A72',odd:'#2E4B72',hint:'Four identical hex codes. One is off by a digit.',ask:"One hex code is off by ONE digit and it is ruining my life. Find it.",reward:'"THERE. One digit. Chaos averted. Respect."'},
    {type:'proofread',ask:"Client ad has a typo somewhere, man. Find it before it ships.",reward:'"Caught it. Crisis averted. Respect."'},
+   {type:'stack',ask:"Pack these prints into the shipping box, man — stack it steady, don't crush the corners.",reward:'"Boxed clean. Art survives shipping."'},
+   {type:'splice',pairs:[['Poster set A','Box 1'],['Poster set B','Box 2'],['Poster set C','Box 3']],hint:'Match each label to the right box.',ask:"Label these boxes right, man, or the wrong client gets the wrong art.",reward:'"All matched. Aesthetic AND logistics. Respect."'},
+   {type:'proofread',ask:"One more typo hunt — the slide deck footer this time, man. Find it.",reward:'"Clean. Ship it before anyone notices there was one."'},
  ]},
 };
 
@@ -528,7 +548,7 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   oddeven:miniOddEven,target:miniTarget,reverse:miniReverse,moving:miniMoving,higherlower:miniHigherLower,
   gridmem:miniGridMem,stopwatch:miniStopwatch,maze:miniMaze,spy:miniSpy,priority:miniPriority,
   echo:miniEcho,splice:miniSplice,noise:miniNoise,budget:miniBudget,crack:miniCrack,jenga:miniJenga,
-  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit})[t.type](n,t);}
+  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode})[t.type](n,t);}
 
 function miniTiming(n,t){const st=openMini('TIMING','Press SPACE when the red line hits the green zone.');
   st.innerHTML='<div id="barWrap"><div id="barZone"></div><div id="barCursor"></div></div>';
@@ -1161,6 +1181,63 @@ function miniCircuit(n,t){const st=openMini('CIRCUIT','Click each tile to rotate
     const draw=()=>{d.style.transform='rotate('+(d.dataset.r*90)+'deg)';d.classList.toggle('conn',(d.dataset.r%2)===0);};
     d.innerHTML='<div class="nmWireBar"></div>';draw();d.onclick=()=>{d.dataset.r=(+d.dataset.r+1)%4;draw();};}
   document.getElementById('nmPwr').onclick=()=>{const ok=tiles.every(d=>(+d.dataset.r%2)===0);if(ok){miniWin(n,t);}else fail(n,'Circuit broken somewhere. [E]');};}
+
+// ARRANGE: drag each icon onto its matching marked spot (room/desk setup)
+function miniArrange(n,t){const st=openMini('ARRANGE',t.hint||'Drag each item onto its marked spot.');
+  const items=t.items||[['🪑','chair'],['📽️','proj'],['💻','laptop']];
+  st.innerHTML='<div class="nmWrap"><div id="nmItems" class="nmRow"></div><div id="nmSpots" class="nmRow" style="margin-top:24px"></div></div>';
+  const iRow=document.getElementById('nmItems'),sRow=document.getElementById('nmSpots');let left=items.length,done=false;
+  shuffle(items.slice()).forEach(([ic,k])=>{const f=document.createElement('div');f.className='nmFile';f.textContent=ic;f.dataset.k=k;iRow.appendChild(f);
+    f.onpointerdown=e=>{e.preventDefault();f.setPointerCapture(e.pointerId);const r=st.getBoundingClientRect();
+      f.style.position='absolute';f.style.zIndex=9;const mv=ev=>{f.style.left=(ev.clientX-r.left-27)+'px';f.style.top=(ev.clientY-r.top-27)+'px';};
+      const up=ev=>{f.removeEventListener('pointermove',mv);f.removeEventListener('pointerup',up);
+        const tgt=document.elementFromPoint(ev.clientX,ev.clientY);const spot=tgt&&tgt.closest?tgt.closest('.nmFolder'):null;
+        if(spot&&spot.dataset.k===f.dataset.k){f.remove();spot.classList.add('lit');left--;if(left===0&&!done){done=true;setTimeout(()=>{miniWin(n,t);},250);}}
+        else{f.style.position='';f.style.left='';f.style.top='';f.style.zIndex='';}};
+      f.addEventListener('pointermove',mv);f.addEventListener('pointerup',up);};});
+  shuffle(items.slice()).forEach(([ic,k])=>{const d=document.createElement('div');d.className='nmFolder';d.dataset.k=k;d.textContent='▢';sRow.appendChild(d);});}
+
+// CHECKLIST: tap every item once before the timer runs out
+function miniChecklist(n,t){const st=openMini('CHECKLIST',t.hint||'Tap every item before time runs out.',true);
+  const items=t.items||['Tires','Fuel','Lights','Mirrors','Paperwork'];
+  const grid=document.createElement('div');grid.style.cssText='display:grid;grid-template-columns:repeat(2,1fr);gap:8px;width:100%;max-width:320px';
+  let left=items.length,done=false;
+  shuffle(items.slice()).forEach(label=>{const c=document.createElement('div');c.className='gridCell';c.style.cssText+='font-size:11px;padding:0 6px';c.textContent='☐ '+label;
+    c.onclick=()=>{if(c.classList.contains('used'))return;c.classList.add('used');c.textContent='☑ '+label;left--;
+      if(left===0&&!done){done=true;stopT();miniWin(n,t);}};grid.appendChild(c);});
+  st.appendChild(grid);
+  const stopT=countdown(9,()=>{if(!done){done=true;fail(n,'Ran out of time. [E]');}});}
+
+// GAUGE: hold SPACE to fill, release while the DRIFTING green zone covers the needle
+function miniGauge(n,t){const st=openMini('FILL IT',t.hint||'Hold SPACE to fill. Release inside the green zone — it drifts!');
+  st.innerHTML='<div id="masher" style="position:relative"><div id="masherFill"></div><div id="gaugeZone" style="position:absolute;top:0;height:100%;background:rgba(90,158,75,.5);border-left:3px solid var(--green);border-right:3px solid var(--green)"></div></div>';
+  const fill=document.getElementById('masherFill'),zone=document.getElementById('gaugeZone');
+  let v=0,zx=30+Math.random()*20,zw=16,zdir=1,holding=false,done=false,iv,ziv;
+  const drawZone=()=>{zone.style.left=zx+'%';zone.style.width=zw+'%';};drawZone();
+  ziv=setInterval(()=>{if(done)return;zx+=zdir*0.7;if(zx+zw>=100){zx=100-zw;zdir=-1;}if(zx<=0){zx=0;zdir=1;}drawZone();},60);
+  setKey(e=>{if(e.key===' '&&!holding&&!done){e.preventDefault();holding=true;
+    iv=setInterval(()=>{v=Math.min(100,v+1.6);fill.style.width=v+'%';
+      if(v>=100){clearInterval(iv);clearInterval(ziv);done=true;fail(n,'Overfilled! [E]');}},40);}});
+  addEventListener('keyup',function up(e){if(e.key===' '&&holding&&!done){done=true;clearInterval(iv);clearInterval(ziv);
+    removeEventListener('keyup',up);
+    (v>=zx&&v<=zx+zw)?(closeMini(),finish(n,t)):fail(n,'Off by a bit — stopped at '+Math.round(v)+'%. [E]');}});}
+
+// BARCODE: drag the scanner across the strip at a steady, correct speed
+function miniBarcode(n,t){const st=openMini('SCAN',t.hint||'Drag the scanner across the barcode — not too fast, not too slow.');
+  st.innerHTML='<div style="width:100%;max-width:340px"><div id="bcTrack" style="position:relative;height:54px;background:repeating-linear-gradient(90deg,#2a2015 0 3px,#e8dfc5 3px 7px);border:3px solid var(--wood2);border-radius:8px"></div>'+
+    '<div id="bcHandle" style="position:absolute;top:-6px;left:-6px;width:34px;height:66px;background:var(--accent);border-radius:6px;border:2px solid var(--wood2);cursor:grab;display:flex;align-items:center;justify-content:center;font-size:16px">📷</div></div>';
+  const track=document.getElementById('bcTrack'),handle=document.getElementById('bcHandle');
+  track.style.position='relative';let done=false,startT=0,startX=0;
+  handle.onpointerdown=e=>{if(done)return;e.preventDefault();handle.setPointerCapture(e.pointerId);startT=Date.now();
+    const r=track.getBoundingClientRect();startX=r.left;
+    const mv=ev=>{if(done)return;const x=Math.max(0,Math.min(r.width-20,ev.clientX-startX-14));handle.style.left=x+'px';
+      if(x>=r.width-24){finishScan();}};
+    const up=()=>{handle.removeEventListener('pointermove',mv);handle.removeEventListener('pointerup',up);};
+    handle.addEventListener('pointermove',mv);handle.addEventListener('pointerup',up);
+    function finishScan(){if(done)return;done=true;handle.removeEventListener('pointermove',mv);
+      const elapsed=Date.now()-startT;
+      (elapsed>=500&&elapsed<=1600)?miniWin(n,t):fail(n,elapsed<500?'Too fast — blurred scan. [E]':'Too slow — timed out. [E]');}
+  };}
 
 function endGame(win,reason){state='end';clearInterval(timerId);
   document.getElementById('end').style.display='flex';
