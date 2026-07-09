@@ -276,3 +276,13 @@
 }
 .shake{animation:shk .3s}
 .done{text-decoration:line-through}
+
+/* ── PAUSE overlay ── */
+#pauseOverlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+  background:rgba(15,12,23,.72);backdrop-filter:blur(2px)}
+#pauseOverlay .pauseBox{background:var(--paper);border:5px solid var(--wood2);outline:2px solid var(--woodlite);
+  border-radius:12px;padding:28px 34px;display:flex;flex-direction:column;gap:12px;align-items:stretch;
+  min-width:220px;box-shadow:0 24px 70px rgba(0,0,0,.7)}
+#pauseOverlay h2{color:var(--wood2);text-align:center;letter-spacing:3px;font-size:20px;margin-bottom:6px}
+#pauseOverlay .btn.ghost{background:var(--paper2);color:var(--wood2)}
+#pauseOverlay .pauseHint{text-align:center;font-size:11px;color:#9a7a4d;margin-top:4px}

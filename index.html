@@ -37,11 +37,19 @@
 <div class="screen" id="start" style="display:none">
   <h1>OFFICE RUSH</h1><h2>&#9670; PICK YOUR CHARACTER &#9670;</h2>
   <div class="chars" id="pickChars"></div>
-  <div class="controls"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move &nbsp;&bull;&nbsp;<kbd>E</kbd> interact &nbsp;&bull;&nbsp;<kbd>F</kbd> special action</div>
+  <div class="controls"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> move &nbsp;&bull;&nbsp;<kbd>E</kbd> interact &nbsp;&bull;&nbsp;<kbd>F</kbd> special action &nbsp;&bull;&nbsp;<kbd>ESC</kbd> pause &nbsp;&bull;&nbsp;<kbd>+</kbd> debug</div>
 </div>
 <div class="screen" id="end" style="display:none">
   <h1 id="endTitle">SHIFT OVER</h1><h2 id="endSub"></h2><p id="endMsg"></p>
   <button class="btn" style="margin-top:20px" onclick="location.reload()">Play again</button>
+</div>
+<div id="pauseOverlay" style="display:none">
+  <div class="pauseBox">
+    <h2>PAUSED</h2>
+    <button class="btn" id="pauseResume">Resume</button>
+    <button class="btn ghost" id="pauseMenu">Main menu</button>
+    <div class="pauseHint">Press ESC to resume</div>
+  </div>
 </div>
 <script src="js/sprites-data.js"></script>
 <script src="js/map-data.js"></script>

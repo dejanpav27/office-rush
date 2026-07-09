@@ -478,13 +478,41 @@ function startGame(chosenId){
   document.getElementById('start').style.display='none';
   document.getElementById('whoami').textContent='playing: '+cap(chosenId);
   state='play';renderTasks();
-  timerId=setInterval(()=>{if(dialogOpen||miniOpen)return;time--;
+  timerId=setInterval(()=>{if(dialogOpen||miniOpen||state==='paused')return;time--;
     if(time<=0){time=0;endGame(false,'Time ran out');}
     const m=String(Math.floor(time/60)).padStart(2,'0'),s=String(time%60).padStart(2,'0');
     document.getElementById('timer').textContent=m+':'+s;},1000);
   loop();
 }
-function allTasks(){return NPCS.flatMap(n=>n.tasks);}
+
+// ── PAUSE ──────────────────────────────────────────────
+let prevState=null,pauseWired=false;
+function pauseGame(){
+  if(state!=='play')return;
+  prevState=state;state='paused';
+  const ov=document.getElementById('pauseOverlay');if(!ov)return;
+  if(!pauseWired){
+    const r=ov.querySelector('#pauseResume'),m=ov.querySelector('#pauseMenu');
+    if(r)r.onclick=resumeGame;if(m)m.onclick=quitToMenu;pauseWired=true;
+  }
+  ov.style.display='flex';
+}
+function resumeGame(){
+  if(state!=='paused')return;
+  state=prevState||'play';prevState=null;
+  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
+  loop(); // loop() bailed out while paused; restart it
+}
+function quitToMenu(){
+  // stop timer + loop, hide pause, return to the mode-select main menu
+  clearInterval(timerId);
+  state='start';prevState=null;
+  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
+  closeMini&&closeMini();
+  const start=document.getElementById('start');if(start)start.style.display='none';
+  const mode=document.getElementById('modeScreen');if(mode)mode.style.display='flex';
+}
+
 function npcDone(n){return n.tasks.every(t=>t.done);}
 function nextTask(n){return n.tasks.find(t=>!t.done);}
 const ML={fetch:'Fetch',deliver:'Deliver',timing:'Timing',simon:'Simon',mash:'Mash',type:'Type',
@@ -517,8 +545,11 @@ function setCarry(item,label){carrying=item?{item,label}:null;
 
 const keys={};
 addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;
+  // ESC = pause/resume (only while actually playing)
+  if(e.key==='Escape'){e.preventDefault();if(state==='play')pauseGame();else if(state==='paused')resumeGame();return;}
+  if(state==='paused')return; // swallow other keys while paused
   if(e.key.toLowerCase()==='e'){e.preventDefault();interact();}
-  if(e.key.toLowerCase()==='g'){e.preventDefault();window.DEBUG_COLL=!window.DEBUG_COLL;}
+  if(e.key==='+'||e.key==='='){e.preventDefault();window.DEBUG_COLL=!window.DEBUG_COLL;} // debug collision overlay
   if(e.key.toLowerCase()==='f'){e.preventDefault();tryCigarette();}
   if(e.key===' '&&dialogOpen){e.preventDefault();closeDialog();}});
 addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
@@ -2138,7 +2169,7 @@ function updateNPCs(){
     }
   });
 }
-function loop(){if(state==='end')return;
+function loop(){if(state==='end'||state==='paused')return;
   frame++;
   let moving=false;
   if(smoking&&Date.now()>smokeUntil)smoking=false;
