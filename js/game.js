@@ -513,6 +513,7 @@ function quitToMenu(){
   const mode=document.getElementById('modeScreen');if(mode)mode.style.display='flex';
 }
 
+function allTasks(){return NPCS.flatMap(n=>n.tasks);}
 function npcDone(n){return n.tasks.every(t=>t.done);}
 function nextTask(n){return n.tasks.find(t=>!t.done);}
 const ML={fetch:'Fetch',deliver:'Deliver',timing:'Timing',simon:'Simon',mash:'Mash',type:'Type',
