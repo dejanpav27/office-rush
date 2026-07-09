@@ -86,14 +86,14 @@ const POOLS={
    {type:'jam',ask:"Printer ate the deploy sheet. Yank it out — mind the direction.",reward:'"Free. Now it prints. Barely."'},
    {type:'circuit',ask:"Server rack lost power. Re-route the wire tiles so it boots.",reward:'"Green lights. Gromix lives again."'},
    {type:'wire',pairs:[['HDMI','Projector'],['Ethernet','Router'],['Power','Wall socket']],hint:'Match each cable to the right port before the client demo.',ask:"Client demo in 2 minutes and nothing's plugged in right. Fix it.",reward:'"Screen\'s up. Cutting it close, but up."'},
-   {type:'splice',pairs:[['Black','Slot 1'],['Cyan','Slot 2'],['Magenta','Slot 3']],hint:'Match each cartridge to its slot.',ask:"Printer's out of ink and I need three colors right now. Load them right.",reward:'"Printing again. You just saved my afternoon."'},
+   {type:'cartridge',hint:'Click each cartridge to cycle its color, match the label, then lock in.',ask:"Printer's out of ink and I need three colors right now. Load them right.",reward:'"Printing again. You just saved my afternoon."'},
  ]},
  teonem:{desc:'Sales, always "out in town"',home:{x:10,y:9},pool:[
    {type:'deliver',item:'contract',itemLabel:'contract',to:'nino',ask:"Running into town (work!). Take this contract to Nino.",reward:'"Legend. I never left, clear?" *left*'},
    {type:'choose',q:'Client wants a discount. Best move?',opts:[{t:'Offer a bundle',ok:true},{t:'Say no, hang up',ok:false},{t:'Ghost them',ok:false}],ask:"Coach me — client wants a discount.",reward:'"Closed it from the parking lot."'},
    {type:'timing',ask:"Calling a lead NOW — nail the send timing.",reward:'"Perfect timing. Signed."'},
    {type:'reflex',ask:"Lead picks up any second. Click GO the instant it appears.",reward:'"Caught them on ring one. Out."'},
-   {type:'choose',q:'Voicemail or text a busy CEO?',opts:[{t:'Short text',ok:true},{t:'5-min voicemail',ok:false},{t:'Call 8 times',ok:false}],ask:"Busy CEO will not answer. What do I do?",reward:'"Reply in 2 min. Boom."'},
+   {type:'hold',ask:"Busy CEO won't pick up — leave a voicemail. Hold SPACE, release right in the sweet spot.",reward:'"Reply in 2 min. Boom."'},
    {type:'dodge',ask:"Dodging awkward questions in the sales meeting — weave through!",reward:'"Deflected every one. Still closed."'},
    {type:'slider',ask:"Dial the discount to the exact sweet spot. Not a cent more.",reward:'"Perfect margin. That is the job."'},
    {type:'rhythm',ask:"Small talk has a rhythm. Match it, land the deal.",reward:'"Smooth as ever. Out the door."'},
@@ -102,7 +102,7 @@ const POOLS={
    {type:'moving',ask:"This client keeps dodging my calls — catch him! He moves.",reward:'"Cornered him by the printer. Signed."'},
    {type:'target',ask:"Build me a bundle that hits the exact price target.",reward:'"To the cent. You are wasted here."'},
    {type:'budget',ask:"Split my commission between three deals so it adds up right.",reward:'"Exactly what I earned. Nice math."'},
-   {type:'priority',cards:[{l:'Signed LOI, wants call NOW',p:1},{l:'Asked for a quote',p:2},{l:'Opened the email twice',p:3},{l:'Unsubscribed (twice)',p:4}],hint:'Hottest lead first.',ask:"Rank these leads hottest to coldest before they go cold for real.",reward:'"Perfect order. That is how deals get closed."'},
+   {type:'rank',items:['Signed LOI, wants call NOW','Asked for a quote','Opened the email twice','Unsubscribed (twice)'],hint:'Drag hottest lead to the top.',ask:"Rank these leads hottest to coldest before they go cold for real.",reward:'"Perfect order. That is how deals get closed."'},
    {type:'crack',ask:"Guess this client's real budget. I'll tell you higher or lower.",reward:'"Nailed it. Now watch me close this."'},
    {type:'signal',ask:"Catch the client mid-call at exactly the right beat to pitch.",reward:'"Timed it perfect. Pitch landed."'},
    {type:'overload',ask:"Two leads calling in at once — keep both warm, don't drop either.",reward:'"Both closed. I contain multitudes."'},
@@ -114,7 +114,7 @@ const POOLS={
  steve:{desc:'Beard, vape, sells in Croatia',home:{x:4,y:2},pool:[
    {type:'fetch',item:'vape',itemLabel:'vape',ask:"Left my vape by the entrance. No fog, no deals.",reward:'*huge cloud* "Now we do business."'},
    {type:'timing',ask:"Calling Zagreb — catch the second to drop the offer.",reward:'"Bang on. Respect." *vapor*'},
-   {type:'choose',q:'"Razmislit cu" means...?',opts:[{t:'"I will think about it" — follow up',ok:true},{t:'Hard no',ok:false},{t:'They said yes',ok:false}],ask:"Test my Croatian sales lingo.",reward:'"Tocno. You get it."'},
+   {type:'typerace',word:'RAZMISLITCU',ask:"Type the Croatian phrase back before the timer — prove you were listening.",reward:'"Tocno. You get it."'},
    {type:'scramble',word:'ZAGREB',ask:"Unscramble where my best client is.",reward:'"Haha, yeah. Booking a trip."'},
    {type:'mash',ask:"Vape battery died — mash SPACE to charge it back!",reward:'*puff* "Alive again. Deals incoming."'},
    {type:'colormatch',ask:"Match my new vape color, obviously important.",reward:'"That is the shade. Classy clouds."'},
@@ -130,14 +130,14 @@ const POOLS={
    {type:'signal',ask:"Catch the call the instant it connects across the border.",reward:'"Connected clean. No lag, no lost deal."'},
    {type:'splice',pairs:[['Dobar dan','Good day'],['Racun, molim','Invoice, please'],['Dogovoreno','Deal']],hint:'Match Croatian to English.',ask:"Match my Croatian phrases so I don't embarrass myself in Zagreb.",reward:'"Bok! Now I sound like a local."'},
    {type:'qralign',ask:"Scan this Croatian client's QR invoice — line it up, hold steady.",reward:'*vapor* "Locked. Deal logged."'},
-   {type:'splice',pairs:[['Golf GTI','ZG-341-KL'],['Passat','ZG-852-MN'],['Octavia','ZG-119-RT']],hint:'Match each car to its plate.',ask:"Match each car on the lot to its actual plate. Zagreb inventory's a mess.",reward:'*vapor* "All matched. Inventory\'s clean."'},
+   {type:'patchline',pairs:[['Golf GTI','ZG-341-KL'],['Passat','ZG-852-MN'],['Octavia','ZG-119-RT']],hint:'Drag a line from each car to its plate.',ask:"Match each car on the lot to its actual plate. Zagreb inventory's a mess.",reward:'*vapor* "All matched. Inventory\'s clean."'},
    {type:'crack',ask:"Which car is the client asking about? I'll say warmer or colder on the stock number.",reward:'*vapor* "That\'s the one. Good guess, chief."'},
    {type:'barcode',ask:"Parts shipment just came in from Zagreb — scan it in. Steady hand, not too fast.",reward:'*vapor* "Logged. Croatia never disappoints."'},
  ]},
  brana:{desc:'Watches everyone (secretly)',home:{x:3,y:9},pool:[
    {type:'fetch',item:'logsheet',itemLabel:'attendance log',ask:"Bring that sheet by the entrance. I do not track people... just get it.",reward:'*hides it* "I did not ask for this. But I did."'},
    {type:'memory',ask:"Recall the exact order people arrived. I was not watching, obviously.",reward:'"Correct. Not that I keep records. (I do.)"'},
-   {type:'choose',q:'Who came in latest today?',opts:[{t:'Teonem ("errands")',ok:true},{t:'Nino, he is the boss',ok:false},{t:'All on time',ok:false}],ask:"Between us... who was last?",reward:'*scribbles* "Thought so."'},
+   {type:'rolodex',cards:['Sonja — 08:58','Pedja — 09:02','Nina — 09:04','Teonem — 09:47 ("errands")'],correctIdx:3,ask:"Between us... who was last?",reward:'*scribbles* "Thought so."'},
    {type:'sequence',ask:"Play back today's clock-in order on the grid.",reward:'"Flawless. This never happened."'},
    {type:'avoid',ask:"Flag the late arrivals, skip the punctual ones.",reward:'"Efficient. I trained you well."'},
    {type:'spotdiff',ask:"One timesheet does not match the rest. Find it.",reward:'"There it is. Someone fudged it."'},
@@ -149,12 +149,12 @@ const POOLS={
    {type:'oddeven',ask:"Sort these clock-ins: even minutes = on time, odd = late.",reward:'"Sorted. The odd ones will be... noted."'},
    {type:'spy',ask:"Memorize who sat where this morning. I definitely was not watching.",reward:'"Correct. (I was watching.)"'},
    {type:'echo',ask:"Repeat back the growing list of who left early. Do not skip anyone.",reward:'"All accounted for. Good memory."'},
-   {type:'crack',ask:"Guess the drawer combination. I'll say higher or lower. Don't ask why I know it.",reward:'"Cracked. I am impressed. Slightly concerned."'},
-   {type:'priority',cards:[{l:'Someone got a raise (WHO?)',p:1},{l:'Fridge thief struck again',p:2},{l:'Parking spot dispute',p:3},{l:'Stapler was moved 3cm',p:4}],hint:'Juiciest gossip first.',ask:"Rank the office gossip by how juicy it is. Highest first.",reward:'"Exactly my ranking. We think alike."'},
+   {type:'dial',hint:'Dial in the drawer combination.',ask:"Guess the drawer combination. Don't ask why I know it.",reward:'"Cracked. I am impressed. Slightly concerned."'},
+   {type:'rank',items:['Someone got a raise (WHO?)','Fridge thief struck again','Parking spot dispute','Stapler was moved 3cm'],hint:'Drag the juiciest gossip to the top.',ask:"Rank the office gossip by how juicy it is. Highest first.",reward:'"Exactly my ranking. We think alike."'},
    {type:'splice',pairs:[['Teonem','arrived 09:47'],['Steve','arrived 08:55'],['Pedja','arrived 08:30']],hint:'Match each person to their arrival time.',ask:"Match each person to when they REALLY arrived. I have it memorized. Allegedly.",reward:'"All correct. I always know. Always."'},
    {type:'impostor',word:'I was here at 8:00',odd:'traffic was crazy',hint:'Four honest, one excuse.',ask:"Five people told me when they arrived. One is making excuses. Spot it.",reward:'"Noted. Filed. Never mentioned again. (Mentioned daily.)"'},
    {type:'docsort',ask:"Stamp the signed timesheets, reject the blanks. I'm... auditing.",reward:'"All sorted. Nothing gets past me."'},
-   {type:'choose',q:'Caller wants IT support — which extension?',opts:[{t:'Transfer to Dejan',ok:true},{t:'Transfer to Sonja',ok:false},{t:'Hang up',ok:false}],ask:"Phone's ringing. I know exactly who needs this, obviously — do you?",reward:'"Correct. I was testing you."'},
+   {type:'switchboard',opts:['Dejan (IT)','Sonja (Payroll)','Reception'],correctIdx:0,ask:"Phone's ringing. I know exactly who needs this, obviously — do you?",reward:'"Correct. I was testing you."'},
    {type:'priority',cards:[{l:'Get everyone to the exit',p:1},{l:'Call the fire department',p:2},{l:'Grab the visitor log',p:3},{l:'Lock your desk',p:4}],hint:'Drill\'s starting. What matters first?',ask:"Fire drill. I've mentally rehearsed this daily — what happens first?",reward:'"Correct. I would know."'},
    {type:'crack',ask:"This visitor badge doesn't look right to me. Higher or lower — guess the real badge number.",reward:'"Fake. I knew it. I know everything."'},
  ]},
@@ -170,7 +170,7 @@ const POOLS={
    {type:'target',ask:"Pick amounts that sum exactly to the payroll total.",reward:'"...balanced to the cent. Rare."'},
    {type:'oddeven',ask:"Valid invoices are even, odd are errors. Sort them, please.",reward:'"...all correct. So quiet. So precise."'},
    {type:'typerace',word:'APPROVED',ask:"Bank portal times out fast — type it before the clock!",reward:'"...made it. Everyone gets paid."'},
-   {type:'crack',ask:"Guess the safe combination. Higher or lower, that's all you get.",reward:'"...got it. Not that I would ever forget it myself."'},
+   {type:'dial',hint:'Dial in the safe combination.',ask:"Guess the safe combination. Not that I would ever forget it myself.",reward:'"...got it. Not that I would ever forget it myself."'},
    {type:'budget',ask:"Split this bonus pool so it adds up exactly. No more, no less.",reward:'"...balanced perfectly. Thank you."'},
    {type:'splice',pairs:[['ID-104 (junior)','\u20ac1.450'],['ID-207 (senior)','\u20ac2.900'],['ID-311 (intern)','\u20ac600']],hint:'Match each employee to the right salary.',ask:"Match each employee ID to their salary line. Quietly.",reward:'"...all matched. Nobody overpaid. Nobody underpaid."'},
    {type:'echo',ask:"Repeat this growing account number back to me. Do not lose a digit.",reward:'"...correct. Every digit." *whisper*'},
@@ -195,7 +195,7 @@ const POOLS={
    {type:'jenga',ask:"Clear the stacked chairs without toppling the whole pile.",reward:'"Not one chair fell. Two meters of pure control."'},
    {type:'maze',ask:"Weave the food cart through the packed lunch crowd.",reward:'"Delivered hot. Never spilled a drop."'},
    {type:'signal',ask:"The kitchen bell rings on a rhythm — catch it at the peak.",reward:'"Order is up, right on the beat."'},
-   {type:'splice',pairs:[['Table 3','Double burger'],['Table 7','Vegan salad'],['Table 12','Espresso x4']],hint:'Match each table to its order.',ask:"Match each table number to its order ticket.",reward:'"All matched. Old habits really do stick."'},
+   {type:'pairs',ask:"Match each table number to its order ticket.",reward:'"All matched. Old habits really do stick."'},
    {type:'overload',ask:"Two tables calling at once — keep them both happy.",reward:'"Both served. Waiter reflexes never left."'},
    {type:'priority',cards:[{l:'Food is getting cold',p:1},{l:'Refill drinks',p:2},{l:'Wipe table 4',p:3},{l:'Chat with regulars',p:4}],hint:'Waiter instincts: what first?',ask:"Rush hour test: what does a waiter do first?",reward:'"Cold food is a crime. You get it."'},
    {type:'recipe',ask:"Old waiter skills — make the boss's coffee to the exact recipe.",reward:'"Nailed the measures. Some things you don\'t forget."'},
@@ -217,7 +217,7 @@ const POOLS={
    {type:'impostor',word:'YES NINA',odd:'actually, no',hint:'Four agree with her. Find the traitor.',ask:"Someone disagreed with me. Find the traitor.",reward:'"Knew it. Nobody disagrees with me."'},
    {type:'reverse',ask:"Now do my instructions BACKWARDS. Keep up. I invented this.",reward:'"Acceptable. I made you better today."'},
    {type:'gridmem',ask:"Memorize MY new seating chart. There will be a test. This is it.",reward:'"Correct. I assign, you remember."'},
-   {type:'priority',cards:[{l:"Nina's idea",p:1},{l:"Dad's idea",p:2},{l:"Client's request",p:3},{l:'YOUR idea',p:4}],hint:"Sort by importance. Hers first. Obviously.",ask:"Sort these by importance — mine first, obviously.",reward:'"Correct order. Mine is always first."'},
+   {type:'rank',items:["Nina's idea","Dad's idea","Client's request",'YOUR idea'],hint:'Drag to reorder. Hers goes first. Obviously.',ask:"Sort these by importance — mine first, obviously.",reward:'"Correct order. Mine is always first."'},
    {type:'echo',ask:"Repeat my growing list of demands. Don't fall behind.",reward:'"Good. You kept up with all of them."'},
    {type:'crack',ask:"Guess what I'm REALLY thinking. Hint: I'm always right.",reward:'"You got it eventually. Slow, but fine."'},
    {type:'forge',recipe:["NINA'S VISION",'EXECUTION','CREDIT TO NINA'],extra:['TEAM CREDIT','HUMILITY'],ask:"Combine everyone's ideas so mine comes out on top.",reward:'"See? Mine wins every time. As it should."'},
@@ -244,7 +244,7 @@ const POOLS={
    {type:'forge',recipe:['BASE NAVY','WARM ACCENT','SOFT GLOW'],extra:['NEON GREEN','COMIC SANS'],ask:"Mix the brand palette in the right order — this matters, man.",reward:'"That gradient is *chef kiss*. Pure alchemy."'},
    {type:'noise',ask:"One layer is aligned right, the rest are off-grid. Find it.",reward:'"There. My eye was twitching. Fixed."'},
    {type:'maze',ask:"Route this shape through the canvas without clipping anything.",reward:'"Smooth path. No clipping. Respect."'},
-   {type:'splice',pairs:[['Hero card','Soft shadow 8px'],['Button','Crisp shadow 2px'],['Body text','No shadow, man']],hint:'Match each element to its shadow.',ask:"Match each element to its drop-shadow style.",reward:'"Every shape found its shadow. Beautiful."'},
+   {type:'colormatch',ask:"Match each element to its drop-shadow style.",reward:'"Every shape found its shadow. Beautiful."'},
    {type:'signal',ask:"Catch the animation at its peak frame — that's the money shot.",reward:'"That is THE frame. Ship it."'},
    {type:'impostor',word:'#2E4A72',odd:'#2E4B72',hint:'Four identical hex codes. One is off by a digit.',ask:"One hex code is off by ONE digit and it is ruining my life. Find it.",reward:'"THERE. One digit. Chaos averted. Respect."'},
    {type:'proofread',ask:"Client ad has a typo somewhere, man. Find it before it ships.",reward:'"Caught it. Crisis averted. Respect."'},
@@ -548,7 +548,7 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   oddeven:miniOddEven,target:miniTarget,reverse:miniReverse,moving:miniMoving,higherlower:miniHigherLower,
   gridmem:miniGridMem,stopwatch:miniStopwatch,maze:miniMaze,spy:miniSpy,priority:miniPriority,
   echo:miniEcho,splice:miniSplice,noise:miniNoise,budget:miniBudget,crack:miniCrack,jenga:miniJenga,
-  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode})[t.type](n,t);}
+  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode,dial:miniDial,switchboard:miniSwitchboard,rolodex:miniRolodex,rank:miniRank,cartridge:miniCartridge,patchline:miniPatchline})[t.type](n,t);}
 
 function miniTiming(n,t){const st=openMini('TIMING','Press SPACE when the red line hits the green zone.');
   st.innerHTML='<div id="barWrap"><div id="barZone"></div><div id="barCursor"></div></div>';
@@ -1238,6 +1238,116 @@ function miniBarcode(n,t){const st=openMini('SCAN',t.hint||'Drag the scanner acr
       const elapsed=Date.now()-startT;
       (elapsed>=500&&elapsed<=1600)?miniWin(n,t):fail(n,elapsed<500?'Too fast — blurred scan. [E]':'Too slow — timed out. [E]');}
   };}
+
+// DIAL: drag a rotary knob to guess the secret number, higher/lower feedback, limited tries
+function miniDial(n,t){const secret=10+Math.floor(Math.random()*90);let tries=6,val=50,done=false;
+  const st=openMini('DIAL IT IN',t.hint||'Drag the dial. '+tries+' tries left.');
+  st.innerHTML='<div id="dialWrap" style="position:relative;width:120px;height:120px;margin:8px auto">'+
+    '<div id="dialFace" style="width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#e8dfc5,#c9bb92);border:4px solid var(--wood2);position:relative;cursor:grab">'+
+    '<div id="dialPointer" style="position:absolute;left:50%;top:8%;width:6px;height:38%;background:var(--red);border-radius:3px;transform-origin:50% 130%;transform:translateX(-50%) rotate(0deg)"></div></div></div>'+
+    '<div class="typed" id="dialVal">50</div><div id="dialFb" style="color:var(--accent);font-size:13px;margin:4px 0"></div>'+
+    '<button class="btn" id="dialTry">Try</button>';
+  const face=document.getElementById('dialFace'),ptr=document.getElementById('dialPointer'),vdisp=document.getElementById('dialVal'),fb=document.getElementById('dialFb');
+  const draw=()=>{ptr.style.transform='translateX(-50%) rotate('+((val/99)*270-135)+'deg)';vdisp.textContent=val;};draw();
+  face.onpointerdown=e=>{face.setPointerCapture(e.pointerId);const r=face.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    const mv=ev=>{if(done)return;let ang=Math.atan2(ev.clientY-cy,ev.clientX-cx)*180/Math.PI+90;if(ang<0)ang+=360;
+      let pct=(ang-45)/270;pct=Math.max(0,Math.min(1,pct));val=Math.round(pct*99);draw();};
+    const up=()=>{face.removeEventListener('pointermove',mv);face.removeEventListener('pointerup',up);};
+    face.addEventListener('pointermove',mv);face.addEventListener('pointerup',up);};
+  document.getElementById('dialTry').onclick=()=>{if(done)return;
+    if(val===secret){done=true;miniWin(n,t);return;}
+    tries--;if(tries<=0){done=true;fail(n,'Out of tries. It was '+secret+'. [E]');return;}
+    fb.textContent=(val<secret?'Higher! ':'Lower! ')+tries+' tries left.';};}
+
+// SWITCHBOARD: drag the cable from the incoming jack to the correct extension
+function miniSwitchboard(n,t){const st=openMini('SWITCHBOARD',t.hint||'Drag the cable to the correct extension.');
+  const opts=t.opts||['Dejan (IT)','Sonja (Payroll)','Reception'];const correct=t.correctIdx??0;
+  st.innerHTML='<div style="display:flex;align-items:center;justify-content:center;gap:60px;width:100%;position:relative">'+
+    '<div id="swSrc" style="width:26px;height:26px;border-radius:50%;background:var(--red);border:3px solid var(--wood2)"></div>'+
+    '<div id="swTargets" style="display:flex;flex-direction:column;gap:14px"></div><svg id="swSvg" style="position:absolute;inset:0;pointer-events:none;width:100%;height:100%"></svg></div>';
+  const src=document.getElementById('swSrc'),tgtWrap=document.getElementById('swTargets'),svg=document.getElementById('swSvg');
+  let done=false;
+  opts.forEach((label,i)=>{const d=document.createElement('div');d.className='memChip';d.style.fontSize='12px';d.textContent=label;d.dataset.i=i;tgtWrap.appendChild(d);});
+  src.onpointerdown=e=>{if(done)return;src.setPointerCapture(e.pointerId);const r=st.getBoundingClientRect();
+    const sx=src.getBoundingClientRect().left-r.left+13,sy=src.getBoundingClientRect().top-r.top+13;
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('stroke','var(--red)');line.setAttribute('stroke-width','4');
+    line.setAttribute('x1',sx);line.setAttribute('y1',sy);line.setAttribute('x2',sx);line.setAttribute('y2',sy);svg.appendChild(line);
+    const mv=ev=>{const x=ev.clientX-r.left,y=ev.clientY-r.top;line.setAttribute('x2',x);line.setAttribute('y2',y);};
+    const up=ev=>{src.removeEventListener('pointermove',mv);src.removeEventListener('pointerup',up);
+      const tgt=document.elementFromPoint(ev.clientX,ev.clientY);const chip=tgt&&tgt.closest?tgt.closest('.memChip'):null;
+      if(chip&&+chip.dataset.i===correct){done=true;line.setAttribute('stroke','var(--green)');miniWin(n,t);}
+      else{fail(n,'Wrong line. [E]');}
+    };src.addEventListener('pointermove',mv);src.addEventListener('pointerup',up);};}
+
+// ROLODEX: flip through cards with Prev/Next, hit SELECT on the one matching the clue
+function miniRolodex(n,t){const cards=t.cards||['08:12','08:47','09:03','09:31'];const correct=t.correctIdx??cards.length-1;
+  const st=openMini('ROLODEX',t.hint||'Flip through the cards. SELECT the right one.');
+  let i=0,done=false;
+  st.innerHTML='<div id="rdCard" class="memChip" style="font-size:20px;padding:22px 34px;margin:10px auto"></div>'+
+    '<div class="nmRow"><button class="btn ghost" id="rdPrev">&laquo; Prev</button><button class="btn ghost" id="rdNext">Next &raquo;</button></div>'+
+    '<button class="btn" id="rdSel" style="margin-top:10px">This one</button>';
+  const disp=document.getElementById('rdCard');const draw=()=>disp.textContent=cards[i];draw();
+  document.getElementById('rdPrev').onclick=()=>{i=(i-1+cards.length)%cards.length;draw();};
+  document.getElementById('rdNext').onclick=()=>{i=(i+1)%cards.length;draw();};
+  document.getElementById('rdSel').onclick=()=>{if(done)return;done=true;i===correct?miniWin(n,t):fail(n,'Wrong card. [E]');};}
+
+// RANK: drag list items into the correct vertical order
+function miniRank(n,t){const items=t.items||['Urgent','Important','Normal','Low'];
+  const st=openMini('RANK IT',t.hint||'Drag to reorder, highest priority on top. Then submit.');
+  const list=document.createElement('div');list.id='rkList';list.style.cssText='display:flex;flex-direction:column;gap:6px;width:260px;margin:0 auto';
+  const order=shuffle(items.map((label,idx)=>({label,idx})));
+  order.forEach(o=>{const d=document.createElement('div');d.className='memChip';d.style.cssText+='cursor:grab;width:100%;box-sizing:border-box';d.textContent=o.label;d.dataset.idx=o.idx;list.appendChild(d);});
+  st.appendChild(list);
+  const btn=document.createElement('button');btn.className='btn';btn.style.marginTop='10px';btn.textContent='Submit order';st.appendChild(btn);
+  let dragEl=null;
+  [...list.children].forEach(ch=>{
+    ch.onpointerdown=e=>{dragEl=ch;ch.setPointerCapture(e.pointerId);ch.style.opacity='.6';
+      const mv=ev=>{const after=[...list.children].find(sib=>{if(sib===dragEl)return false;const r=sib.getBoundingClientRect();return ev.clientY<r.top+r.height/2;});
+        if(after)list.insertBefore(dragEl,after);else list.appendChild(dragEl);};
+      const up=()=>{ch.style.opacity='';ch.removeEventListener('pointermove',mv);ch.removeEventListener('pointerup',up);};
+      ch.addEventListener('pointermove',mv);ch.addEventListener('pointerup',up);};});
+  btn.onclick=()=>{const cur=[...list.children].map(c=>+c.dataset.idx);
+    const ok=cur.every((v,i)=>v===i);ok?miniWin(n,t):fail(n,'Order\'s off. [E]');};}
+
+// CARTRIDGE: click each cartridge to cycle its color until it matches the label, then lock all in
+function miniCartridge(n,t){const cols=t.cols||[['Black','#2a2a2a'],['Cyan','#3f9ecf'],['Magenta','#c94fa0']];
+  const st=openMini('LOAD CARTRIDGES',t.hint||'Click each cartridge to cycle color. Match the label, then lock in.');
+  const wrap=document.createElement('div');wrap.className='nmRow';
+  const targets=shuffle(cols.map(c=>c[0]));
+  cols.forEach((c,i)=>{const cell=document.createElement('div');cell.style.cssText='display:flex;flex-direction:column;align-items:center;gap:6px';
+    const sw=document.createElement('div');sw.className='simBtn';let ci=Math.floor(Math.random()*cols.length);sw.style.background=cols[ci][1];
+    const lbl=document.createElement('div');lbl.style.fontSize='11px';lbl.textContent='Needs: '+targets[i];
+    sw.onclick=()=>{ci=(ci+1)%cols.length;sw.style.background=cols[ci][1];sw.dataset.name=cols[ci][0];};
+    sw.dataset.name=cols[ci][0];cell.appendChild(sw);cell.appendChild(lbl);wrap.appendChild(cell);cell.dataset.need=targets[i];});
+  st.appendChild(wrap);
+  const btn=document.createElement('button');btn.className='btn';btn.style.marginTop='10px';btn.textContent='Lock in';st.appendChild(btn);
+  btn.onclick=()=>{const cells=[...wrap.children];const ok=cells.every(c=>c.querySelector('.simBtn').dataset.name===c.dataset.need);
+    ok?miniWin(n,t):fail(n,'Colors don\'t match the labels. [E]');};}
+
+// PATCHLINE: drag a line from each item on the left to its match on the right — all 3 at once
+function miniPatchline(n,t){const pairs=t.pairs||[['A','1'],['B','2'],['C','3']];
+  const st=openMini('CONNECT',t.hint||'Drag a line from each left item to its match on the right.');
+  const left=shuffle(pairs.map(p=>p[0])),right=shuffle(pairs.map(p=>p[1]));const map={};pairs.forEach(p=>map[p[0]]=p[1]);
+  st.innerHTML='<div style="position:relative;display:flex;justify-content:space-between;width:100%;max-width:320px;margin:0 auto">'+
+    '<div id="plL" style="display:flex;flex-direction:column;gap:10px"></div><div id="plR" style="display:flex;flex-direction:column;gap:10px"></div>'+
+    '<svg id="plSvg" style="position:absolute;inset:0;pointer-events:none;width:100%;height:100%"></svg></div>';
+  const lc=document.getElementById('plL'),rc=document.getElementById('plR'),svg=document.getElementById('plSvg');
+  let matched=0,done=false;
+  left.forEach(v=>{const b=document.createElement('div');b.className='memChip';b.style.fontSize='12px';b.textContent=v;b.dataset.v=v;lc.appendChild(b);});
+  right.forEach(v=>{const b=document.createElement('div');b.className='memChip';b.style.fontSize='12px';b.textContent=v;b.dataset.v=v;rc.appendChild(b);});
+  lc.querySelectorAll('.memChip').forEach(chip=>{
+    chip.onpointerdown=e=>{if(chip.classList.contains('used')||done)return;chip.setPointerCapture(e.pointerId);const r=st.getBoundingClientRect();
+      const sx=chip.getBoundingClientRect().right-r.left,sy=chip.getBoundingClientRect().top-r.top+chip.offsetHeight/2;
+      const line=document.createElementNS('http://www.w3.org/2000/svg','line');line.setAttribute('stroke','var(--accent)');line.setAttribute('stroke-width','3');
+      line.setAttribute('x1',sx);line.setAttribute('y1',sy);line.setAttribute('x2',sx);line.setAttribute('y2',sy);svg.appendChild(line);
+      const mv=ev=>{line.setAttribute('x2',ev.clientX-r.left);line.setAttribute('y2',ev.clientY-r.top);};
+      const up=ev=>{chip.removeEventListener('pointermove',mv);chip.removeEventListener('pointerup',up);
+        const tgt=document.elementFromPoint(ev.clientX,ev.clientY);const rchip=tgt&&tgt.closest?tgt.closest('#plR .memChip'):null;
+        if(rchip&&!rchip.classList.contains('used')&&map[chip.dataset.v]===rchip.dataset.v){
+          chip.classList.add('used');rchip.classList.add('used');matched++;line.setAttribute('stroke','var(--green)');
+          if(matched>=pairs.length){done=true;setTimeout(()=>miniWin(n,t),200);}
+        }else{svg.removeChild(line);if(rchip)fail(n,'Wrong connection. [E]');}
+      };chip.addEventListener('pointermove',mv);chip.addEventListener('pointerup',up);};});}
 
 function endGame(win,reason){state='end';clearInterval(timerId);
   document.getElementById('end').style.display='flex';
