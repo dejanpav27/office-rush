@@ -30,7 +30,7 @@ const shuffle=a=>[...a].sort(()=>Math.random()-.5);
 const ITEM_SPOTS={
   cigs:{x:5,y:6,icon:'cig'},logsheet:{x:7,y:9,icon:'doc'},coffee:{x:12,y:6,icon:'cup'},
   contract:{x:12,y:8,icon:'doc'},router:{x:14,y:6,icon:'rtr'},vape:{x:7,y:3,icon:'vape'},
-  laptop:{x:7,y:7,icon:'lap'},invoice:{x:3,y:8,icon:'doc'},lighter:{x:14,y:4,icon:'ltr'},
+  laptop:{x:7,y:7,icon:'lap'},invoice:{x:3,y:8,icon:'inv'},lighter:{x:14,y:4,icon:'ltr'},
 };
 
 /* character visual specs for pixel sprites */
@@ -73,7 +73,7 @@ const POOLS={
    {type:'qte',ask:"Emergency hotfix combo — hit the keys, fast!",reward:'"Patched live. Legend."'},
    {type:'pincode',ask:"Memorize the server PIN before I forget it again.",reward:'"In. Nice memory."'},
    {type:'lockpick',ask:"Locked out of prod. Pick it open, carefully.",reward:'"We are in. Do not tell security."'},
-   {type:'count',ask:"Count the open terminal tabs. I lost track.",reward:'"Yeah, way too many. Closing some."'},
+   {type:'count',subject:'coffees today',ask:"How many coffees have I had today? I genuinely lost count.",reward:'"...that\'s a personal record. And it\'s not even lunch."'},
    {type:'hold',ask:"Take a drag with me while the build runs. Hold it... release at the right time.",reward:'*exhales* "Perfect timing. Build passed."'},
    {type:'typerace',word:'HOTFIX',ask:"Prod dies in seconds — type the fix before the timer!",reward:'"Saved with 0.3s to spare. Respect."'},
    {type:'crack',ask:"Guess which port the service died on. I'll say higher or lower.",reward:'"That is the one. Restarting now."'},
@@ -116,7 +116,7 @@ const POOLS={
    {type:'splice',pairs:[['Objection: too expensive','Show ROI math'],['Objection: no time','Offer 15-min call'],['Objection: thinking','Book follow-up date']],hint:'Match each objection to the counter.',ask:"Match each client objection to the right counter-move.",reward:'"Textbook. You could sell air."'},
    {type:'calendar',ask:"Book me three demos this week — no clashes, I'm 'in town' a lot.",reward:'"Slotted clean. I close from anywhere."'},
    {type:'maze',ask:"Move this car to the showroom floor for me — don't scuff anything on the way.",reward:'"Parked pretty. Client\'s gonna love it."'},
-   {type:'choose',q:'Client is picking up the car — what do you say?',opts:[{t:'Walk them through every feature, unhurried',ok:true},{t:'Toss the keys and wave',ok:false},{t:'Ask if they want the extended warranty five times',ok:false}],ask:"Handover time. Client's here for the car — do it right.",reward:'"Perfect handover. That\'s a referral right there."'},
+   {type:'handover',steps:['Greet the client','Check their ID & paperwork','Walk them around the car','Explain the key features','Hand over the keys','Wave them off'],hint:'Client\'s here for the car. Do the handover in the right order.',ask:"Handover time. Client's here for the car — do it right, step by step.",reward:'"Perfect handover. That\'s a referral right there."'},
    {type:'flowchart',tree:{q:'Client says too expensive?',yes:{q:'Offer a smaller package?',yes:{end:true,win:true},no:{end:true,win:false}},no:{q:'Close now?',yes:{end:true,win:true},no:{end:true,win:false}}},hint:'Follow the sales decision tree.',ask:"Walk the decision tree — what do I do with this client right now?",reward:'"Textbook close. Beautiful."'},
    {type:'inbox',emails:[{from:'Hot lead',sub:'Ready to sign contract',type:'urgent'},{from:'promo@deals.biz',sub:'Double commission offer!!!',type:'spam'},{from:'Steve',sub:'Follow-up with Zagreb client',type:'urgent'},{from:'newsletter@crm.io',sub:'CRM tips weekly digest',type:'safe'},{from:'unknown@fishy.net',sub:'Your account suspended',type:'spam'}],ask:"Clear my inbox before the client meeting — flag urgent, archive safe, delete spam.",reward:'"Inbox zero. Teonem is unstoppable."'},
    {type:'conveyor',target:'\uD83D\uDCCB',fakes:['\uD83D\uDCE7','\uD83D\uDCC1','\uD83D\uDCF1'],ask:"Contracts rolling in on the belt — grab the clipboards, ignore everything else.",reward:'"All contracts caught. Efficiency is beautiful."'},
@@ -604,7 +604,7 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   oddeven:miniOddEven,target:miniTarget,reverse:miniReverse,moving:miniMoving,higherlower:miniHigherLower,
   gridmem:miniGridMem,stopwatch:miniStopwatch,maze:miniMaze,spy:miniSpy,priority:miniPriority,
   echo:miniEcho,splice:miniSplice,noise:miniNoise,budget:miniBudget,crack:miniCrack,jenga:miniJenga,
-  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode,dial:miniDial,switchboard:miniSwitchboard,rolodex:miniRolodex,rank:miniRank,cartridge:miniCartridge,patchline:miniPatchline,typewriter:miniTypewriter,flowchart:miniFlowchart,redact:miniRedact,hotkey:miniHotkey,inbox:miniInbox,budgetslider:miniBudgetSlider,crossword:miniCrossword,cableroute:miniCableRoute,wordsearch:miniWordsearch,conveyor:miniConveyor,contract:miniContract,rotary:miniRotary,heatmap:miniHeatmap,triage:miniTriage,cipher:miniCipher,voltage:miniVoltage,toggle:miniToggle,anagram:miniAnagram,whiteboard:miniWhiteboard,slot:miniSlot,mirror:miniMirror,pricetag:miniPriceTag,binary:miniBinary,voicemail:miniVoicemail,approvalchain:miniApprovalChain,frequency:miniFrequency})[t.type](n,t);}
+  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode,dial:miniDial,switchboard:miniSwitchboard,rolodex:miniRolodex,rank:miniRank,cartridge:miniCartridge,patchline:miniPatchline,typewriter:miniTypewriter,flowchart:miniFlowchart,redact:miniRedact,hotkey:miniHotkey,inbox:miniInbox,budgetslider:miniBudgetSlider,crossword:miniCrossword,cableroute:miniCableRoute,wordsearch:miniWordsearch,conveyor:miniConveyor,contract:miniContract,rotary:miniRotary,heatmap:miniHeatmap,triage:miniTriage,cipher:miniCipher,voltage:miniVoltage,toggle:miniToggle,anagram:miniAnagram,whiteboard:miniWhiteboard,slot:miniSlot,mirror:miniMirror,pricetag:miniPriceTag,binary:miniBinary,voicemail:miniVoicemail,approvalchain:miniApprovalChain,frequency:miniFrequency,handover:miniHandover})[t.type](n,t);}
 
 function miniCatch(n,t){const st=openMini('CATCH','A/D or mouse. Catch 5 before time runs out.',true);
   st.innerHTML='<div id="catcher"><div id="paddle"></div></div>';
@@ -677,9 +677,13 @@ function miniColorMatch(n,t){const cols=[['RED','#c94f4f'],['TEAL','#3f9e8f'],['
   shuffle(cols).forEach(c=>{const b=document.createElement('div');b.className='simBtn';b.style.background=c[1];
     b.onclick=()=>c[0]===target[0]?(closeMini(),finish(n,t)):fail(n,'Wrong color. [E]');st.appendChild(b);});}
 
-function miniCount(n,t){const icons=['&#128196;','&#9749;','&#128396;','&#128190;'];const idx=Math.floor(Math.random()*4);
+function miniCount(n,t){const icons=['&#128196;','&#9749;','&#128396;','&#128190;'];const labels=['docs','coffees','pens','disks'];
+  // a task can pin the subject: {type:'count', subject:'coffees today'} -> counts coffee cups
+  let idx=Math.floor(Math.random()*4);
+  if(t.subject){const key=t.subject.toLowerCase();const hit=labels.findIndex(l=>key.includes(l.replace(/s$/,'')));if(hit>=0)idx=hit;}
   const ic=icons[idx];const count=3+Math.floor(Math.random()*6);
-  const st=openMini('COUNT','How many '+['docs','coffees','pens','disks'][idx]+'? Type it, Enter.');
+  const label=t.subject||labels[idx];
+  const st=openMini('COUNT','How many '+label+'? Type it, Enter.');
   const box=document.createElement('div');box.style.cssText='display:flex;flex-wrap:wrap;gap:6px;max-width:300px;font-size:20px;justify-content:center';
   const total=count+2+Math.floor(Math.random()*4);const arr=[];for(let i=0;i<count;i++)arr.push(ic);
   while(arr.length<total)arr.push(icons[(idx+1+Math.floor(Math.random()*3))%4]);
@@ -1314,20 +1318,33 @@ function miniCalendar(n,t){const st=openMini('SCHEDULE','Click a meeting, then c
     b.onclick=()=>{document.querySelectorAll('.nmMeetBlk').forEach(x=>x.classList.remove('lit'));b.classList.add('lit');sel=b;};});}
 
 /* 3. PARK — steer the car into the marked bay with arrow keys, don't hit walls */
-function miniPark(n,t){const st=openMini('PARK','Arrows to drive, land fully inside the bay, then SPACE. Do not hit walls.',true);
-  st.innerHTML='<div id="nmLot" class="nmLot"><div id="nmBay" class="nmBay"></div><div id="nmObs" class="nmObs"></div><div id="nmCar" class="nmCar">🚗</div></div>';
-  const lot=document.getElementById('nmLot'),bay=document.getElementById('nmBay'),car=document.getElementById('nmCar'),obs=document.getElementById('nmObs');
-  const W=300,H=170;bay.style.left=(W-60)+'px';bay.style.top=(Math.random()*(H-60))+'px';
-  obs.style.left='150px';obs.style.top='0px';let x=8,y=H/2-16,done=false;
+function miniPark(n,t){const st=openMini('PARK','Arrows to drive. Land fully inside the tight bay, then SPACE. Two pillars — one MOVES.',true);
+  st.innerHTML='<div id="nmLot" class="nmLot" style="position:relative"><div id="nmBay" class="nmBay"></div><div id="nmObs" class="nmObs"></div><div id="nmObs2" class="nmObs" style="background:#7a4a2a"></div><div id="nmCar" class="nmCar">🚗</div></div>';
+  const lot=document.getElementById('nmLot'),bay=document.getElementById('nmBay'),car=document.getElementById('nmCar'),obs=document.getElementById('nmObs'),obs2=document.getElementById('nmObs2');
+  const W=300,H=170,CAR=32;
+  // tighter bay: only ~8px of total slack around a 32px car
+  bay.style.width='40px';bay.style.height='40px';bay.style.left=(W-46)+'px';bay.style.top=(6+Math.random()*(H-52))+'px';
+  // static pillar mid-lane
+  obs.style.left='120px';obs.style.top='0px';obs.style.height='70px';
+  // moving pillar sliding vertically across the second choke point
+  obs2.style.left='200px';obs2.style.width='22px';obs2.style.height='34px';
+  let oy=0,odir=1;
+  let x=8,y=H/2-16,done=false;
   const place=()=>{car.style.left=x+'px';car.style.top=y+'px';};place();
-  setKey(e=>{if(done)return;const s=10;if(e.key==='ArrowUp')y-=s;else if(e.key==='ArrowDown')y+=s;else if(e.key==='ArrowLeft')x-=s;else if(e.key==='ArrowRight')x+=s;
+  const hit=(a,b)=>a.left<b.right&&a.right>b.left&&a.top<b.bottom&&a.bottom>b.top;
+  // animate the moving pillar and check continuous collision with it
+  const anim=setInterval(()=>{if(done)return;oy+=odir*2.6;if(oy>H-34||oy<0)odir*=-1;obs2.style.top=oy+'px';
+    const cr=car.getBoundingClientRect(),o2=obs2.getBoundingClientRect();
+    if(hit(cr,o2)){done=true;clearInterval(anim);stopT();fail(n,'Moving pillar clipped you! [E]');}},30);
+  setKey(e=>{if(done)return;const s=8;if(e.key==='ArrowUp')y-=s;else if(e.key==='ArrowDown')y+=s;else if(e.key==='ArrowLeft')x-=s;else if(e.key==='ArrowRight')x+=s;
     else if(e.key===' '){e.preventDefault();const br=bay.getBoundingClientRect(),cr=car.getBoundingClientRect();
-      if(cr.left>=br.left-4&&cr.right<=br.right+4&&cr.top>=br.top-4&&cr.bottom<=br.bottom+4){done=true;stopT();miniWin(n,t);}
-      else fail(n,'Not in the bay yet. [E]');return;}
-    else return;e.preventDefault();x=Math.max(0,Math.min(W-32,x));y=Math.max(0,Math.min(H-32,y));place();
+      // tolerance tightened from 4px to 3px on every edge
+      if(cr.left>=br.left-3&&cr.right<=br.right+3&&cr.top>=br.top-3&&cr.bottom<=br.bottom+3){done=true;clearInterval(anim);stopT();miniWin(n,t);}
+      else fail(n,'Not squarely in the bay. [E]');return;}
+    else return;e.preventDefault();x=Math.max(0,Math.min(W-CAR,x));y=Math.max(0,Math.min(H-CAR,y));place();
     const cr=car.getBoundingClientRect(),or=obs.getBoundingClientRect();
-    if(cr.left<or.right&&cr.right>or.left&&cr.top<or.bottom&&cr.bottom>or.top){done=true;stopT();fail(n,'Scraped the pillar! [E]');}});
-  const stopT=countdown(20,()=>{if(!done){done=true;fail(n,'Too slow, blocked the lane. [E]');}});}
+    if(hit(cr,or)){done=true;clearInterval(anim);stopT();fail(n,'Scraped the pillar! [E]');}});
+  const stopT=countdown(15,()=>{if(!done){done=true;clearInterval(anim);fail(n,'Too slow, blocked the lane. [E]');}});}
 
 /* 4. QRALIGN — move the reticle over the code and hold steady to lock */
 function miniQR(n,t){const st=openMini('SCAN','Arrows to move the scanner over the code. Hold it centered to lock.',true);
@@ -1467,18 +1484,33 @@ function miniGauge(n,t){const st=openMini('FILL IT',t.hint||'Hold SPACE to fill.
     (v>=zx&&v<=zx+zw)?(closeMini(),finish(n,t)):fail(n,'Off by a bit — stopped at '+Math.round(v)+'%. [E]');}});}
 
 // BARCODE: drag the scanner across the strip at a steady, correct speed
-function miniBarcode(n,t){const st=openMini('SCAN',t.hint||'Drag the scanner across the barcode — not too fast, not too slow.');
-  st.innerHTML='<div style="width:100%;max-width:340px"><div id="bcTrack" style="position:relative;height:54px;background:repeating-linear-gradient(90deg,#2a2015 0 3px,#e8dfc5 3px 7px);border:3px solid var(--wood2);border-radius:8px"></div>'+
-    '<div id="bcHandle" style="position:absolute;top:-6px;left:-6px;width:34px;height:66px;background:var(--accent);border-radius:6px;border:2px solid var(--wood2);cursor:grab;display:flex;align-items:center;justify-content:center;font-size:16px">📷</div></div>';
-  const track=document.getElementById('bcTrack'),handle=document.getElementById('bcHandle');
-  track.style.position='relative';let done=false,startT=0,startX=0;
-  handle.onpointerdown=e=>{if(done)return;e.preventDefault();handle.setPointerCapture(e.pointerId);startT=Date.now();
-    const r=track.getBoundingClientRect();startX=r.left;
-    const mv=ev=>{if(done)return;const x=Math.max(0,Math.min(r.width-20,ev.clientX-startX-14));handle.style.left=x+'px';
-      if(x>=r.width-24){finishScan();}};
-    const up=()=>{handle.removeEventListener('pointermove',mv);handle.removeEventListener('pointerup',up);};
-    handle.addEventListener('pointermove',mv);handle.addEventListener('pointerup',up);
-    function finishScan(){if(done)return;done=true;handle.removeEventListener('pointermove',mv);
+function miniBarcode(n,t){const st=openMini('SCAN',t.hint||'Drag the scanner across the barcode — steady pace, not too fast, not too slow.');
+  // realistic barcode: varied-width dark bars on a label, a scan gun with a red laser line, and a live pace meter
+  const bars=Array.from({length:34},()=>1+Math.floor(Math.random()*3));
+  let grad='',pos=0;bars.forEach(w=>{const dark=pos;pos+=w;const light=pos;pos+=1;grad+=`#181410 ${dark*3}px ${light*3}px,#f4ecd6 ${light*3}px ${(pos)*3}px,`;});
+  st.innerHTML='<div style="width:100%;max-width:340px">'+
+    '<div id="bcLabel" style="position:relative;height:74px;background:#f4ecd6;border:3px solid var(--wood2);border-radius:8px;overflow:hidden;box-shadow:inset 0 0 0 2px #fff">'+
+      '<div style="position:absolute;left:10px;right:10px;top:8px;height:44px;background:linear-gradient(90deg,'+grad+'#f4ecd6)"></div>'+
+      '<div style="position:absolute;left:10px;bottom:5px;font:10px monospace;letter-spacing:3px;color:#2a2015">4 019283 55710</div>'+
+      '<div id="bcLaser" style="position:absolute;top:0;bottom:0;width:2px;left:6px;background:#ff2d2d;box-shadow:0 0 8px 2px rgba(255,45,45,.7);opacity:0"></div>'+
+      '<div id="bcGun" style="position:absolute;top:-14px;left:-10px;width:40px;height:30px;background:linear-gradient(#3a3f45,#23262b);border-radius:6px 6px 3px 3px;border:2px solid #14161a;cursor:grab;display:flex;align-items:flex-end;justify-content:center;font-size:9px;color:#9fb4c0">SCAN</div>'+
+    '</div>'+
+    '<div style="margin-top:10px;height:12px;border-radius:6px;background:linear-gradient(90deg,#c0392b 0 26%,#2e7d46 26% 64%,#c0392b 64% 100%);position:relative;border:2px solid var(--wood2)">'+
+      '<div id="bcPace" style="position:absolute;top:-5px;width:4px;height:18px;background:#111;border-radius:2px;left:0"></div></div>'+
+    '<div style="display:flex;justify-content:space-between;font:9px monospace;color:var(--wood);margin-top:2px"><span>too fast</span><span>steady</span><span>too slow</span></div>'+
+  '</div>';
+  const label=document.getElementById('bcLabel'),gun=document.getElementById('bcGun'),laser=document.getElementById('bcLaser'),pace=document.getElementById('bcPace');
+  let done=false,startT=0,lastX=0,lastT=0;
+  gun.onpointerdown=e=>{if(done)return;e.preventDefault();gun.setPointerCapture(e.pointerId);gun.style.cursor='grabbing';
+    startT=Date.now();lastT=startT;const r=label.getBoundingClientRect();lastX=e.clientX;laser.style.opacity=1;
+    const mv=ev=>{if(done)return;const x=Math.max(0,Math.min(r.width-30,ev.clientX-r.left-14));gun.style.left=x+'px';laser.style.left=(x+18)+'px';
+      // live pace meter: map instantaneous speed to the 0-100% strip
+      const now=Date.now(),dt=Math.max(1,now-lastT),dx=Math.abs(ev.clientX-lastX);const spd=dx/dt;lastX=ev.clientX;lastT=now;
+      const frac=Math.max(0,Math.min(1,spd/2.2));pace.style.left=(frac*100)+'%';
+      if(x>=r.width-34)finishScan();};
+    const up=()=>{gun.removeEventListener('pointermove',mv);gun.removeEventListener('pointerup',up);gun.style.cursor='grab';laser.style.opacity=0;};
+    gun.addEventListener('pointermove',mv);gun.addEventListener('pointerup',up);
+    function finishScan(){if(done)return;done=true;gun.removeEventListener('pointermove',mv);
       const elapsed=Date.now()-startT;
       (elapsed>=500&&elapsed<=1600)?miniWin(n,t):fail(n,elapsed<500?'Too fast — blurred scan. [E]':'Too slow — timed out. [E]');}
   };}
@@ -1884,6 +1916,23 @@ function miniFrequency(n,t){const target=t.target||(88+Math.floor(Math.random()*
   document.getElementById('fPp').onclick=()=>{if(done)return;freq=Math.min(108,freq+5);upd();};
   document.getElementById('fTune').onclick=()=>{if(done)return;done=true;freq===target?miniWin(n,t):fail(n,'Tuned to '+freq+' not '+target+'. [E]');};}
 
+/* HANDOVER — click the car-handover steps in the correct order. Wrong step = reset that pick.
+   Task may override the ordered steps via t.steps:['Step1','Step2',...] (correct sequence). */
+function miniHandover(n,t){
+  const correct=t.steps||['Greet the client','Verify their ID & paperwork','Walk them around the car','Explain the key features','Hand over the keys','Wave them off'];
+  const st=openMini('HANDOVER',t.hint||'Do the handover IN ORDER. Click each step at the right time.');
+  st.innerHTML='<div style="width:100%;max-width:340px">'+
+    '<div id="hoProg" style="display:flex;gap:4px;margin-bottom:10px">'+correct.map(()=>'<div style="flex:1;height:6px;border-radius:3px;background:#d9bd8a"></div>').join('')+'</div>'+
+    '<div id="hoBtns" style="display:flex;flex-direction:column;gap:6px"></div>'+
+    '<div id="hoMsg" style="text-align:center;font:11px monospace;color:var(--wood);margin-top:8px;min-height:14px"></div></div>';
+  const btns=document.getElementById('hoBtns'),prog=document.getElementById('hoProg').children,msg=document.getElementById('hoMsg');
+  let step=0,done=false;
+  shuffle(correct).forEach(label=>{const b=document.createElement('button');b.className='btn ghost';b.style.textAlign='left';b.textContent=label;btns.appendChild(b);
+    b.onclick=()=>{if(done)return;
+      if(label===correct[step]){b.disabled=true;b.style.opacity=.4;b.classList.add('done');prog[step].style.background='var(--green)';step++;msg.textContent='';
+        if(step>=correct.length){done=true;miniWin(n,t);}}
+      else{msg.textContent='Not yet — do the earlier steps first.';b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),300);}};});}
+
 
 function endGame(win,reason){state='end';clearInterval(timerId);
   document.getElementById('end').style.display='flex';
@@ -1997,20 +2046,42 @@ function drawDecor(x,y,t){
 function drawItems(){const spots=activeItemSpots();
   for(const k in spots){const s=spots[k];if(!s)continue;
     const px=s.x*TS+TS/2,py=s.y*TS+TS/2,b=Math.sin(Date.now()/300)*3;
-    ctx.fillStyle='rgba(232,185,60,.25)';ctx.beginPath();ctx.arc(px,py+2,15,0,7);ctx.fill();
-    ctx.save();ctx.translate(px,py+b);
-    if(s.icon==='doc'){ctx.fillStyle='#f4ead2';ctx.fillRect(-6,-8,12,15);ctx.fillStyle='#8a6a3a';
-      ctx.fillRect(-4,-5,8,2);ctx.fillRect(-4,-1,8,2);ctx.fillRect(-4,3,5,2);}
-    else if(s.icon==='cig'){ctx.fillStyle='#f4f4f4';ctx.fillRect(-9,-3,14,6);ctx.fillStyle='#e8a03c';ctx.fillRect(5,-3,4,6);}
-    else if(s.icon==='vape'){ctx.fillStyle='#3a3a44';ctx.fillRect(-4,-10,8,20);ctx.fillStyle='#7ec8e8';ctx.fillRect(-2,-7,4,5);}
-    else if(s.icon==='rtr'){ctx.fillStyle='#2a2a34';ctx.fillRect(-10,-4,20,10);ctx.fillStyle='#5aa848';ctx.fillRect(-6,-1,3,3);
+    // soft glow pad under the item
+    ctx.save();ctx.translate(px,py);
+    const g=ctx.createRadialGradient(0,4,2,0,4,18);g.addColorStop(0,'rgba(232,185,60,.45)');g.addColorStop(1,'rgba(232,185,60,0)');
+    ctx.fillStyle=g;ctx.beginPath();ctx.ellipse(0,4,18,9,0,0,7);ctx.fill();ctx.restore();
+    ctx.save();ctx.translate(px,py+b);ctx.lineJoin='round';
+    const OL=(x,y,w,h)=>{ctx.strokeStyle='rgba(40,30,18,.55)';ctx.lineWidth=1;ctx.strokeRect(x,y,w,h);};
+    if(s.icon==='doc'){ // papers — a small fanned stack
+      ctx.fillStyle='#d9cfae';ctx.fillRect(-7,-7,13,16);ctx.fillStyle='#f6efdb';ctx.fillRect(-6,-9,13,16);OL(-6,-9,13,16);
+      ctx.fillStyle='#8a6a3a';ctx.fillRect(-3,-6,8,1.6);ctx.fillRect(-3,-2,8,1.6);ctx.fillRect(-3,2,5,1.6);}
+    else if(s.icon==='inv'){ // invoice — paper with a red stamp + $ column
+      ctx.fillStyle='#f6efdb';ctx.fillRect(-6,-9,13,17);OL(-6,-9,13,17);
+      ctx.fillStyle='#7a5a30';ctx.fillRect(-4,-6,9,1.4);ctx.fillRect(-4,-3,9,1.4);ctx.fillRect(-4,0,6,1.4);
+      ctx.fillStyle='#2e7d46';ctx.font='bold 6px monospace';ctx.textAlign='left';ctx.fillText('$',-4,7);
+      ctx.strokeStyle='#c0392b';ctx.lineWidth=1.4;ctx.beginPath();ctx.arc(3,4,3.2,0,7);ctx.stroke();}
+    else if(s.icon==='cig'){ // cigarette pack + one stick out
+      ctx.fillStyle='#e8ecef';ctx.fillRect(-8,-2,13,10);OL(-8,-2,13,10);
+      ctx.fillStyle='#c0392b';ctx.fillRect(-8,-2,13,3);
+      ctx.fillStyle='#f7f4ee';ctx.fillRect(2,-8,3,7);ctx.fillStyle='#e8a03c';ctx.fillRect(2,-8,3,2);}
+    else if(s.icon==='vape'){ // sleek vape pen with lit tip + vapor
+      ctx.fillStyle='#2b2b36';ctx.fillRect(-3,-9,7,18);OL(-3,-9,7,18);
+      ctx.fillStyle='#7ec8e8';ctx.fillRect(-1.5,-6,4,5);
+      ctx.fillStyle='#e86b4a';ctx.fillRect(-1.5,-9,4,1.6);
+      ctx.fillStyle='rgba(220,235,245,.5)';ctx.beginPath();ctx.arc(0.5,-12,2,0,7);ctx.arc(2,-14,1.4,0,7);ctx.fill();}
+    else if(s.icon==='ltr'){ // lighter with a flame
+      ctx.fillStyle='#c0392b';ctx.fillRect(-4,-4,9,13);OL(-4,-4,9,13);
+      ctx.fillStyle='#9aa0a6';ctx.fillRect(-3,-7,7,3);
+      ctx.fillStyle='#f5a623';ctx.beginPath();ctx.moveTo(0.5,-8);ctx.quadraticCurveTo(3,-11,0.5,-14);ctx.quadraticCurveTo(-2,-11,0.5,-8);ctx.fill();
+      ctx.fillStyle='#e86b4a';ctx.beginPath();ctx.moveTo(0.5,-9);ctx.quadraticCurveTo(1.6,-11,0.5,-12.5);ctx.quadraticCurveTo(-0.6,-11,0.5,-9);ctx.fill();}
+    else if(s.icon==='rtr'){ctx.fillStyle='#2a2a34';ctx.fillRect(-10,-4,20,10);OL(-10,-4,20,10);ctx.fillStyle='#5aa848';ctx.fillRect(-6,-1,3,3);
       ctx.fillStyle='#555';ctx.fillRect(-8,-10,2,7);ctx.fillRect(6,-10,2,7);}
-    else if(s.icon==='cup'){ctx.fillStyle='#f4ead2';ctx.fillRect(-6,-6,12,12);ctx.fillStyle='#6b431f';ctx.fillRect(-4,-4,8,8);}
-    else if(s.icon==='ltr'){ctx.fillStyle='#c94f4f';ctx.fillRect(-4,-7,8,14);ctx.fillStyle='#e8b93c';ctx.fillRect(-3,-10,6,4);}
-    else if(s.icon==='lap'){ctx.fillStyle='#3a3a44';ctx.fillRect(-9,-6,18,12);ctx.fillStyle='#7ec8e8';ctx.fillRect(-7,-4,14,8);}
+    else if(s.icon==='cup'){ctx.fillStyle='#f4ead2';ctx.fillRect(-6,-6,12,12);OL(-6,-6,12,12);ctx.fillStyle='#6b431f';ctx.fillRect(-4,-4,8,8);}
+    else if(s.icon==='lap'){ctx.fillStyle='#3a3a44';ctx.fillRect(-9,-6,18,12);OL(-9,-6,18,12);ctx.fillStyle='#7ec8e8';ctx.fillRect(-7,-4,14,8);}
     ctx.restore();
-    ctx.fillStyle='#5a3517';ctx.font='bold 9px monospace';ctx.textAlign='center';
-    ctx.fillText(k,px,py-16);}}
+    ctx.textAlign='center';ctx.font='bold 9px monospace';
+    ctx.lineWidth=3;ctx.strokeStyle='rgba(245,240,224,.9)';ctx.strokeText(k,px,py-16);
+    ctx.fillStyle='#5a3517';ctx.fillText(k,px,py-16);}}
 
 function drawNameTag(px,py,name,done){
   if(done!==null){ // quest marker only, no name box

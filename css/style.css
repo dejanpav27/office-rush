@@ -267,3 +267,12 @@
   .char .d{color:#7a5b34;font-size:11px;margin-top:4px;line-height:1.4}
   .controls{margin-top:20px;color:#c9a86b;font-size:12px}
   kbd{background:var(--paper);border:2px solid var(--wood2);border-radius:4px;padding:2px 7px;font-size:11px;margin:0 2px;color:var(--inkbrown);font-weight:bold}
+
+/* ── HANDOVER minigame: wrong-step shake + done state ── */
+@keyframes shk{
+  0%,100%{transform:translateX(0)}
+  25%{transform:translateX(-4px)}
+  75%{transform:translateX(4px)}
+}
+.shake{animation:shk .3s}
+.done{text-decoration:line-through}
