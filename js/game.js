@@ -87,6 +87,13 @@ const POOLS={
    {type:'circuit',ask:"Server rack lost power. Re-route the wire tiles so it boots.",reward:'"Green lights. Gromix lives again."'},
    {type:'wire',pairs:[['HDMI','Projector'],['Ethernet','Router'],['Power','Wall socket']],hint:'Match each cable to the right port before the client demo.',ask:"Client demo in 2 minutes and nothing's plugged in right. Fix it.",reward:'"Screen\'s up. Cutting it close, but up."'},
    {type:'cartridge',hint:'Click each cartridge to cycle its color, match the label, then lock in.',ask:"Printer's out of ink and I need three colors right now. Load them right.",reward:'"Printing again. You just saved my afternoon."'},
+   {type:'typewriter',word:'DEPLOY',ask:"Server's waiting. Type the deploy command letter by letter before the timeout.",reward:'"Green light. You type fast for a smoker."'},
+   {type:'cableroute',ask:"Server rack is down. Route the power cable from source to the switch — no diagonal.",reward:'"Power restored. I owe you a coffee. Maybe."'},
+   {type:'voltage',ask:"Three servers need constant power — keep all rails in green while the deploy runs.",reward:'"Stable the whole time. Respect."'},
+   {type:'wordsearch',words:['CODE','BUG','LOG'],ask:"Find the three keywords buried in the error log grid.",reward:'"All found. You have the eyes of a grep command."'},
+   {type:'toggle',hint:'Set switches to match the target server config.',ask:"Set the server flags to match the prod config — every switch matters.",reward:'"Flags match. Zero downtime. Legendary."'},
+   {type:'binary',val:13,ask:"Convert server port 13 to binary — flip the right bulbs.",reward:'"Binary correct. You could work at NASA."'},
+   {type:'mirror',word:'DEBUG',ask:"Terminal flipped on me — mirror mode. Type DEBUG normally to fix it.",reward:'"Fixed. Mirror mode, classic Dejan problem."'}
  ]},
  teonem:{desc:'Sales, always "out in town"',home:{x:10,y:9},pool:[
    {type:'deliver',item:'contract',itemLabel:'contract',to:'nino',ask:"Running into town (work!). Take this contract to Nino.",reward:'"Legend. I never left, clear?" *left*'},
@@ -110,6 +117,13 @@ const POOLS={
    {type:'calendar',ask:"Book me three demos this week — no clashes, I'm 'in town' a lot.",reward:'"Slotted clean. I close from anywhere."'},
    {type:'maze',ask:"Move this car to the showroom floor for me — don't scuff anything on the way.",reward:'"Parked pretty. Client\'s gonna love it."'},
    {type:'choose',q:'Client is picking up the car — what do you say?',opts:[{t:'Walk them through every feature, unhurried',ok:true},{t:'Toss the keys and wave',ok:false},{t:'Ask if they want the extended warranty five times',ok:false}],ask:"Handover time. Client's here for the car — do it right.",reward:'"Perfect handover. That\'s a referral right there."'},
+   {type:'flowchart',tree:{q:'Client says too expensive?',yes:{q:'Offer a smaller package?',yes:{end:true,win:true},no:{end:true,win:false}},no:{q:'Close now?',yes:{end:true,win:true},no:{end:true,win:false}}},hint:'Follow the sales decision tree.',ask:"Walk the decision tree — what do I do with this client right now?",reward:'"Textbook close. Beautiful."'},
+   {type:'inbox',emails:[{from:'Hot lead',sub:'Ready to sign contract',type:'urgent'},{from:'promo@deals.biz',sub:'Double commission offer!!!',type:'spam'},{from:'Teonem',sub:'Follow-up with Zagreb client',type:'urgent'},{from:'newsletter@crm.io',sub:'CRM tips weekly digest',type:'safe'},{from:'unknown@fishy.net',sub:'Your account suspended',type:'spam'}],ask:"Clear my inbox before the client meeting — flag urgent, archive safe, delete spam.",reward:'"Inbox zero. Teonem is unstoppable."'},
+   {type:'conveyor',target:'\uD83D\uDCCB',fakes:['\uD83D\uDCE7','\uD83D\uDCC1','\uD83D\uDCF1'],ask:"Contracts rolling in on the belt — grab the clipboards, ignore everything else.",reward:'"All contracts caught. Efficiency is beautiful."'},
+   {type:'triage',cards:[{label:'Client ready to sign',bucket:'urgent'},{label:'Cold lead newsletter',bucket:'archive'},{label:'Follow-up in a week',bucket:'normal'},{label:'Demo request today',bucket:'urgent'},{label:'Unsubscribed prospect',bucket:'archive'}],ask:"Triage my sales pipeline — urgent, normal, or archive each one.",reward:'"Perfect sort. That is a clean pipeline."'},
+   {type:'frequency',target:101,hint:'Tune the radio for the client drive — exactly 101.0 FM.',ask:"Set the car radio to 101.0 before the client gets in. Nothing worse than static.",reward:'"101.0. Smooth. Client is already impressed."'},
+   {type:'approvalchain',chain:['Sales Rep','Team Lead','Sales Director','CEO'],hint:'Who approves a large deal, step by step?',ask:"Big deal needs sign-off up the chain — click each approver in the right order.",reward:'"Approved at every level. Deal\'s done."'},
+   {type:'slot',target:[2,2,2],hint:'Stop all three reels on the checkmark.',ask:"Three clients all say yes at once — stop the reels on the triple win!",reward:'"Triple close. I can\'t even explain this."'}
  ]},
  steve:{desc:'Beard, vape, sells in Croatia',home:{x:4,y:2},pool:[
    {type:'fetch',item:'vape',itemLabel:'vape',ask:"Left my vape by the entrance. No fog, no deals.",reward:'*huge cloud* "Now we do business."'},
@@ -133,6 +147,10 @@ const POOLS={
    {type:'patchline',pairs:[['Golf GTI','ZG-341-KL'],['Passat','ZG-852-MN'],['Octavia','ZG-119-RT']],hint:'Drag a line from each car to its plate.',ask:"Match each car on the lot to its actual plate. Zagreb inventory's a mess.",reward:'*vapor* "All matched. Inventory\'s clean."'},
    {type:'crack',ask:"Which car is the client asking about? I'll say warmer or colder on the stock number.",reward:'*vapor* "That\'s the one. Good guess, chief."'},
    {type:'barcode',ask:"Parts shipment just came in from Zagreb — scan it in. Steady hand, not too fast.",reward:'*vapor* "Logged. Croatia never disappoints."'},
+   {type:'redact',sentences:['Client name: Marko Horvat signed today','Contact: +385 91 555 0192','Bank: IBAN HR1234567890123456'],sensitive:['Marko Horvat','+385 91 555 0192','HR1234567890123456'],ask:"Redact the client data before sending this to the wrong department. *vapor*",reward:'*vapor* "Clean send. Privacy intact."'},
+   {type:'hotkey',items:[{k:'S',l:'Save'},{k:'P',l:'Print'},{k:'E',l:'Export'},{k:'C',l:'Close'}],target:'P',ask:"Print the contract — keyboard only, no mouse. That is how pros do it.",reward:'*vapor* "Printed. Respect."'},
+   {type:'cipher',shift:3,raw:'INVOICE',ask:"Client sent an encoded message — shift 3 letters to decode. Which shift is it?",reward:'*vapor* "Decoded. Classic Caesar. Old school."'},
+   {type:'contract',fields:['Supplier signature','Date','Reference number'],ask:"Supplier contract came in — scroll through and sign every field before it expires.",reward:'*vapor* "All signed. Deal\'s locked."'}
  ]},
  brana:{desc:'Watches everyone (secretly)',home:{x:3,y:9},pool:[
    {type:'fetch',item:'logsheet',itemLabel:'attendance log',ask:"Bring that sheet by the entrance. I do not track people... just get it.",reward:'*hides it* "I did not ask for this. But I did."'},
@@ -157,6 +175,13 @@ const POOLS={
    {type:'switchboard',opts:['Dejan (IT)','Sonja (Payroll)','Reception'],correctIdx:0,ask:"Phone's ringing. I know exactly who needs this, obviously — do you?",reward:'"Correct. I was testing you."'},
    {type:'priority',cards:[{l:'Get everyone to the exit',p:1},{l:'Call the fire department',p:2},{l:'Grab the visitor log',p:3},{l:'Lock your desk',p:4}],hint:'Drill\'s starting. What matters first?',ask:"Fire drill. I've mentally rehearsed this daily — what happens first?",reward:'"Correct. I would know."'},
    {type:'crack',ask:"This visitor badge doesn't look right to me. Higher or lower — guess the real badge number.",reward:'"Fake. I knew it. I know everything."'},
+   {type:'typewriter',word:'WATCHING',ask:"Type what I\'m always doing — letter by letter before they fall.",reward:'"Correct. Though I prefer to deny it."'},
+   {type:'crossword',clues:[{hint:'Late = this color on the sheet',ans:'RED'},{hint:'On time = this',ans:'GREEN'},{hint:'What I keep on everyone',ans:'NOTES'}],ask:"Fill in my attendance crossword. I may have prepared this.",reward:'"All correct. I always knew you were paying attention."'},
+   {type:'wordsearch',words:['LATE','WATCH','NOTE'],ask:"Find the surveillance keywords I definitely do not track. In this grid. Allegedly.",reward:'"Found them all. I had nothing to do with it."'},
+   {type:'triage',cards:[{label:'Someone arrived late',bucket:'urgent'},{label:'Birthday card signing',bucket:'normal'},{label:'Old meeting notes',bucket:'archive'},{label:'Attendance discrepancy',bucket:'urgent'},{label:'Lunch order spam',bucket:'archive'}],ask:"Triage these office incidents. I have a system. I always have a system.",reward:'"Exactly my order. We are aligned."'},
+   {type:'approvalchain',chain:['Employee','HR','Manager','Brana'],hint:'Absence form goes up the chain. Who signs last?',ask:"Someone filed an absence form. Route it up the chain in the right order.",reward:'"Filed. Chronologically. Immaculately."'},
+   {type:'voicemail',pool:['Tuesday','Thursday','Friday','Monday','Wednesday'],ask:"Someone left a day-by-day voicemail — remember and type back only the LAST day mentioned.",reward:'"Correct. I already knew, but I tested you."'},
+   {type:'binary',val:7,ask:"Access code for the archive room is 7 in binary. Set the light panel correctly.",reward:'"Correct pattern. The archive is yours. Briefly."'}
  ]},
  sonja:{desc:'Quiet, runs payroll',home:{x:4,y:11},pool:[
    {type:'deliver',item:'router',itemLabel:'the router',to:'nino',ask:"Payroll needs internet. Give the router to Nino to reset.",reward:'barely audible: "...thank you."'},
@@ -179,6 +204,13 @@ const POOLS={
    {type:'cash',ask:"Count the petty-cash drawer to the exact figure. Quietly.",reward:'"...balances to the cent. Perfect."'},
    {type:'choose',q:'Payroll hotline is ringing — pick the professional reply.',opts:[{t:'"Payroll, this is Sonja, how can I help?"',ok:true},{t:'"What."',ok:false},{t:'"Call back later, obviously."',ok:false}],ask:"Phone won't stop ringing. Answer it properly, please.",reward:'"...good. Professional. Quietly proud."'},
    {type:'memory',ask:"Remember the voicemail number, then play it back for me. Quietly.",reward:'"...correct. Not one digit off."'},
+   {type:'budgetslider',targets:[40,35,25],labels:['Salaries','Operations','Reserves'],ask:"Set the budget split to the agreed percentages. Exactly.",reward:'"...precise. That\'s the word."'},
+   {type:'redact',sentences:['Salary: EUR 2850 gross for Teonem','Bonus: EUR 400 approved by Nino','Account: HR9876543210987654'],sensitive:['EUR 2850','EUR 400','HR9876543210987654'],ask:"This payslip must not leave with numbers visible. Redact.",reward:'"...thank you. Quietly."'},
+   {type:'rotary',combo:[20,50,80],hint:'Spin to each number and press SET.',ask:"Spin the petty cash safe combination. Slowly. Exactly.",reward:'"...correct. Every cent accounted for."'},
+   {type:'contract',fields:['Employee signature','HR signature','Effective date'],ask:"New hire contract needs every field signed before their start date. Scroll and sign.",reward:'"...filed. Quietly."'},
+   {type:'toggle',hint:'Toggle only the approved bonus items — match HR guidelines.',ask:"Bonus eligibility flags need to match the policy doc — toggle them correctly.",reward:'"...matches policy. Precisely."'},
+   {type:'voicemail',pool:['invoice','payment','transfer','balance','receipt'],ask:"Accounting voicemail had five terms — type back the last one you heard.",reward:'"...correct. Every word matters."'},
+   {type:'frequency',target:97,hint:'Tune to 97 FM for the payroll compliance broadcast.',ask:"Tune the office radio to 97.0 — compliance update is broadcasting now.",reward:'"...97.0. On time. Always."'}
  ]},
  pedja:{desc:'Ex-waiter, 2m tall, rookie',home:{x:4,y:3},pool:[
    {type:'timing',ask:"Holding a glass on the top shelf — say NOW at the right moment.",reward:'*hops down* "No tip, but we are good."'},
@@ -204,6 +236,13 @@ const POOLS={
    {type:'checklist',items:['Tires','Fuel','Lights','Mirrors','Paperwork'],ask:"Delivery vehicle needs the full check before it leaves. Every item, fast.",reward:'"All checked. Ready to roll."'},
    {type:'gauge',ask:"Fill the tank for delivery — don't overshoot, don't undershoot.",reward:'"Tank\'s full. Didn\'t spill a drop, this time."'},
    {type:'count',ask:"Count what's missing from the supply shelf and restock exactly that much.",reward:'"Shelf\'s full again. Rookie delivers."'},
+   {type:'flowchart',tree:{q:'Table needs attention?',yes:{q:'Food or service issue?',yes:{end:true,win:true},no:{end:true,win:false}},no:{q:'Pre-clean next table?',yes:{end:true,win:true},no:{end:true,win:false}}},hint:'Follow the waiter decision tree.',ask:"Walk me through the waiter decision tree — test your instincts.",reward:'"Right call. Old habits."'},
+   {type:'hotkey',items:[{k:'T',l:'Tables'},{k:'K',l:'Kitchen'},{k:'M',l:'Manager'},{k:'B',l:'Bar'}],target:'K',ask:"Rush hour call — keyboard only. Where do I route this order?",reward:'"Kitchen gets it. No fumbling."'},
+   {type:'heatmap',zones:['Burger station','Drinks bar','Dessert shelf','Register'],hotIdx:0,hint:'Which station gets the most customer attention during lunch?',ask:"Check the lunch rush heatmap — which station has the most traffic right now?",reward:'"Burger station always. Never changes."'},
+   {type:'conveyor',target:'\uD83C\uDF7D',fakes:['\uD83E\uDDD2','\uD83E\uDDE2','\uD83D\uDCF1'],ask:"Plates coming off the kitchen belt fast — grab only the food plates, not the junk.",reward:'"Five plates, zero drops. Beautiful."'},
+   {type:'slot',target:[0,0,0],hint:'Stop all three reels on the money sign.',ask:"Triple tips day! Stop the reels on the jackpot — all three match.",reward:'"Jackpot shift. Best day ever."'},
+   {type:'pricetag',items:[{name:'House special',price:'€14'},{name:'Side salad',price:'€5'},{name:'Espresso',price:'€2'}],hint:'Drag each price to the right menu item.',ask:"New menu, new prices — drag each price tag to the right dish before service starts.",reward:'"Correct prices. Service ready."'},
+   {type:'whiteboard',pts:[[20,80],[80,30],[160,50],[220,110],[160,150]],ask:"Draw the delivery route on the whiteboard map — hit every stop in order.",reward:'"Route mapped. Efficient. Rookie instincts."'}
  ]},
  nina:{desc:"Boss's daughter, control freak",home:{x:13,y:9},pool:[
    {type:'simon',ask:"Do EXACTLY as I say, in order. Because I am always right. Repeat.",reward:'"See? Works when you listen to ME."'},
@@ -227,6 +266,13 @@ const POOLS={
    {type:'inspect',ask:"Inspect the returned vehicle — find every scratch. Miss nothing.",reward:'"Three flaws. I\'d have found a fourth. Good enough."'},
    {type:'arrange',items:[['🪑','chair'],['📽️','proj'],['💻','laptop']],hint:'Drag each item onto its marked spot. My way, exactly.',ask:"Set up the meeting room. Chair, projector, laptop — precisely where I want them.",reward:'"Perfect. Finally, someone who listens."'},
    {type:'pincode',ask:"Memorize the conference dial-in code. I will not repeat it. I already didn't.",reward:'"Correct. Obviously. I chose that code."'},
+   {type:'crossword',clues:[{hint:'Top of the org chart (name)',ans:'NINA'},{hint:'Runs payroll (name)',ans:'SONJA'},{hint:'Always out of office (name)',ans:'TEONEM'}],ask:"Fill in my org chart crossword. My way. Correctly.",reward:'"Correct. Obviously."'},
+   {type:'budgetslider',targets:[60,25,15],labels:['My projects','Team','Misc'],ask:"Set the project budget allocation. My priorities first. Obviously.",reward:'"Perfect percentages. Finally."'},
+   {type:'voltage',ask:"Running three approval processes simultaneously — keep all systems green until they finish.",reward:'"All approved. Simultaneously. Flawlessly."'},
+   {type:'heatmap',zones:['My desk','Meeting room','Coffee corner','Entrance'],hotIdx:0,hint:'Where is the most important activity in this office happening?',ask:"Office heatmap — identify where the most critical work happens. Obviously.",reward:'"My desk. Obviously. Good."'},
+   {type:'anagram',word:'REVIEW',ask:"Unscramble what I demand from everyone before anything ships.",reward:'"REVIEW. Yes. Obviously. Always."'},
+   {type:'mirror',word:'APPROVE',ask:"My screen flipped again. Type APPROVE normally — display is mirrored.",reward:'"Approved. Even in mirror mode I am in control."'},
+   {type:'pricetag',items:[{name:'Premium seat',price:'€200'},{name:'Standard seat',price:'€80'},{name:'Basic seat',price:'€40'}],hint:'Drag the price tags to the conference seats.',ask:"Conference room seating — drag the right price tag to each tier before clients arrive.",reward:'"Correct pricing. Premium goes to me, obviously."'}
  ]},
  daniel:{desc:'Designer, chill, big vibes',home:{x:4,y:5},pool:[
    {type:'choose',q:'Which design has the best vibe?',opts:[{t:'Clean & minimal',ok:true},{t:'5 fonts, 3 gradients',ok:false},{t:'Default bootstrap',ok:false}],ask:"Yo, which design has the best vibe? Just feel it. *smoke*",reward:'*thumbs up through haze* "Flawless vibe, respect."'},
@@ -251,6 +297,16 @@ const POOLS={
    {type:'stack',ask:"Pack these prints into the shipping box, man — stack it steady, don't crush the corners.",reward:'"Boxed clean. Art survives shipping."'},
    {type:'splice',pairs:[['Poster set A','Box 1'],['Poster set B','Box 2'],['Poster set C','Box 3']],hint:'Match each label to the right box.',ask:"Label these boxes right, man, or the wrong client gets the wrong art.",reward:'"All matched. Aesthetic AND logistics. Respect."'},
    {type:'proofread',ask:"One more typo hunt — the slide deck footer this time, man. Find it.",reward:'"Clean. Ship it before anyone notices there was one."'},
+   {type:'cableroute',ask:"Route the USB from my laptop to the projector — no crossing walls, man.",reward:'"Powered up. Design can begin."'},
+   {type:'typewriter',word:'VIBES',ask:"Type the most important concept in design — letter by letter, man.",reward:'"VIBES confirmed. You understand."'},
+   {type:'cipher',shift:2,raw:'DESIGN',ask:"Client encoded their brief. Shift 2 letters — which shift value cracks it?",reward:'"Decoded. Now I can feel the brief, man."'},
+   {type:'wordsearch',words:['HUE','VIBE','FONT'],ask:"Find the three design fundamentals in this letter grid, man.",reward:'"All found. Typography is everywhere if you look."'},
+   {type:'anagram',word:'CLIENT',ask:"Unscramble the most important word in my vocabulary, man.",reward:'"CLIENT. The whole reason we exist."'},
+   {type:'toggle',hint:'Toggle the right export switches — only PNG and SVG on.',ask:"Export settings got reset — toggle back to PNG and SVG only. Nothing else.",reward:'"Export clean. File system thanks you."'},
+   {type:'whiteboard',pts:[[30,40],[120,20],[200,80],[160,140],[80,130]],ask:"Sketch the design flow on the whiteboard — connect the dots in order.",reward:'"Flow is mapped. Beautiful process."'},
+   {type:'anagram',word:'CANVAS',ask:"Unscramble the word for my workspace. It\'s also an app I built.",reward:'"CANVAS. Obviously. Named it myself."'},
+   {type:'whiteboard',pts:[[30,30],[130,20],[220,70],[200,140],[100,150]],ask:"Storyboard the client presentation — connect the slides on the whiteboard in order.",reward:'"Flow is perfect. Client won\'t know what hit them."'},
+   {type:'binary',val:10,ask:"The client\'s revision count is 10 — flip the binary light panel to match.",reward:'"Ten revisions in binary. The client\'s lucky I\'m patient."'}
  ]},
 };
 
@@ -548,7 +604,7 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   oddeven:miniOddEven,target:miniTarget,reverse:miniReverse,moving:miniMoving,higherlower:miniHigherLower,
   gridmem:miniGridMem,stopwatch:miniStopwatch,maze:miniMaze,spy:miniSpy,priority:miniPriority,
   echo:miniEcho,splice:miniSplice,noise:miniNoise,budget:miniBudget,crack:miniCrack,jenga:miniJenga,
-  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode,dial:miniDial,switchboard:miniSwitchboard,rolodex:miniRolodex,rank:miniRank,cartridge:miniCartridge,patchline:miniPatchline})[t.type](n,t);}
+  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode,dial:miniDial,switchboard:miniSwitchboard,rolodex:miniRolodex,rank:miniRank,cartridge:miniCartridge,patchline:miniPatchline,typewriter:miniTypewriter,flowchart:miniFlowchart,redact:miniRedact,hotkey:miniHotkey,inbox:miniInbox,budgetslider:miniBudgetSlider,crossword:miniCrossword,cableroute:miniCableRoute,wordsearch:miniWordsearch,conveyor:miniConveyor,contract:miniContract,rotary:miniRotary,heatmap:miniHeatmap,triage:miniTriage,cipher:miniCipher,voltage:miniVoltage,toggle:miniToggle,anagram:miniAnagram,whiteboard:miniWhiteboard,slot:miniSlot,mirror:miniMirror,pricetag:miniPriceTag,binary:miniBinary,voicemail:miniVoicemail,approvalchain:miniApprovalChain,frequency:miniFrequency})[t.type](n,t);}
 
 function miniTiming(n,t){const st=openMini('TIMING','Press SPACE when the red line hits the green zone.');
   st.innerHTML='<div id="barWrap"><div id="barZone"></div><div id="barCursor"></div></div>';
@@ -1348,6 +1404,435 @@ function miniPatchline(n,t){const pairs=t.pairs||[['A','1'],['B','2'],['C','3']]
           if(matched>=pairs.length){done=true;setTimeout(()=>miniWin(n,t),200);}
         }else{svg.removeChild(line);if(rchip)fail(n,'Wrong connection. [E]');}
       };chip.addEventListener('pointermove',mv);chip.addEventListener('pointerup',up);};});}
+
+// TYPEWRITER: letters fall one by one, press the key for each before it hits the bottom
+function miniTypewriter(n,t){const word=t.word||'INVOICE';const st=openMini('TYPEWRITER','Press each key as it falls. Miss one = fail.',true);
+  st.innerHTML='<div id="twBox" style="position:relative;height:140px;overflow:hidden;width:100%;border-radius:8px;background:var(--paper2)"></div>'+
+    '<div id="twWord" class="typed" style="letter-spacing:6px;font-size:18px"></div>';
+  const box=document.getElementById('twBox'),wd=document.getElementById('twWord');
+  let idx=0,falling=null,y=0,done=false;
+  function nextLetter(){if(idx>=word.length){done=true;miniWin(n,t);return;}
+    falling=document.createElement('div');falling.textContent=word[idx];
+    falling.style.cssText='position:absolute;font-size:22px;font-weight:bold;top:-24px;left:'+(20+Math.random()*(box.clientWidth-40))+'px;color:var(--accent)';
+    box.appendChild(falling);y=-24;
+    const iv=setInterval(()=>{if(done)return;y+=3;falling.style.top=y+'px';
+      if(y>=box.clientHeight){clearInterval(iv);if(!done){done=true;fail(n,'Missed "'+word[idx]+'". [E]');}};},40);
+    falling._iv=iv;}
+  setKey(e=>{if(done||!falling)return;e.preventDefault();
+    if(e.key.toUpperCase()===word[idx]){clearInterval(falling._iv);falling.style.color='var(--green)';wd.textContent+='█';idx++;setTimeout(nextLetter,200);}
+    else{falling.style.color='var(--red)';done=true;fail(n,'Wrong key "'+e.key.toUpperCase()+'" — needed "'+word[idx]+'". [E]');}});
+  const stopT=countdown(12,()=>{if(!done){done=true;fail(n,'Too slow. [E]');}});
+  setTimeout(nextLetter,400);}
+
+// FLOWCHART: click through a yes/no decision tree to reach the correct outcome
+function miniFlowchart(n,t){const tree=t.tree||{q:'Is the issue hardware?',yes:{q:'Is it the monitor?',yes:{end:true,win:true},no:{end:true,win:false}},no:{q:'Did you restart?',yes:{end:true,win:true},no:{end:true,win:false}}};
+  const st=openMini('FLOWCHART',t.hint||'Follow the decision tree. Yes or No at each step.');
+  let node=tree;let done=false;
+  function render(){st.innerHTML='';const q=document.createElement('div');q.style.cssText='font-size:13px;font-weight:bold;margin:14px auto;max-width:320px;text-align:center';q.textContent=node.q;st.appendChild(q);
+    const row=document.createElement('div');row.className='nmRow';
+    ['yes','no'].forEach(k=>{if(!node[k])return;const b=document.createElement('button');b.className='btn'+(k==='no'?' ghost':'');b.textContent=k==='yes'?'✓ Yes':'✗ No';
+      b.onclick=()=>{if(done)return;node=node[k];if(node.end){done=true;node.win?miniWin(n,t):fail(n,'Wrong branch. [E]');}else render();};row.appendChild(b);});
+    st.appendChild(row);}
+  render();}
+
+// REDACT: click every sensitive word to redact it before the document is sent
+function miniRedact(n,t){const sentences=t.sentences||['Name: John Smith is our client','Phone: 555-0192 call anytime','Email: john@example.com for invoice'];
+  const sensitive=t.sensitive||['John Smith','555-0192','john@example.com'];
+  const st=openMini('REDACT','Click every sensitive word/phrase before sending.',true);
+  let total=sensitive.length,found=0,done=false;
+  const wrap=document.createElement('div');wrap.style.cssText='max-width:360px;line-height:2.2;font-size:12px';
+  sentences.forEach(s=>{const p=document.createElement('p');p.style.marginBottom='6px';
+    let html=s;sensitive.forEach(word=>{html=html.replace(word,'<span class="redactable" data-w="'+word+'">'+word+'</span>');});
+    p.innerHTML=html;wrap.appendChild(p);});
+  st.appendChild(wrap);
+  const btn=document.createElement('button');btn.className='btn';btn.style.marginTop='10px';btn.textContent='Send document';st.appendChild(btn);
+  wrap.querySelectorAll('.redactable').forEach(el=>{el.style.cssText='cursor:pointer;background:var(--paper2);border-radius:3px;padding:0 2px';
+    el.onclick=()=>{el.style.background='#222';el.style.color='#222';el.style.borderRadius='2px';el.style.pointerEvents='none';found++;};});
+  btn.onclick=()=>{if(done)return;done=true;found>=total?miniWin(n,t):fail(n,(total-found)+' sensitive item(s) not redacted. [E]');};}
+
+// HOTKEY: a UI menu appears — navigate to the right item using ONLY keyboard shortcuts (no mouse)
+function miniHotkey(n,t){const items=t.items||[{k:'F',l:'File'},{k:'E',l:'Edit'},{k:'V',l:'View'},{k:'H',l:'Help'}];const target=t.target||'H';
+  const st=openMini('HOTKEY',t.hint||'Use keyboard shortcuts only. Press the right key.',true);
+  const bar=document.createElement('div');bar.style.cssText='display:flex;gap:4px;width:100%;justify-content:center';
+  items.forEach(({k,l})=>{const d=document.createElement('div');d.className='memChip';d.style.cssText+='font-size:12px;min-width:70px;text-align:center';
+    d.innerHTML='<u>'+k+'</u>'+l.slice(1);bar.appendChild(d);});
+  st.appendChild(bar);
+  const hint=document.createElement('div');hint.style.cssText='margin-top:14px;font-size:12px;color:var(--wood)';hint.textContent='Target: navigate to "'+items.find(i=>i.k===target)?.l+'"';
+  st.appendChild(hint);let done=false;
+  setKey(e=>{if(done)return;e.preventDefault();const key=e.key.toUpperCase();
+    if(key===target){done=true;miniWin(n,t);}else if(items.find(i=>i.k===key)){done=true;fail(n,'Wrong menu. [E]');}});}
+
+// INBOX: emails arrive — flag urgent, archive safe, delete spam. 5 cards, no mistakes
+function miniInbox(n,t){const emails=t.emails||[
+    {from:'Boss Nino',sub:'URGENT: Q3 report now',type:'urgent'},
+    {from:'newsletter@spam.io',sub:'You won a prize!!!',type:'spam'},
+    {from:'sonja@gromix',sub:'Payroll processed',type:'safe'},
+    {from:'unknown@phish.net',sub:'Verify your account',type:'spam'},
+    {from:'teonem@gromix',sub:'Client meeting Thursday',type:'urgent'}];
+  const st=openMini('INBOX','Flag urgent 🚨 / Archive safe 📁 / Delete spam 🗑. No mistakes.',true);
+  let i=0,done=false,mistakes=0;
+  function show(){if(i>=emails.length){done=true;miniWin(n,t);return;}
+    const e=emails[i];st.innerHTML='';
+    const card=document.createElement('div');card.style.cssText='max-width:320px;margin:6px auto;background:var(--paper2);border:2px solid var(--wood);border-radius:8px;padding:12px;text-align:left';
+    card.innerHTML='<div style="font-size:10px;color:var(--wood)">From: <b>'+e.from+'</b></div><div style="font-size:13px;margin:6px 0;font-weight:bold">'+e.sub+'</div>';
+    st.appendChild(card);
+    const row=document.createElement('div');row.className='nmRow';row.style.gap='8px';
+    [['🚨 Urgent','urgent'],['📁 Archive','safe'],['🗑 Spam','spam']].forEach(([lbl,type])=>{
+      const b=document.createElement('button');b.className='btn ghost';b.style.fontSize='11px';b.textContent=lbl;
+      b.onclick=()=>{if(done)return;if(type===e.type){i++;show();}else{mistakes++;fail(n,'"'+e.sub+'" — wrong action. [E]');done=true;}};row.appendChild(b);});
+    st.appendChild(row);}
+  show();}
+
+// BUDGET_SLIDER: three independent sliders, each must hit its own target value
+function miniBudgetSlider(n,t){const targets=t.targets||[30,55,80];const labels=t.labels||['Design','Dev','Marketing'];
+  const st=openMini('BUDGET SPLIT',t.hint||'Set each slider to its exact target. Then lock in.');
+  const wrap=document.createElement('div');wrap.style.cssText='width:100%;max-width:340px';
+  const sliders=[];
+  targets.forEach((tgt,i)=>{const row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:10px;margin:8px 0';
+    const lbl=document.createElement('span');lbl.style.cssText='width:72px;font-size:11px';lbl.textContent=labels[i]+' ('+tgt+'%)';
+    const sl=document.createElement('input');sl.type='range';sl.min=0;sl.max=100;sl.value=Math.floor(Math.random()*100);sl.style.flex='1';
+    const val=document.createElement('span');val.style.cssText='width:34px;font-size:11px;text-align:right';val.textContent=sl.value+'%';
+    sl.oninput=()=>{val.textContent=sl.value+'%';};
+    sliders.push(sl);row.appendChild(lbl);row.appendChild(sl);row.appendChild(val);wrap.appendChild(row);});
+  st.appendChild(wrap);
+  const btn=document.createElement('button');btn.className='btn';btn.style.marginTop='12px';btn.textContent='Lock in';st.appendChild(btn);
+  btn.onclick=()=>{const ok=sliders.every((sl,i)=>Math.abs(+sl.value-targets[i])<=2);ok?miniWin(n,t):fail(n,'One or more sliders off target. [E]');};}
+
+// CROSSWORD: fill in 3 short answers using keyboard, confirm each with Enter
+function miniCrossword(n,t){const clues=t.clues||[{hint:'Opposite of credit',ans:'DEBIT'},{hint:'Boss\'s title (abbr.)',ans:'CEO'},{hint:'Revenue - costs',ans:'PROFIT'}];
+  const st=openMini('FILL IN',t.hint||'Answer each clue. Type + Enter.');
+  let i=0,done=false;
+  function show(){if(i>=clues.length){done=true;miniWin(n,t);return;}
+    const c=clues[i];st.innerHTML='';
+    const q=document.createElement('div');q.style.cssText='font-size:13px;font-weight:bold;margin:10px 0 6px';q.textContent=(i+1)+'/'+clues.length+': '+c.hint;st.appendChild(q);
+    const blanks=document.createElement('div');blanks.style.cssText='letter-spacing:8px;font-size:18px;margin:8px 0;min-height:30px';blanks.textContent='_ '.repeat(c.ans.length).trim();st.appendChild(blanks);
+    const inp=document.createElement('div');inp.className='typed';st.appendChild(inp);
+    let cur='';setKey(e=>{if(done)return;e.preventDefault();
+      if(e.key==='Enter'){const guess=cur.toUpperCase();cur='';inp.textContent='';
+        if(guess===c.ans){blanks.textContent=c.ans;blanks.style.color='var(--green)';i++;setTimeout(show,300);}
+        else{fail(n,'Wrong — it was "'+c.ans+'". [E]');done=true;}}
+      else if(e.key==='Backspace'){cur=cur.slice(0,-1);inp.textContent=cur;}
+      else if(/^[a-zA-Z]$/.test(e.key)){cur+=e.key.toUpperCase();inp.textContent=cur;
+        blanks.textContent=cur.split('').join(' ')+' _'.repeat(Math.max(0,c.ans.length-cur.length)).trim();};});}
+  show();}
+
+// CABLE_ROUTE: click cells in a grid to draw a cable path from source to destination
+function miniCableRoute(n,t){const SIZE=5;const src={r:0,c:0},dst={r:SIZE-1,c:SIZE-1};
+  const st=openMini('ROUTE CABLE','Click cells to draw a path from 🔌 (top-left) to 🖥 (bottom-right). No diagonal.');
+  const grid=document.createElement('div');grid.style.cssText='display:grid;grid-template-columns:repeat('+SIZE+',44px);gap:4px;margin:8px auto';
+  const cells=[];let path=new Set();let done=false;
+  // random walls
+  const walls=new Set();while(walls.size<5){const r=Math.floor(Math.random()*SIZE),c=Math.floor(Math.random()*SIZE);
+    if((r===0&&c===0)||(r===SIZE-1&&c===SIZE-1))continue;walls.add(r+','+c);}
+  for(let r=0;r<SIZE;r++){for(let c=0;c<SIZE;c++){const key=r+','+c;
+    const d=document.createElement('div');d.style.cssText='width:44px;height:44px;border:2px solid var(--wood);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;background:var(--paper2)';
+    if(walls.has(key)){d.style.background='var(--wood2)';d.style.cursor='default';d.textContent='█';}
+    else if(r===0&&c===0)d.textContent='🔌';
+    else if(r===SIZE-1&&c===SIZE-1)d.textContent='🖥';
+    d.dataset.r=r;d.dataset.c=c;grid.appendChild(d);cells.push(d);}}
+  st.appendChild(grid);
+  const btn=document.createElement('button');btn.className='btn';btn.style.marginTop='8px';btn.textContent='Power up!';st.appendChild(btn);
+  grid.querySelectorAll('div').forEach(d=>{d.onclick=()=>{if(done||walls.has(d.dataset.r+','+d.dataset.c))return;
+    const k=d.dataset.r+','+d.dataset.c;
+    if((d.dataset.r==0&&d.dataset.c==0)||(d.dataset.r==SIZE-1&&d.dataset.c==SIZE-1))return;
+    if(path.has(k)){path.delete(k);d.style.background='var(--paper2)';}
+    else{path.add(k);d.style.background='var(--teal)';}};});
+  btn.onclick=()=>{if(done)return;
+    // BFS check connectivity src->dst through selected+src+dst
+    const passable=k=>!walls.has(k)&&(path.has(k)||k===src.r+','+src.c||k===dst.r+','+dst.c);
+    const q=[src.r+','+src.c],vis=new Set(q);
+    while(q.length){const [r,c]=q.shift().split(',').map(Number);
+      if(r===dst.r&&c===dst.c){done=true;miniWin(n,t);return;}
+      [[r-1,c],[r+1,c],[r,c-1],[r,c+1]].forEach(([nr,nc])=>{const nk=nr+','+nc;
+        if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE&&passable(nk)&&!vis.has(nk)){vis.add(nk);q.push(nk);}});}
+    fail(n,'No complete path yet. [E]');};}
+// WORDSEARCH: find hidden words in a letter grid by clicking start+end cells
+function miniWordsearch(n,t){const words=t.words||['LOG','API','BUG'];const SIZE=7;
+  const grid=[];for(let i=0;i<SIZE*SIZE;i++)grid.push('ABCDEFGHIJKLMNOPQRSTUVWXYZ'[Math.floor(Math.random()*26)]);
+  words.forEach((w,wi)=>{const row=wi*2;const col=Math.floor(Math.random()*(SIZE-w.length));w.split('').forEach((ch,i)=>{grid[row*SIZE+col+i]=ch;});});
+  const st=openMini('WORD SEARCH','Find each word: '+words.join(', ')+'. Click first then last letter.');
+  const wrap=document.createElement('div');wrap.style.cssText='display:grid;grid-template-columns:repeat('+SIZE+',36px);gap:2px;margin:0 auto;width:'+(SIZE*38)+'px';
+  let found=0,first=null,done=false;
+  grid.map((ch,i)=>{const d=document.createElement('div');d.className='gridCell';d.style.cssText+='width:36px;height:36px;font-size:13px;font-weight:bold';d.textContent=ch;d.dataset.i=i;
+    d.onclick=()=>{if(done)return;
+      if(!first){first=d;d.classList.add('sel');d.style.background='var(--gold)';}
+      else{const a=+first.dataset.i,b=+d.dataset.i;
+        const SIZE_=7;const row=r=>Math.floor(r/SIZE_),col=r=>r%SIZE_;
+        const lo=Math.min(a,b),hi=Math.max(a,b);
+        const matched=words.find(w=>row(a)===row(b)&&hi-lo===w.length-1&&(grid.slice(lo,hi+1).join('')===w||grid.slice(lo,hi+1).reverse().join('')===w));
+        if(matched){[...wrap.children].forEach((c2,ci)=>{if(ci>=lo&&ci<=hi&&row(lo)===row(hi))c2.classList.add('lit');});found++;if(found>=words.length&&!done){done=true;miniWin(n,t);}}
+        else{first.style.background='';first.classList.remove('sel');}first=null;}};
+    wrap.appendChild(d);});
+  st.appendChild(wrap);}
+
+// CONVEYOR: items move left on a belt — click the correct ones before they fall off
+function miniConveyor(n,t){const target=t.target||'\u{1F4C4}';const fakes=t.fakes||['\u{1F4E7}','\u{1F4CB}','\u{1F4C1}'];
+  const st=openMini('CONVEYOR','Click every '+target+' before it falls off! Let others pass.',true);
+  st.innerHTML='<div id="cvBelt" style="position:relative;height:80px;overflow:hidden;background:var(--paper2);border:3px solid var(--wood);border-radius:8px;width:100%"></div>'+
+    '<div id="cvScore" class="typed" style="margin-top:6px">0 / 5</div>';
+  const belt=document.getElementById('cvBelt'),sc=document.getElementById('cvScore');
+  let caught=0,missed=0,done=false;const items=[];const all=[target,...fakes];
+  const spawn=setInterval(()=>{if(done)return;const ic=all[Math.floor(Math.random()*all.length)];
+    const el=document.createElement('div');el.style.cssText='position:absolute;font-size:26px;top:22px;cursor:pointer;user-select:none';
+    el.textContent=ic;belt.appendChild(el);const item={el,x:belt.clientWidth+10,ic};items.push(item);
+    el.onclick=()=>{if(done||item.removed)return;item.removed=true;el.remove();
+      if(ic===target){caught++;sc.textContent=caught+' / 5';if(caught>=5&&!done){done=true;clearInterval(spawn);clearInterval(mover);stopT();miniWin(n,t);}}
+      else{done=true;clearInterval(spawn);clearInterval(mover);stopT();fail(n,'Wrong item! [E]');}};},900);
+  const mover=setInterval(()=>{if(done)return;items.forEach(it=>{if(it.removed)return;it.x-=2.8;it.el.style.left=it.x+'px';
+    if(it.x<-40){it.removed=true;it.el.remove();if(it.ic===target){missed++;if(missed>=2&&!done){done=true;clearInterval(spawn);clearInterval(mover);stopT();fail(n,'Missed too many. [E]');}}}});},30);
+  const stopT=countdown(14,()=>{if(!done){done=true;clearInterval(spawn);clearInterval(mover);caught>=5?miniWin(n,t):fail(n,'Time — got '+caught+'/5. [E]');}});}
+
+// CONTRACT: scroll a doc and click every signature field
+function miniContract(n,t){const fields=t.fields||['Client signature','Witness','Date confirmed','Initials'];
+  const st=openMini('CONTRACT','Scroll and click every signature field.',true);
+  const doc=document.createElement('div');doc.style.cssText='max-height:160px;overflow-y:auto;width:100%;background:var(--paper);border:2px solid var(--wood);border-radius:8px;padding:12px;font-size:11px;line-height:1.8';
+  let found=0,done=false;
+  const para=i=>'<p style="margin:6px 0;color:#777">Clause '+i+'. Lorem ipsum legal text et cetera, all parties agree.</p>';
+  let html='';fields.forEach((f,i)=>{html+=para(i*3+1)+para(i*3+2)+'<div class="sig-fld" data-i="'+i+'" style="margin:10px 0;padding:8px;border:2px dashed var(--accent);border-radius:6px;cursor:pointer;font-size:12px;font-weight:bold;color:var(--accent)">\u25A2 '+f+'</div>'+para(i*3+3);});
+  doc.innerHTML=html;st.appendChild(doc);
+  const stopT=countdown(12,()=>{if(!done){done=true;fail(n,'Time up — '+found+'/'+fields.length+' signed. [E]');}});
+  doc.querySelectorAll('.sig-fld').forEach(el=>{el.onclick=()=>{if(done||el.classList.contains('used'))return;
+    el.classList.add('used');el.style.cssText='margin:10px 0;padding:8px;background:var(--green);border-radius:6px;font-size:12px;font-weight:bold;color:#fff';el.textContent='\u2713 '+fields[+el.dataset.i];
+    found++;if(found>=fields.length&&!done){done=true;stopT();miniWin(n,t);}};});}
+
+// ROTARY: spin a combination lock through 3 stages
+function miniRotary(n,t){const combo=t.combo||[Math.floor(Math.random()*10)*10,Math.floor(Math.random()*10)*10,Math.floor(Math.random()*10)*10];
+  let stage=0,val=0,done=false;
+  const st=openMini('COMBINATION',t.hint||'Spin to each number in the combo. Press SET when you land on it.');
+  st.innerHTML='<div style="font-size:36px;font-weight:bold;color:var(--accent);margin:4px 0" id="rVal">0</div>'+
+    '<div id="rTarget" style="font-size:13px;color:var(--wood);margin:4px 0"></div>'+
+    '<input type="range" id="rDial" min="0" max="90" step="10" value="0" style="width:80%;margin:6px 0">'+
+    '<div class="nmRow"><button class="btn ghost" id="rMinus">- 10</button><button class="btn ghost" id="rPlus">+ 10</button></div>'+
+    '<button class="btn" id="rSet" style="margin-top:8px">SET</button>';
+  const upd=()=>{document.getElementById('rVal').textContent=val;document.getElementById('rDial').value=val;document.getElementById('rTarget').textContent='Step '+(stage+1)+'/3 — spin to: '+combo[stage];};upd();
+  document.getElementById('rMinus').onclick=()=>{if(done)return;val=(val-10+100)%100;upd();};
+  document.getElementById('rPlus').onclick=()=>{if(done)return;val=(val+10)%100;upd();};
+  document.getElementById('rDial').oninput=e=>{if(done)return;val=+e.target.value;upd();};
+  document.getElementById('rSet').onclick=()=>{if(done)return;
+    if(val===combo[stage]){stage++;if(stage>=3){done=true;miniWin(n,t);}else upd();}
+    else{done=true;fail(n,'Wrong — needed '+combo[stage]+', got '+val+'. [E]');}};}
+
+// HEATMAP: click the hottest zone in a fake analytics heatmap
+function miniHeatmap(n,t){const zones=t.zones||['Top CTA','Hero image','Nav bar','Footer'];const hotIdx=t.hotIdx!=null?t.hotIdx:Math.floor(Math.random()*zones.length);
+  const st=openMini('HEATMAP',t.hint||'Click the zone with the highest user engagement (most clicks).');
+  const wrap=document.createElement('div');wrap.style.cssText='display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:320px';
+  const vals=zones.map((_,i)=>i===hotIdx?85+Math.floor(Math.random()*15):5+Math.floor(Math.random()*55));
+  zones.forEach((z,i)=>{const d=document.createElement('div');const v=vals[i];
+    const r=Math.round(180+v*0.75),g=Math.round(60+v*0.5),b=30;
+    d.style.cssText='padding:14px 8px;border-radius:8px;cursor:pointer;border:2px solid var(--wood);text-align:center;font-size:11px;font-weight:bold;background:rgba('+r+','+g+','+b+','+(0.2+v/100*0.7)+');color:'+(v>55?'#fff':'var(--inkbrown)');
+    d.innerHTML=z+'<br><span style="font-size:9px;opacity:.7">'+v+'%</span>';
+    d.onclick=()=>i===hotIdx?miniWin(n,t):fail(n,'Not the hottest zone. [E]');wrap.appendChild(d);});
+  st.appendChild(wrap);}
+
+// TRIAGE: cards arrive — sort each to URGENT / NORMAL / ARCHIVE fast
+function miniTriage(n,t){const cards=t.cards||[{label:'Server is down',bucket:'urgent'},{label:'Newsletter signup',bucket:'archive'},{label:'Payment overdue',bucket:'urgent'},{label:'Team birthday',bucket:'normal'},{label:'Bug in prod',bucket:'urgent'}];
+  const shuf=shuffle([...cards]);let i=0,done=false,correct=0;
+  const st=openMini('TRIAGE','Sort each card: Urgent / Normal / Archive. No mistakes.',true);
+  st.innerHTML='<div id="triCard" style="min-height:46px;padding:12px 16px;font-size:13px;font-weight:bold;background:var(--paper2);border:3px solid var(--wood);border-radius:8px;margin-bottom:10px;text-align:center"></div>'+
+    '<div style="display:flex;gap:8px;justify-content:center">'+
+    '<button class="btn" data-b="urgent" style="background:#c94f4f;font-size:11px">\uD83D\uDEA8 Urgent</button>'+
+    '<button class="btn ghost" data-b="normal" style="font-size:11px">\uD83D\uDCCB Normal</button>'+
+    '<button class="btn ghost" data-b="archive" style="font-size:11px">\uD83D\uDCC1 Archive</button></div>'+
+    '<div id="triProg" class="typed" style="margin-top:6px;font-size:11px">0 / '+cards.length+'</div>';
+  const card=document.getElementById('triCard'),prog=document.getElementById('triProg');
+  const show=()=>{if(i>=shuf.length){done=true;stopT();miniWin(n,t);return;}card.textContent=shuf[i].label;};show();
+  const stopT=countdown(10,()=>{if(!done){done=true;fail(n,'Time — '+correct+'/'+cards.length+'. [E]');}});
+  st.querySelectorAll('[data-b]').forEach(btn=>btn.onclick=()=>{if(done)return;
+    if(btn.dataset.b===shuf[i].bucket){correct++;prog.textContent=correct+' / '+cards.length;i++;show();}
+    else{done=true;stopT();fail(n,'Wrong bucket for "'+shuf[i].label+'". [E]');}});}
+
+// CIPHER: a Caesar-shifted word — pick the correct shift value
+function miniCipher(n,t){const shift=t.shift||(1+Math.floor(Math.random()*5));
+  const words=['MEETING','INVOICE','DEADLINE','CONTRACT','APPROVAL'];
+  const raw=t.raw||words[Math.floor(Math.random()*words.length)];
+  const encode=w=>w.split('').map(ch=>String.fromCharCode(((ch.charCodeAt(0)-65+shift)%26)+65)).join('');
+  const encoded=encode(raw);
+  const optsRaw=[1,2,3,4,5,6];const opts=shuffle(optsRaw).slice(0,5);if(!opts.includes(shift))opts[0]=shift;shuffle(opts);
+  const st=openMini('CIPHER','This word was Caesar-shifted. Pick the correct shift value to decode it.');
+  const hint=document.createElement('div');hint.style.cssText='font-size:18px;font-weight:bold;letter-spacing:6px;margin:10px 0;color:var(--accent)';hint.textContent=encoded;st.appendChild(hint);
+  const row=document.createElement('div');row.className='nmRow';
+  opts.forEach(s=>{const b=document.createElement('button');b.className='btn ghost';b.style.minWidth='40px';b.textContent=''+s;
+    b.onclick=()=>s===shift?miniWin(n,t):fail(n,'Shift was '+shift+'. [E]');row.appendChild(b);});
+  st.appendChild(row);}
+
+// VOLTAGE: keep 3 power rails in the green zone by pressing A / S / D
+function miniVoltage(n,t){const st=openMini('VOLTAGE','Keep ALL 3 rails in green. A=rail 1, S=rail 2, D=rail 3. Hold 5s.',true);
+  const rails=[{key:'A',v:50},{key:'S',v:50},{key:'D',v:50}];let greenTime=0,done=false;
+  st.innerHTML='<div id="voltWrap" style="display:flex;flex-direction:column;gap:8px;width:100%;max-width:280px"></div>'+
+    '<div id="voltMsg" style="font-size:11px;margin-top:6px;color:var(--wood)">Keep all in green for 5 seconds</div>';
+  const wrap=document.getElementById('voltWrap'),msg=document.getElementById('voltMsg');
+  const bars=rails.map(r=>{const row=document.createElement('div');row.style.cssText='display:flex;align-items:center;gap:8px';
+    const lbl=document.createElement('span');lbl.style.cssText='width:18px;font-weight:bold;font-size:13px';lbl.textContent=r.key;
+    const track=document.createElement('div');track.style.cssText='flex:1;height:20px;background:#ddd;border-radius:10px;overflow:hidden;border:2px solid var(--wood)';
+    const fill=document.createElement('div');fill.style.cssText='height:100%;width:50%;background:var(--accent);border-radius:10px';
+    track.appendChild(fill);row.appendChild(lbl);row.appendChild(track);wrap.appendChild(row);return fill;});
+  setKey(e=>{if(done)return;e.preventDefault();const r=rails.find(r=>r.key===e.key.toUpperCase());if(r)r.v=Math.min(100,r.v+14);});
+  const stopT=countdown(14,()=>{if(!done){done=true;fail(n,'Time up. [E]');}});
+  const iv=setInterval(()=>{if(done)return;rails.forEach((r,i)=>{r.v=Math.max(0,r.v-1.2);bars[i].style.width=r.v+'%';bars[i].style.background=r.v>=30&&r.v<=80?'var(--green)':'var(--red)';});
+    const allGreen=rails.every(r=>r.v>=30&&r.v<=80);
+    if(allGreen){greenTime+=50;msg.textContent='Hold! '+(5-greenTime/1000).toFixed(1)+'s to go';if(greenTime>=5000){done=true;clearInterval(iv);stopT();miniWin(n,t);}}
+    else{greenTime=Math.max(0,greenTime-100);msg.textContent='Keep all in green for 5 seconds';}},50);}
+
+
+// TOGGLE: flip a set of switches to match a target pattern
+function miniToggle(n,t){const size=t.size||6;const target=Array.from({length:size},()=>Math.random()>.5);
+  let state=Array.from({length:size},()=>Math.random()>.5);let done=false;
+  const st=openMini('SWITCHES',t.hint||'Flip switches to match the TARGET pattern above. Then confirm.');
+  const mkRow=(arr,label,clickable)=>{const wrap=document.createElement('div');wrap.style.cssText='display:flex;align-items:center;gap:6px;margin:6px 0';
+    const lbl=document.createElement('span');lbl.style.cssText='width:52px;font-size:10px;color:var(--wood)';lbl.textContent=label;wrap.appendChild(lbl);
+    arr.forEach((v,i)=>{const sw=document.createElement('div');sw.style.cssText='width:36px;height:20px;border-radius:10px;border:2px solid var(--wood2);cursor:'+(clickable?'pointer':'default')+';position:relative;transition:.15s;background:'+(v?'var(--green)':'#bbb');
+      const knob=document.createElement('div');knob.style.cssText='position:absolute;top:1px;width:14px;height:14px;border-radius:50%;background:#fff;transition:.15s;left:'+(v?'18px':'1px');
+      sw.appendChild(knob);sw.dataset.i=i;
+      if(clickable)sw.onclick=()=>{if(done)return;state[i]=!state[i];sw.style.background=state[i]?'var(--green)':'#bbb';knob.style.left=state[i]?'18px':'1px';};
+      wrap.appendChild(sw);});
+    return wrap;};
+  st.appendChild(mkRow(target,'TARGET',false));
+  const stateWrap=mkRow(state,'YOURS',true);st.appendChild(stateWrap);
+  const btn=document.createElement('button');btn.className='btn';btn.style.marginTop='10px';btn.textContent='Confirm';st.appendChild(btn);
+  btn.onclick=()=>{if(done)return;done=true;
+    state.every((v,i)=>v===target[i])?miniWin(n,t):fail(n,'Pattern mismatch. [E]');};}
+
+// ANAGRAM: unscramble a word by clicking letters in order
+function miniAnagram(n,t){const word=t.word||['REPORT','BUDGET','CLIENT','DEPLOY','SERVER'][Math.floor(Math.random()*5)];
+  const scrambled=shuffle(word.split(''));let built='',done=false;
+  const st=openMini('UNSCRAMBLE','Click letters in the right order to spell the word. '+word.length+' letters.');
+  const pool=document.createElement('div');pool.style.cssText='display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:8px 0';
+  const display=document.createElement('div');display.style.cssText='font-size:20px;font-weight:bold;letter-spacing:8px;min-height:30px;color:var(--accent);margin:6px 0';display.textContent='_'.repeat(word.length).split('').join(' ');
+  scrambled.forEach(ch=>{const b=document.createElement('div');b.className='memChip';b.style.cssText+='font-size:16px;font-weight:bold;width:36px;text-align:center';b.textContent=ch;
+    b.onclick=()=>{if(done||b.classList.contains('used'))return;
+      if(ch===word[built.length]){b.classList.add('used');built+=ch;display.textContent=built.split('').join(' ')+'_'.repeat(word.length-built.length).split('').join(' ');
+        if(built===word){done=true;miniWin(n,t);}}
+      else{done=true;fail(n,'Wrong letter — needed "'+word[built.length]+'". [E]');}};
+    pool.appendChild(b);});
+  st.appendChild(display);st.appendChild(pool);}
+
+// WHITEBOARD: draw a line connecting numbered dots in order (freehand trace)
+function miniWhiteboard(n,t){const pts=t.pts||[[30,40],[140,20],[220,90],[160,140],[80,120]];
+  const st=openMini('CONNECT THE DOTS','Draw a line through the numbered dots, in order, without lifting.');
+  const canvas=document.createElement('canvas');canvas.width=260;canvas.height=170;canvas.style.cssText='border:3px solid var(--wood);border-radius:8px;background:#f8f5ed;cursor:crosshair;touch-action:none';
+  const g=canvas.getContext('2d');let drawing=false,nextPt=0,done=false,path=[];
+  const draw=()=>{g.clearRect(0,0,260,170);
+    pts.forEach((p,i)=>{g.beginPath();g.arc(p[0],p[1],12,0,7);g.fillStyle=i<nextPt?'var(--green)':i===nextPt?'var(--accent)':'#ccc';g.fill();g.strokeStyle='var(--wood)';g.lineWidth=2;g.stroke();
+      g.fillStyle='#fff';g.font='bold 11px monospace';g.textAlign='center';g.textBaseline='middle';g.fillText(i+1,p[0],p[1]);});
+    if(path.length>1){g.beginPath();g.moveTo(path[0][0],path[0][1]);path.forEach(p=>g.lineTo(p[0],p[1]));g.strokeStyle='var(--accent)';g.lineWidth=3;g.stroke();}};draw();
+  const hit=(x,y,p,r)=>Math.hypot(x-p[0],y-p[1])<r;
+  const go=(x,y)=>{if(done)return;path.push([x,y]);
+    if(nextPt<pts.length&&hit(x,y,pts[nextPt],20)){nextPt++;if(nextPt>=pts.length){done=true;draw();miniWin(n,t);}};draw();};
+  canvas.addEventListener('pointerdown',e=>{drawing=true;const r=canvas.getBoundingClientRect();go(e.clientX-r.left,e.clientY-r.top);});
+  canvas.addEventListener('pointermove',e=>{if(!drawing)return;const r=canvas.getBoundingClientRect();go(e.clientX-r.left,e.clientY-r.top);});
+  canvas.addEventListener('pointerup',()=>{drawing=false;});
+  st.appendChild(canvas);}
+
+// SLOT: pull the handle, stop each reel on the correct symbol
+function miniSlot(n,t){const symbols=['💰','📊','✅','⭐','💼'];const target=t.target||[0,0,0];
+  const st=openMini('SLOT MACHINE',t.hint||'Click each reel to stop it on the right symbol. Match all three!');
+  let spins=[0,1,2],stopped=[false,false,false],done=false;const ivs=[];
+  st.innerHTML='<div style="display:flex;gap:12px;justify-content:center;margin:10px 0" id="reels"></div>'+
+    '<div style="font-size:11px;color:var(--wood);margin:4px 0">Target: '+target.map(i=>symbols[i]).join(' ')+'</div>'+
+    '<button class="btn ghost" id="slotBtn" style="margin-top:8px">Pull!</button>';
+  const reelWrap=document.getElementById('reels');
+  const reelEls=target.map((tgt,i)=>{const d=document.createElement('div');d.style.cssText='width:60px;height:60px;border:3px solid var(--wood2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--paper2);cursor:pointer';
+    d.textContent=symbols[spins[i]];reelWrap.appendChild(d);
+    d.onclick=()=>{if(stopped[i]||!ivs[i]||done)return;clearInterval(ivs[i]);ivs[i]=null;stopped[i]=true;
+      d.textContent=symbols[spins[i]];d.style.border='3px solid '+(spins[i]===tgt?'var(--green)':'var(--red)');
+      if(stopped.every(Boolean)){done=true;stopped.every((_,j)=>spins[j]===target[j])?miniWin(n,t):fail(n,'Wrong symbols. [E]');}};
+    return d;});
+  document.getElementById('slotBtn').onclick=()=>{if(done)return;document.getElementById('slotBtn').disabled=true;
+    target.forEach((tgt,i)=>{ivs[i]=setInterval(()=>{spins[i]=(spins[i]+1)%symbols.length;reelEls[i].textContent=symbols[spins[i]];},80+i*30);});
+    setTimeout(()=>{if(!stopped[0])reelEls[0].click();},2000+Math.random()*1000);};}
+
+// MIRROR: type input appears reversed — still type the normal word but read the mirror
+function miniMirror(n,t){const word=t.word||['UPLOAD','SERVER','SPRINT','REVIEW','LAUNCH'][Math.floor(Math.random()*5)];
+  let cur='',done=false;
+  const st=openMini('MIRROR MODE','The display is MIRRORED. Type the word normally — letters appear backwards.');
+  const disp=document.createElement('div');disp.style.cssText='font-size:24px;font-weight:bold;letter-spacing:6px;transform:scaleX(-1);display:inline-block;color:var(--accent);min-height:30px;margin:10px 0';
+  const hint=document.createElement('div');hint.style.cssText='font-size:11px;color:var(--wood);margin-bottom:4px';hint.textContent='(Type normally — display flips it)';
+  st.appendChild(hint);st.appendChild(disp);
+  setKey(e=>{if(done)return;e.preventDefault();
+    if(e.key==='Backspace'){cur=cur.slice(0,-1);disp.textContent=cur;}
+    else if(/^[a-zA-Z]$/.test(e.key)){cur+=e.key.toUpperCase();disp.textContent=cur;
+      if(cur===word){done=true;miniWin(n,t);}
+      else if(cur.length>=word.length){done=true;fail(n,'Wrong word. [E]');}}});}
+
+// PRICE_TAG: drag a price tag to the correct product before time runs out
+function miniPriceTag(n,t){const items=t.items||[{name:'Laptop stand',price:'€49'},{ name:'USB hub',price:'€29'},{name:'Monitor arm',price:'€89'}];
+  const shuf=shuffle([...items]);let i=0,done=false;
+  const st=openMini('PRICE IT',t.hint||'Drag the price tag to the correct product.',true);
+  const render=()=>{if(i>=shuf.length){done=true;stopT();miniWin(n,t);return;}
+    const cur=shuf[i];st.innerHTML='';
+    const tag=document.createElement('div');tag.style.cssText='display:inline-block;padding:10px 16px;background:var(--gold);border:3px solid var(--wood2);border-radius:8px;font-size:16px;font-weight:bold;cursor:grab;margin:10px';tag.textContent=cur.price;
+    const opts=shuffle(items.map(x=>x.name));const row=document.createElement('div');row.style.cssText='display:flex;flex-direction:column;gap:8px;width:100%;max-width:260px';
+    opts.forEach(name=>{const slot=document.createElement('div');slot.className='memChip';slot.style.cssText+='width:100%;text-align:center;font-size:12px';slot.textContent=name;
+      slot.addEventListener('dragover',e=>e.preventDefault());slot.addEventListener('drop',e=>{e.preventDefault();if(done)return;name===cur.name?(i++,render()):fail(n,'Wrong product! [E]',done=true);});row.appendChild(slot);});
+    tag.draggable=true;tag.ondragstart=e=>e.dataTransfer.setData('text','tag');
+    const hint=document.createElement('div');hint.style.cssText='font-size:11px;color:var(--wood);margin:4px';hint.textContent=(i+1)+'/'+shuf.length+' — drag tag to product';
+    st.appendChild(hint);st.appendChild(tag);st.appendChild(row);};
+  const stopT=countdown(10,()=>{if(!done){done=true;fail(n,'Time up. [E]');}});render();}
+
+// BINARY: click which bulbs are ON to match a binary number shown in decimal
+function miniBinary(n,t){const val=t.val||(1+Math.floor(Math.random()*15));const bits=4;
+  let state=Array(bits).fill(false);let done=false;
+  const st=openMini('BINARY','Set the light bulbs to represent '+val+' in binary. Left = highest bit. Then confirm.');
+  const row=document.createElement('div');row.style.cssText='display:flex;gap:10px;justify-content:center;margin:10px 0';
+  const labels=document.createElement('div');labels.style.cssText='display:flex;gap:10px;justify-content:center;font-size:10px;color:var(--wood)';
+  state.forEach((_,i)=>{const pw=Math.pow(2,bits-1-i);
+    const b=document.createElement('div');b.style.cssText='width:50px;height:50px;border-radius:50%;border:3px solid var(--wood2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:22px;background:#ddd;transition:.1s';b.textContent='💡';
+    b.onclick=()=>{if(done)return;state[i]=!state[i];b.style.background=state[i]?'var(--gold)':'#ddd';b.style.boxShadow=state[i]?'0 0 14px var(--gold)':'none';};row.appendChild(b);
+    const lbl=document.createElement('span');lbl.style.width='50px';lbl.style.textAlign='center';lbl.textContent=pw;labels.appendChild(lbl);});
+  const target=document.createElement('div');target.style.cssText='font-size:14px;margin:4px 0;font-weight:bold';target.textContent='Decimal: '+val;
+  st.appendChild(target);st.appendChild(row);st.appendChild(labels);
+  const btn=document.createElement('button');btn.className='btn';btn.style.marginTop='10px';btn.textContent='Lock in';st.appendChild(btn);
+  btn.onclick=()=>{if(done)return;done=true;
+    const got=state.reduce((acc,v,i)=>acc+(v?Math.pow(2,bits-1-i):0),0);
+    got===val?miniWin(n,t):fail(n,'Got '+got+', needed '+val+'. [E]');};}
+
+// VOICEMAIL: listen to a growing sequence of words (shown briefly), then type the last one
+function miniVoicemail(n,t){const pool=t.pool||['alpha','bravo','delta','echo','foxtrot','kilo','lima','oscar'];
+  const seq=shuffle([...pool]).slice(0,4);let done=false;
+  const st=openMini('VOICEMAIL','Watch the sequence. Type the LAST word you saw. Then Enter.');
+  const disp=document.createElement('div');disp.style.cssText='font-size:22px;font-weight:bold;min-height:34px;color:var(--accent);margin:10px 0;letter-spacing:3px';
+  const inp=document.createElement('div');inp.className='typed';let cur='';
+  st.appendChild(disp);st.appendChild(inp);
+  let si=0;const flash=()=>{if(si>=seq.length){disp.textContent='?';disp.style.color='var(--wood)';
+    setKey(e=>{if(done)return;e.preventDefault();
+      if(e.key==='Enter'){const guess=cur.toLowerCase().trim();cur='';inp.textContent='';
+        guess===seq[seq.length-1]?(done=true,miniWin(n,t)):fail(n,'It was "'+seq[seq.length-1]+'". [E]',done=true);}
+      else if(e.key==='Backspace'){cur=cur.slice(0,-1);inp.textContent=cur;}
+      else if(/^[a-zA-Z]$/.test(e.key)){cur+=e.key.toLowerCase();inp.textContent=cur;}});return;}
+    disp.textContent=seq[si].toUpperCase();setTimeout(()=>{disp.textContent='';setTimeout(()=>{si++;flash();},300);},900);};
+  setTimeout(flash,400);}
+
+// APPROVAL_CHAIN: click approvers in the correct hierarchy order
+function miniApprovalChain(n,t){const chain=t.chain||['Team Lead','Manager','Director','CFO'];const shuf=shuffle([...chain]);let step=0,done=false;
+  const st=openMini('APPROVAL CHAIN',t.hint||'Click approvers in the CORRECT hierarchy order, top to bottom.');
+  const grid=document.createElement('div');grid.style.cssText='display:flex;flex-direction:column;gap:8px;width:100%;max-width:280px';
+  const hint=document.createElement('div');hint.style.cssText='font-size:11px;color:var(--wood);margin:4px 0';hint.textContent='Step 1/'+chain.length+': who signs first?';st.appendChild(hint);
+  const chips={};shuf.forEach(name=>{const d=document.createElement('div');d.className='memChip';d.style.cssText+='width:100%;text-align:center;font-size:12px';d.textContent=name;
+    d.onclick=()=>{if(done||d.classList.contains('used'))return;
+      if(name===chain[step]){d.classList.add('used');d.style.background='var(--green)';d.style.color='#fff';step++;
+        hint.textContent=step<chain.length?'Step '+(step+1)+'/'+chain.length+': next?':'Done!';
+        if(step>=chain.length){done=true;miniWin(n,t);}}
+      else{done=true;fail(n,'"'+name+'" is not step '+(step+1)+'. [E]');}};
+    chips[name]=d;grid.appendChild(d);});
+  st.appendChild(grid);}
+
+// FREQUENCY: click radio frequency buttons to tune to the exact target frequency
+function miniFrequency(n,t){const target=t.target||(88+Math.floor(Math.random()*20));let freq=88,done=false;
+  const st=openMini('TUNE IN',t.hint||'Tune the radio to exactly '+target+'.0 MHz. Use + and − buttons.');
+  st.innerHTML='<div style="font-size:32px;font-weight:bold;color:var(--accent);margin:8px 0;font-family:monospace" id="fDisp">88.0 MHz</div>'+
+    '<div style="font-size:13px;color:var(--wood);margin-bottom:10px">Target: <b>'+target+'.0 MHz</b></div>'+
+    '<div class="nmRow" style="gap:6px">'+
+    '<button class="btn ghost" id="fMm">−5</button><button class="btn ghost" id="fM">−1</button>'+
+    '<button class="btn ghost" id="fP">+1</button><button class="btn ghost" id="fPp">+5</button></div>'+
+    '<button class="btn" id="fTune" style="margin-top:10px">Tune In</button>';
+  const disp=document.getElementById('fDisp');
+  const upd=()=>{disp.textContent=freq+'.0 MHz';disp.style.color=freq===target?'var(--green)':'var(--accent)';};
+  document.getElementById('fMm').onclick=()=>{if(done)return;freq=Math.max(88,freq-5);upd();};
+  document.getElementById('fM').onclick=()=>{if(done)return;freq=Math.max(88,freq-1);upd();};
+  document.getElementById('fP').onclick=()=>{if(done)return;freq=Math.min(108,freq+1);upd();};
+  document.getElementById('fPp').onclick=()=>{if(done)return;freq=Math.min(108,freq+5);upd();};
+  document.getElementById('fTune').onclick=()=>{if(done)return;done=true;freq===target?miniWin(n,t):fail(n,'Tuned to '+freq+' not '+target+'. [E]');};}
+
 
 function endGame(win,reason){state='end';clearInterval(timerId);
   document.getElementById('end').style.display='flex';
