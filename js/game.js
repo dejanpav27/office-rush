@@ -98,7 +98,10 @@ const POOLS={
    {type:'gauge',ask:"CPU temp is spiking — watch the gauge and tell me when it crosses the red line.",reward:'"Caught it at 94°. Throttled in time."'},
    {type:'switchboard',callerHint:'Nino calling about the server',hint:'Route Nino to the server room extension.',ask:"Switchboard's going crazy — route Nino to the right extension before he loses it.",reward:'"Connected. He only yelled a little."'},
    {type:'docsort',ask:"My Downloads folder is a disaster. Sort the files into the right project folders.",reward:'"Finally. I can find things again. Almost."'},
-   {type:'recipe',ask:"New dev environment setup — follow the install steps in exact order or it breaks.",reward:'"Environment up. First try. Legendary."'}
+   {type:'recipe',ask:"New dev environment setup — follow the install steps in exact order or it breaks.",reward:'"Environment up. First try. Legendary."'},
+   {type:'wordle',word:'CRASH',ask:"Server's down and I need to find the error type — guess the 5-letter word from the logs.",reward:'"CRASH. Exactly. Already fixed it, obviously."'},
+   {type:'minesweeper',size:5,mines:4,ask:"Server maintenance grid — clear the safe nodes without triggering any faults.",reward:'"All clear. Zero incidents. Legendary maintenance."'},
+   {type:'hidden',items:[{label:'USB',emoji:'🔌',x:40,y:30},{label:'Dongle',emoji:'🔑',x:180,y:120},{label:'Badge',emoji:'🪪',x:260,y:60}],ask:"Can't find the USB, dongle, and my access badge. They're on my desk... somewhere.",reward:'"Found them. The chaos has a system, I promise."'}
  ]},
  teonem:{desc:'Sales, always "out in town"',home:{x:10,y:9},pool:[
    {type:'deliver',item:'contract',itemLabel:'contract',to:'nino',ask:"Running into town (work!). Take this contract to Nino.",reward:'"Legend. I never left, clear?" *left*'},
@@ -133,7 +136,11 @@ const POOLS={
    {type:'arrange',items:[['🔑','keys'],['📋','contract'],['🪪','id']],hint:'Lay out the handover items in the exact order.',ask:"Set up the delivery table before the client arrives — keys, contract, ID in my exact order.",reward:'"Perfect setup. First impressions close deals."'},
    {type:'barcode',ask:"New stock just arrived from the importer — scan each VIN barcode. Steady hand.",reward:'"All logged. Inventory updated. Clean."'},
    {type:'safe',ask:"Commission envelope's in the office safe — crack it before Nino gets back.",reward:'"Opened. Commission secured. Teonem was never here."'},
-   {type:'spy',ask:"Competitor's price list is on the table — find the Golf price before they notice.",reward:'"Got it. We\'re cheaper by 800. Beautiful."'}
+   {type:'spy',ask:"Competitor's price list is on the table — find the Golf price before they notice.",reward:'"Got it. We\'re cheaper by 800. Beautiful."'},
+   {type:'flowfree',size:5,pairs:[{color:'#e03030',from:[0,0],to:[4,3]},{color:'#2e7d46',from:[0,4],to:[3,0]},{color:'#1565c0',from:[1,2],to:[4,1]},{color:'#b07d18',from:[0,2],to:[4,4]}],ask:"Route the client calls through the switchboard — connect every line without crossing them.",reward:'"All lines clear. Every client reached. Beautiful."'},
+   {type:'merge2048',target:128,ask:"Budget spreadsheet — merge the numbers until you hit the quarterly target.",reward:'"128k. Nailed it. Commission incoming."'},
+   {type:'wordle',word:'LEASE',ask:"Client mentioned the deal type but I forgot — guess the 5-letter word.",reward:'"LEASE. Of course. Three-year term, standard."'},
+   {type:'hidden',items:[{label:'Contract',emoji:'📋',x:60,y:40},{label:'Keys',emoji:'🔑',x:200,y:130},{label:'Card',emoji:'💳',x:120,y:90}],ask:"Demo car keys, the contract, and the client's card are buried on my desk. Find them.",reward:'"Found everything. Now the handover can happen."'}
  ]},
  steve:{desc:'Beard, vape, sells in Croatia',home:{x:4,y:2},pool:[
    {type:'fetch',item:'vape',itemLabel:'vape',ask:"Left my vape by the entrance. No fog, no deals.",reward:'*huge cloud* "Now we do business."'},
@@ -165,7 +172,11 @@ const POOLS={
    {type:'calendar',ask:"Schedule the Zagreb client visit — find the free slot this week that works across time zones.",reward:'*vapor* "Booked. Croatia never sleeps."'},
    {type:'rotary',combo:[30,60,10],hint:'Spin to each number and press SET.',ask:"Office safe with the Croatian contracts — spin the combo before the courier leaves.",reward:'*vapor* "Opened. Contracts secured."'},
    {type:'heatmap',zones:['Zagreb','Split','Rijeka','Osijek'],hotIdx:0,hint:'Which territory is generating most leads right now?',ask:"Look at the territory heatmap — where should I focus this week?",reward:'*vapor* "Zagreb. Always Zagreb."'},
-   {type:'dragfile',ask:"Client files from Zagreb are in the wrong folders again — drag them to the right place.",reward:'*vapor* "Organized. I can find things now."'}
+   {type:'dragfile',ask:"Client files from Zagreb are in the wrong folders again — drag them to the right place.",reward:'*vapor* "Organized. I can find things now."'},
+   {type:'wordle',word:'SPLIT',ask:"Croatian city where the big client is based — guess the 5-letter word. *vapor*",reward:'*vapor* "SPLIT. Exactly. Road trip incoming."'},
+   {type:'minesweeper',size:5,mines:3,ask:"Territory map has dead zones — clear the safe areas without hitting a bad lead.",reward:'*vapor* "Clean territory. Every safe lead flagged."'},
+   {type:'hidden',items:[{label:'Vape',emoji:'💨',x:80,y:50},{label:'Offer',emoji:'📄',x:220,y:110},{label:'Phone',emoji:'📱',x:150,y:150}],ask:"Can't find my vape, the offer letter, and my phone before the client call. *vapor*",reward:'*vapor* "All found. Call starts in 30 seconds."'},
+   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,3]},{color:'#2e7d46',from:[0,3],to:[3,0]},{color:'#1565c0',from:[0,1],to:[2,3]}],ask:"Route the Croatian territory sales calls — connect every region without overlap.",reward:'*vapor* "All regions covered. Clean map."'}
  ]},
  brana:{desc:'Watches everyone (secretly)',home:{x:3,y:9},pool:[
    {type:'fetch',item:'logsheet',itemLabel:'attendance log',ask:"Bring that sheet by the entrance. I do not track people... just get it.",reward:'*hides it* "I did not ask for this. But I did."'},
@@ -201,7 +212,11 @@ const POOLS={
    {type:'dodge',ask:"HR memo flood — dodge the irrelevant ones, let the important ones through.",reward:'"Perfect filter. I read everything anyway."'},
    {type:'jam',ask:"Office printer jammed mid-document — clear the jam sequence before anyone notices.",reward:'"Unjammed. Document: attendance report. Asking for a friend."'},
    {type:'qralign',ask:"Visitor badge QR needs scanning — line it up before they realize I\'ve been watching.",reward:'"Scanned. Visitor logged. I do not track people."'},
-   {type:'inbox',emails:[{from:'Teonem',sub:'Working from "client site"',type:'spam'},{from:'HR',sub:'Attendance policy update',type:'urgent'},{from:'Pedja',sub:'Lunch order question',type:'safe'},{from:'Unknown',sub:'You\'ve been selected!',type:'spam'},{from:'Nino',sub:'Staff meeting NOW',type:'urgent'}],ask:"My inbox has noise. Flag urgent, file safe, delete spam. You know the drill.",reward:'"Perfect sort. I would have done the same. Exactly the same."'}
+   {type:'inbox',emails:[{from:'Teonem',sub:'Working from "client site"',type:'spam'},{from:'HR',sub:'Attendance policy update',type:'urgent'},{from:'Pedja',sub:'Lunch order question',type:'safe'},{from:'Unknown',sub:'You\'ve been selected!',type:'spam'},{from:'Nino',sub:'Staff meeting NOW',type:'urgent'}],ask:"My inbox has noise. Flag urgent, file safe, delete spam. You know the drill.",reward:'"Perfect sort. I would have done the same. Exactly the same."'},
+   {type:'wordle',word:'WATCH',ask:"Five letters. What I always do. Guess it.",reward:'"WATCH. Correct. I neither confirm nor deny."'},
+   {type:'minesweeper',size:4,mines:3,ask:"Office seating grid — identify the problem areas without triggering a complaint.",reward:'"All clear. Problems identified. Quietly noted."'},
+   {type:'hidden',items:[{label:'Log',emoji:'📒',x:50,y:60},{label:'Badge',emoji:'🪪',x:190,y:100},{label:'Pen',emoji:'🖊️',x:260,y:150}],ask:"My observation log, a visitor badge, and my pen — find them in this desk mess.",reward:'"All found. The system works. I have a system."'},
+   {type:'merge2048',target:64,ask:"Attendance numbers — merge the daily counts into the weekly total.",reward:'"64. Exactly right. Every head counted."'}
  ]},
  sonja:{desc:'Quiet, runs payroll',home:{x:4,y:11},pool:[
    {type:'deliver',item:'router',itemLabel:'the router',to:'nino',ask:"Payroll needs internet. Give the router to Steve — he's the IT guy.",reward:'barely audible: "...thank you."'},
@@ -235,7 +250,11 @@ const POOLS={
    {type:'gauge',ask:"Tax calculation is running — watch the progress gauge and stop it exactly at 100%. Not 99. Not 101.",reward:'"...100.0. Precisely. Of course."'},
    {type:'patchline',pairs:[['Sonja','Payroll extension'],['Nino','Director line'],['HR','Compliance desk']],hint:'Drag a line from each person to their extension.',ask:"Phone routing got reset again. Patch each person back to their correct line.",reward:'"...patched. Quietly efficient."'},
    {type:'circuit',ask:"Accounting software threw a fault — trace the circuit to find the broken connection.",reward:'"...found it. Third node. Fixed."'},
-   {type:'cableroute',ask:"Server room cables got shuffled during the audit — route the payroll server back to the right port.",reward:'"...correct port. Payroll system online."'}
+   {type:'cableroute',ask:"Server room cables got shuffled during the audit — route the payroll server back to the right port.",reward:'"...correct port. Payroll system online."'},
+   {type:'wordle',word:'GROSS',ask:"Payroll term. Five letters. You should know this one.",reward:'"...GROSS. Yes. Before deductions."'},
+   {type:'minesweeper',size:4,mines:2,ask:"Budget grid — identify the safe spending areas without triggering an overage.",reward:'"...all clear. Budget intact."'},
+   {type:'hidden',items:[{label:'Payslip',emoji:'📄',x:70,y:80},{label:'Stamp',emoji:'🔏',x:200,y:50},{label:'Calc',emoji:'🖩',x:150,y:140}],ask:"The payslip, the approval stamp, and the calculator — somewhere on this desk.",reward:'"...found. Quietly efficient."'},
+   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,2]},{color:'#2e7d46',from:[0,3],to:[3,0]},{color:'#1565c0',from:[1,1],to:[3,3]}],ask:"Route the salary transfers through the correct bank channels — no crossings.",reward:'"...all routed. Transfers processing."'}
  ]},
  pedja:{desc:'Ex-waiter, 2m tall, rookie',home:{x:4,y:3},pool:[
    {type:'timing',ask:"Holding a glass on the top shelf — say NOW at the right moment.",reward:'*hops down* "No tip, but we are good."'},
@@ -272,7 +291,12 @@ const POOLS={
    {type:'slider',ask:"Find the sweet spot on the sauce recipe — not too much, not too little. Feel it out.",reward:'"Perfect balance. Two years of that trains the hand."'},
    {type:'higherlower',ask:"Guess the table number the big order went to. I\'ll say warmer or colder.",reward:'"Table 12. Waiter memory never fades."'},
    {type:'voltage',ask:"Kitchen equipment on three circuits — keep them all green during the dinner rush.",reward:'"All green. Didn\'t blow a single breaker."'},
-   {type:'oddeven',ask:"Odd tables get the fixed menu, even tables get à la carte. Sort them fast.",reward:'"Split perfectly. Old instincts, new job."'}
+   {type:'oddeven',ask:"Odd tables get the fixed menu, even tables get à la carte. Sort them fast.",reward:'"Split perfectly. Old instincts, new job."'},
+   {type:'wordle',word:'TABLE',ask:"Five letters. Where I spent five years of my life. Guess it.",reward:'"TABLE. Yeah. Good times, low pay."'},
+   {type:'minesweeper',size:5,mines:4,ask:"Kitchen floor has wet spots — map the safe path to the service station without slipping.",reward:'"Safe route found. No incidents. Waiter instincts."'},
+   {type:'hidden',items:[{label:'Tray',emoji:'🍽️',x:90,y:60},{label:'Timer',emoji:'⏱️',x:220,y:130},{label:'Ticket',emoji:'🎫',x:140,y:160}],ask:"Lost the service tray, the kitchen timer, and a table ticket. Classic Pedja.",reward:'"All found. Service resumes."'},
+   {type:'merge2048',target:64,ask:"Table numbers are getting doubled up — merge them before service starts.",reward:'"Sorted. Clean floor plan. Ready to serve."'},
+   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,1]},{color:'#2e7d46',from:[0,3],to:[2,0]},{color:'#b07d18',from:[1,2],to:[3,3]}],ask:"Route the food orders from kitchen to tables without blocking the aisle.",reward:'"Every table served. Zero collisions. Waiter brain."'}
  ]},
  nina:{desc:"Boss's daughter, control freak",home:{x:13,y:9},pool:[
    {type:'simon',ask:"Do EXACTLY as I say, in order. Because I am always right. Repeat.",reward:'"See? Works when you listen to ME."'},
@@ -307,7 +331,12 @@ const POOLS={
    {type:'voicemail',pool:['approved','rejected','pending','revised','escalated'],ask:"Five status updates on my voicemail — type back the last one. I delete as I go.",reward:'"Correct. Escalated. As it should be."'},
    {type:'wire',pairs:[['Nina','Final approval'],['Nino','Budget sign-off'],['Sonja','Payroll processing']],hint:'Connect each person to their actual responsibility.',ask:"New org chart — wire each person to their real role. My role is obvious.",reward:'"Wired correctly. Finally, clarity."'},
    {type:'cableroute',ask:"Conference room AV got scrambled before my presentation — route the signal back to the main screen.",reward:'"Connected. Presentation will be flawless. Obviously."'},
-   {type:'approvalchain',chain:['Employee','Manager','Nina','Nino'],hint:'Every request goes through Nina before Nino. Obviously.',ask:"Someone submitted a request skipping me. Show them the correct approval chain.",reward:'"Through ME first. Always. Obviously."'}
+   {type:'approvalchain',chain:['Employee','Manager','Nina','Nino'],hint:'Every request goes through Nina before Nino. Obviously.',ask:"Someone submitted a request skipping me. Show them the correct approval chain.",reward:'"Through ME first. Always. Obviously."'},
+   {type:'wordle',word:'RIGHT',ask:"Five letters. What I always am. You should get this immediately.",reward:'"RIGHT. Obviously. First try? Acceptable."'},
+   {type:'minesweeper',size:4,mines:2,ask:"Meeting room booking grid — clear the available slots without double-booking my time.",reward:'"My time protected. Obviously."'},
+   {type:'hidden',items:[{label:'Stamp',emoji:'✅',x:60,y:50},{label:'Remote',emoji:'📡',x:210,y:120},{label:'Marker',emoji:'🖍️',x:160,y:80}],ask:"My approval stamp, presentation remote, and marker are missing. Obviously someone moved them.",reward:'"Found. I\'ll be putting these in a locked drawer now."'},
+   {type:'merge2048',target:128,ask:"Combine the project scores until they reach my minimum acceptable threshold.",reward:'"128. My minimum. Obviously achieved."'},
+   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,3]},{color:'#2e7d46',from:[0,2],to:[3,0]},{color:'#b07d18',from:[1,3],to:[3,1]}],ask:"Route the approval flows — every request must pass through the right chain. No shortcuts.",reward:'"All approved via the correct chain. Obviously."'}
  ]},
  daniel:{desc:'Designer, chill, big vibes',home:{x:4,y:5},pool:[
    {type:'choose',q:'Which design has the best vibe?',opts:[{t:'Clean & minimal',ok:true},{t:'5 fonts, 3 gradients',ok:false},{t:'Default bootstrap',ok:false}],ask:"Yo, which design has the best vibe? Just feel it. *smoke*",reward:'*thumbs up through haze* "Flawless vibe, respect."'},
@@ -346,7 +375,12 @@ const POOLS={
    {type:'cash',ask:"Client paid the invoice in cash — count it out and confirm before I issue the receipt.",reward:'"Counted. Exact. Even the design industry runs on money, man."'},
    {type:'moving',ask:"New office layout — catch the furniture pieces as they move into the right spots.",reward:'"Every piece landed right. Space has intention now."'},
    {type:'qte',ask:"Client presentation combo — advance slides, dim lights, click demo, all in sequence. Go.",reward:'"Flawless execution. The room was speechless."'},
-   {type:'redact',sentences:['Client budget: €45,000 for full rebrand','Contact: Ana Kovač, CEO +385 99 111 2233','Deadline: confidential — before competitor launch'],sensitive:['€45,000','Ana Kovač, CEO +385 99 111 2233','confidential'],ask:"Agency brief before sending to the printer — redact the sensitive bits.",reward:'"Redacted. Brief is clean. Printer gets the safe version."'}
+   {type:'redact',sentences:['Client budget: €45,000 for full rebrand','Contact: Ana Kovač, CEO +385 99 111 2233','Deadline: confidential — before competitor launch'],sensitive:['€45,000','Ana Kovač, CEO +385 99 111 2233','confidential'],ask:"Agency brief before sending to the printer — redact the sensitive bits.",reward:'"Redacted. Brief is clean. Printer gets the safe version."'},
+   {type:'wordle',word:'PIXEL',ask:"Five letters. The smallest unit of my universe. You know this one.",reward:'"PIXEL. Obviously. I think in them."'},
+   {type:'minesweeper',size:5,mines:3,ask:"Design grid with broken nodes — find the safe layout zones without triggering a client complaint.",reward:'"Clean grid. Zero broken layouts. Designer magic."'},
+   {type:'hidden',items:[{label:'Stylus',emoji:'✏️',x:80,y:60},{label:'Tablet',emoji:'📱',x:220,y:100},{label:'Swatch',emoji:'🎨',x:130,y:160}],ask:"Lost my stylus, drawing tablet, and color swatch before the client meeting. Very chill about it.",reward:'"Found everything. Vibes restored. Let\'s create."'},
+   {type:'merge2048',target:256,ask:"Layer complexity — merge the design iterations until the concept reaches full resolution.",reward:'"256. Full resolution. The client will love it."'},
+   {type:'flowfree',size:5,pairs:[{color:'#e03030',from:[0,0],to:[4,4]},{color:'#2e7d46',from:[0,4],to:[4,0]},{color:'#1565c0',from:[2,0],to:[2,4]},{color:'#b07d18',from:[0,2],to:[4,2]}],ask:"Connect the design system tokens to their components — every cell must flow.",reward:'"Fully connected system. Every token placed. Beautiful."'}
  ]},
 };
 
@@ -644,7 +678,8 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   oddeven:miniOddEven,target:miniTarget,reverse:miniReverse,moving:miniMoving,higherlower:miniHigherLower,
   gridmem:miniGridMem,stopwatch:miniStopwatch,maze:miniMaze,spy:miniSpy,priority:miniPriority,
   echo:miniEcho,splice:miniSplice,noise:miniNoise,budget:miniBudget,crack:miniCrack,jenga:miniJenga,
-  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode,dial:miniDial,switchboard:miniSwitchboard,rolodex:miniRolodex,rank:miniRank,cartridge:miniCartridge,patchline:miniPatchline,typewriter:miniTypewriter,flowchart:miniFlowchart,redact:miniRedact,hotkey:miniHotkey,inbox:miniInbox,budgetslider:miniBudgetSlider,crossword:miniCrossword,cableroute:miniCableRoute,wordsearch:miniWordsearch,conveyor:miniConveyor,contract:miniContract,rotary:miniRotary,heatmap:miniHeatmap,triage:miniTriage,cipher:miniCipher,voltage:miniVoltage,toggle:miniToggle,anagram:miniAnagram,whiteboard:miniWhiteboard,slot:miniSlot,mirror:miniMirror,pricetag:miniPriceTag,binary:miniBinary,voicemail:miniVoicemail,approvalchain:miniApprovalChain,frequency:miniFrequency,handover:miniHandover})[t.type](n,t);}
+  signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode,dial:miniDial,switchboard:miniSwitchboard,rolodex:miniRolodex,rank:miniRank,cartridge:miniCartridge,patchline:miniPatchline,typewriter:miniTypewriter,flowchart:miniFlowchart,redact:miniRedact,hotkey:miniHotkey,inbox:miniInbox,budgetslider:miniBudgetSlider,crossword:miniCrossword,cableroute:miniCableRoute,wordsearch:miniWordsearch,conveyor:miniConveyor,contract:miniContract,rotary:miniRotary,heatmap:miniHeatmap,triage:miniTriage,cipher:miniCipher,voltage:miniVoltage,toggle:miniToggle,anagram:miniAnagram,whiteboard:miniWhiteboard,slot:miniSlot,mirror:miniMirror,pricetag:miniPriceTag,binary:miniBinary,voicemail:miniVoicemail,approvalchain:miniApprovalChain,frequency:miniFrequency,handover:miniHandover,
+  wordle:miniWordle,minesweeper:miniMinesweeper,merge2048:mini2048,flowfree:miniFlowFree,hidden:miniHidden})[t.type](n,t);}
 
 function miniCatch(n,t){const st=openMini('CATCH','A/D or mouse. Catch 5 before time runs out.',true);
   st.innerHTML='<div id="catcher"><div id="paddle"></div></div>';
@@ -2178,6 +2213,237 @@ function updateNPCs(){
     }
   });
 }
+
+// ══════════════════════════════════════════════════════
+// NEW MECHANICS
+// ══════════════════════════════════════════════════════
+
+/* WORDLE — guess the hidden 5-letter word in 6 tries.
+   t.word = the answer (5 uppercase letters). */
+function miniWordle(n,t){
+  const ans=(t.word||'CRASH').toUpperCase();
+  const ROWS=6,COLS=5;
+  let row=0,col=0,done=false;
+  const grid=Array.from({length:ROWS},()=>Array(COLS).fill(''));
+  const st=openMini('WORDLE','Guess the 5-letter word. Green=right spot, Yellow=wrong spot, Grey=not in word.');
+  const renderGrid=()=>{
+    let html='<div style="display:flex;flex-direction:column;gap:4px;margin-bottom:10px">';
+    for(let r=0;r<ROWS;r++){
+      html+='<div style="display:flex;gap:4px">';
+      for(let c=0;c<COLS;c++){
+        const ch=grid[r][c]||'';
+        let bg='var(--paper2)';let col2='var(--inkbrown)';let border='2px solid var(--wood2)';
+        if(r<row){
+          if(ch===ans[c]){bg='#2e7d46';col2='#fff';border='2px solid #2e7d46';}
+          else if(ans.includes(ch)){bg='#b07d18';col2='#fff';border='2px solid #b07d18';}
+          else{bg='#555';col2='#fff';border='2px solid #555';}
+        }else if(r===row){border='2px solid var(--accent)';}
+        html+=`<div style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:18px;border-radius:4px;background:${bg};color:${col2};border:${border}">${ch}</div>`;
+      }
+      html+='</div>';
+    }
+    html+='</div>';
+    html+=`<div id="wdMsg" style="font-size:12px;color:var(--wood);text-align:center;min-height:16px"></div>`;
+    html+=`<div style="font-size:11px;color:var(--wood2);text-align:center;margin-top:6px">Type letters, ENTER to guess, BACKSPACE to delete</div>`;
+    st.innerHTML=html;
+  };
+  renderGrid();
+  setKey(e=>{
+    if(done)return;
+    if(e.key==='Backspace'){if(col>0){col--;grid[row][col]='';renderGrid();}return;}
+    if(e.key==='Enter'){
+      if(col<COLS){document.getElementById('wdMsg').textContent='Not enough letters.';return;}
+      const guess=grid[row].join('');
+      if(guess===ans){done=true;renderGrid();setTimeout(()=>miniWin(n,t),600);return;}
+      row++;col=0;renderGrid();
+      if(row>=ROWS){done=true;setTimeout(()=>fail(n,`The word was ${ans}. [E]`),400);}
+      return;
+    }
+    if(/^[a-zA-Z]$/.test(e.key)&&col<COLS){grid[row][col]=e.key.toUpperCase();col++;renderGrid();}
+  });
+}
+
+/* MINESWEEPER — clear a small grid without hitting mines.
+   t.size=5 (5×5), t.mines=4. Click safe cells, flag mines with right-click. */
+function miniMinesweeper(n,t){
+  const SIZE=t.size||5, MINES=t.mines||4;
+  let done=false,firstClick=true;
+  const cells=Array.from({length:SIZE},()=>Array(SIZE).fill(0));
+  const mines=new Set();const revealed=new Set();const flagged=new Set();
+  const key=( r,c)=>r*SIZE+c;
+  const adj=(r,c)=>{const a=[];for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){if(!dr&&!dc)continue;const nr=r+dr,nc=c+dc;if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE)a.push([nr,nc]);}return a;};
+  const placeMines=(sr,sc)=>{const pool=[];for(let r=0;r<SIZE;r++)for(let c=0;c<SIZE;c++)if(Math.abs(r-sr)>1||Math.abs(c-sc)>1)pool.push([r,c]);shuffle(pool).slice(0,MINES).forEach(([r,c])=>mines.add(key(r,c)));for(let r=0;r<SIZE;r++)for(let c=0;c<SIZE;c++)cells[r][c]=[...adj(r,c)].filter(([ar,ac])=>mines.has(key(ar,ac))).length;};
+  const flood=(r,c)=>{if(revealed.has(key(r,c))||mines.has(key(r,c)))return;revealed.add(key(r,c));if(cells[r][c]===0)adj(r,c).forEach(([ar,ac])=>flood(ar,ac));};
+  const COLORS=['','#1565c0','#2e7d46','#c0392b','#6a1b9a','#b07d18','#00838f','#000','#555'];
+  const render=()=>{
+    let html='<div style="display:inline-flex;flex-direction:column;gap:2px;margin-bottom:8px">';
+    for(let r=0;r<SIZE;r++){
+      html+='<div style="display:flex;gap:2px">';
+      for(let c=0;c<SIZE;c++){
+        const k=key(r,c);const isRev=revealed.has(k);const isFlag=flagged.has(k);const isMine=mines.has(k);
+        let bg=isRev?'#d9bd8a':'var(--paper2)';let txt='';let color='';let border='1px solid var(--wood2)';
+        if(isRev&&isMine){bg='#c0392b';txt='💣';}
+        else if(isRev&&cells[r][c]>0){txt=cells[r][c];color=COLORS[cells[r][c]];}
+        else if(isFlag){txt='🚩';bg='#fff3cd';}
+        html+=`<div class="msCell" data-r="${r}" data-c="${c}" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;border-radius:3px;background:${bg};color:${color};border:${border};cursor:pointer;user-select:none">${txt}</div>`;
+      }
+      html+='</div>';
+    }
+    html+='</div>';
+    const safe=SIZE*SIZE-MINES;const rem=safe-revealed.size;
+    html+=`<div style="font-size:12px;color:var(--wood);text-align:center">${rem} safe cells left &nbsp;|&nbsp; right-click to flag mines</div>`;
+    st.innerHTML=html;
+    st.querySelectorAll('.msCell').forEach(el=>{
+      el.onclick=()=>{
+        if(done)return;
+        const r=+el.dataset.r,c=+el.dataset.c,k2=key(r,c);
+        if(flagged.has(k2)||revealed.has(k2))return;
+        if(firstClick){firstClick=false;placeMines(r,c);}
+        if(mines.has(k2)){done=true;revealed.add(k2);render();setTimeout(()=>fail(n,'BOOM — hit a mine. [E]'),500);return;}
+        flood(r,c);
+        const safe2=SIZE*SIZE-MINES;
+        if(revealed.size>=safe2){done=true;render();setTimeout(()=>miniWin(n,t),400);}
+        else render();
+      };
+      el.oncontextmenu=e=>{e.preventDefault();if(done)return;const k2=key(+el.dataset.r,+el.dataset.c);if(revealed.has(k2))return;flagged.has(k2)?flagged.delete(k2):flagged.add(k2);render();};
+    });
+  };
+  const st=openMini('MINESWEEPER',`Clear ${SIZE*SIZE-MINES} safe cells. Right-click to flag mines.`);
+  render();
+}
+
+/* 2048 — merge tiles to reach 2048 (or a lower target for quick games).
+   t.target = 128 (fast) or 256 (medium). Arrow keys to slide. */
+function mini2048(n,t){
+  const TARGET=t.target||128;
+  const G=4;let done=false;
+  let board=Array.from({length:G},()=>Array(G).fill(0));
+  const addRandom=()=>{const empty=[];board.forEach((row,r)=>row.forEach((v,c)=>{if(!v)empty.push([r,c]);}));if(!empty.length)return;const[r,c]=rnd(empty);board[r][c]=Math.random()<0.9?2:4;};
+  addRandom();addRandom();
+  const COLORS={0:'#cdc1b4',2:'#eee4da',4:'#ede0c8',8:'#f2b179',16:'#f59563',32:'#f67c5f',64:'#f65e3b',128:'#edcf72',256:'#edcc61',512:'#edc850',1024:'#edc53f',2048:'#edc22e'};
+  const render=()=>{
+    let html='<div style="display:inline-flex;flex-direction:column;gap:5px;background:#bbada0;padding:6px;border-radius:8px;margin-bottom:8px">';
+    board.forEach(row=>{
+      html+='<div style="display:flex;gap:5px">';
+      row.forEach(v=>{const bg=COLORS[v]||'#3c3a32';const col=v>4?'#f9f6f2':'#776e65';const fs=v>99?v>999?'16px':'18px':'22px';
+        html+=`<div style="width:52px;height:52px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:${fs};border-radius:4px;background:${bg};color:${col}">${v||''}</div>`;});
+      html+='</div>';});
+    html+=`</div><div style="font-size:12px;color:var(--wood);text-align:center">Arrow keys to merge. Reach ${TARGET}!</div>`;
+    st.innerHTML=html;
+  };
+  const slide=(row)=>{const r=row.filter(v=>v);for(let i=0;i<r.length-1;i++)if(r[i]===r[i+1]){r[i]*=2;r.splice(i+1,1);}while(r.length<G)r.push(0);return r;};
+  const move=(dir)=>{if(done)return;let moved=false;const b=board.map(r=>[...r]);
+    if(dir==='left')board=board.map(r=>{const s=slide(r);if(s.join()!==r.join())moved=true;return s;});
+    else if(dir==='right')board=board.map(r=>{const s=slide([...r].reverse()).reverse();if(s.join()!==r.join())moved=true;return s;});
+    else if(dir==='up'){for(let c=0;c<G;c++){const col=board.map(r=>r[c]);const s=slide(col);s.forEach((v,r)=>{if(v!==board[r][c])moved=true;board[r][c]=v;});}}
+    else if(dir==='down'){for(let c=0;c<G;c++){const col=board.map(r=>r[c]).reverse();const s=slide(col).reverse();s.forEach((v,r)=>{if(v!==board[r][c])moved=true;board[r][c]=v;});}}
+    if(!moved)return;addRandom();
+    const max=Math.max(...board.flat());
+    if(max>=TARGET){done=true;render();setTimeout(()=>miniWin(n,t),400);return;}
+    const hasMoves=board.some((row,r)=>row.some((v,c)=>!v||[[-1,0],[1,0],[0,-1],[0,1]].some(([dr,dc])=>{const nr=r+dr,nc=c+dc;return nr>=0&&nr<G&&nc>=0&&nc<G&&board[nr][nc]===v;})));
+    if(!hasMoves){done=true;render();setTimeout(()=>fail(n,`No moves left — reached ${max}, needed ${TARGET}. [E]`),400);return;}
+    render();
+  };
+  const st=openMini('2048',`Merge tiles to reach ${TARGET}. Arrow keys.`);
+  render();
+  setKey(e=>{const map={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'up',ArrowDown:'down'};if(map[e.key]){e.preventDefault();move(map[e.key]);}});
+}
+
+/* FLOW FREE — connect matching color dots with pipes. No cell left uncovered.
+   t.size = grid size (5). t.pairs = [{color,from:[r,c],to:[r,c]},...]. */
+function miniFlowFree(n,t){
+  const SIZE=t.size||5;
+  const PAIRS=t.pairs||[
+    {color:'#e03030',from:[0,0],to:[4,4]},
+    {color:'#2e7d46',from:[0,4],to:[4,0]},
+    {color:'#1565c0',from:[0,2],to:[4,2]},
+    {color:'#b07d18',from:[2,0],to:[2,4]},
+  ];
+  let done=false;
+  // grid[r][c] = color string or null
+  const grid=Array.from({length:SIZE},()=>Array(SIZE).fill(null));
+  // place endpoints
+  const endpoints=new Map();
+  PAIRS.forEach(p=>{
+    grid[p.from[0]][p.from[1]]=p.color;
+    grid[p.to[0]][p.to[1]]=p.color;
+    endpoints.set(p.from[0]*SIZE+p.from[1],p.color);
+    endpoints.set(p.to[0]*SIZE+p.to[1],p.color);
+  });
+  let drawing=null,drawColor=null;
+  const render=()=>{
+    let html=`<div style="display:inline-flex;flex-direction:column;gap:3px;background:#1a1a2e;padding:6px;border-radius:8px;margin-bottom:8px">`;
+    for(let r=0;r<SIZE;r++){
+      html+='<div style="display:flex;gap:3px">';
+      for(let c=0;c<SIZE;c++){
+        const k=r*SIZE+c;const isEnd=endpoints.has(k);
+        const fill=grid[r][c]?grid[r][c]:'#2a2a3e';
+        const border=isEnd?`3px solid ${endpoints.get(k)||'#555'}`:'1px solid #3a3a5e';
+        const inner=isEnd?`<div style="width:18px;height:18px;border-radius:50%;background:${endpoints.get(k)}"></div>`:'';
+        html+=`<div class="ffCell" data-r="${r}" data-c="${c}" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:4px;background:${fill};border:${border};cursor:pointer">${inner}</div>`;
+      }
+      html+='</div>';
+    }
+    html+=`</div><div style="font-size:12px;color:var(--wood);text-align:center">Click a dot to start, drag to connect. Fill every cell.</div>`;
+    st.innerHTML=html;
+    st.querySelectorAll('.ffCell').forEach(el=>{
+      el.onmousedown=e=>{e.preventDefault();const r=+el.dataset.r,c=+el.dataset.c,k=r*SIZE+c;
+        if(endpoints.has(k)){drawing=[r,c];drawColor=endpoints.get(k);// clear existing path of this color
+          for(let gr=0;gr<SIZE;gr++)for(let gc=0;gc<SIZE;gc++)if(grid[gr][gc]===drawColor&&!endpoints.has(gr*SIZE+gc))grid[gr][gc]=null;
+          grid[r][c]=drawColor;render();}};
+      el.onmouseenter=()=>{if(!drawing||!drawColor||done)return;const r=+el.dataset.r,c=+el.dataset.c;
+        const[pr,pc]=drawing;if(Math.abs(r-pr)+Math.abs(c-pc)!==1)return;// must be adjacent
+        const k=r*SIZE+c;
+        if(endpoints.has(k)&&endpoints.get(k)!==drawColor)return;// can't overwrite other endpoint
+        if(grid[r][c]&&grid[r][c]!==drawColor&&!endpoints.has(k))return;
+        grid[r][c]=drawColor;drawing=[r,c];
+        // check win: all cells filled and all pairs connected
+        const allFilled=grid.every(row=>row.every(v=>v));
+        if(allFilled){const allConnected=PAIRS.every(p=>{// BFS from p.from to p.to through same color
+          const visited=new Set();const q=[p.from];while(q.length){const[cr,cc]=q.shift();if(cr===p.to[0]&&cc===p.to[1])return true;const ck=cr*SIZE+cc;if(visited.has(ck))continue;visited.add(ck);[[-1,0],[1,0],[0,-1],[0,1]].forEach(([dr,dc])=>{const nr=cr+dr,nc=cc+dc;if(nr>=0&&nr<SIZE&&nc>=0&&nc<SIZE&&grid[nr][nc]===p.color)q.push([nr,nc]);});}return false;});
+          if(allConnected){done=true;render();setTimeout(()=>miniWin(n,t),400);}
+        }
+        render();};
+    });
+    document.onmouseup=()=>{drawing=null;drawColor=null;};
+  };
+  const st=openMini('FLOW','Connect matching dots with pipes. Fill every cell.');
+  render();
+}
+
+/* HIDDEN OBJECTS — find hidden items in a cluttered office scene drawn on canvas. */
+function miniHidden(n,t){
+  const items=t.items||[
+    {label:'USB',emoji:'🔌',x:0,y:0},
+    {label:'Key',emoji:'🔑',x:0,y:0},
+    {label:'Badge',emoji:'🪪',x:0,y:0},
+  ];
+  const W=320,H=200;
+  // place items at random non-overlapping positions
+  const placed=[];
+  items.forEach(item=>{let tries=0,ok=false;while(!ok&&tries<100){const x=20+Math.floor(Math.random()*(W-50)),y=20+Math.floor(Math.random()*(H-50));ok=placed.every(p=>Math.hypot(p.x-x,p.y-y)>36);if(ok){item.x=x;item.y=y;placed.push(item);}tries++;}});
+  let found=new Set(),done=false;
+  const noise=['📎','📌','✏️','📋','🖇️','📐','🗂️','📂','🖊️','📏','🗃️','📓'];
+  const render=()=>{
+    let html=`<div style="position:relative;width:${W}px;height:${H}px;background:#e4cd9d;border:3px solid var(--wood2);border-radius:8px;overflow:hidden;cursor:crosshair" id="hdScene">`;
+    // scatter noise items
+    for(let i=0;i<18;i++){const nx=10+Math.floor(Math.random()*(W-30)),ny=10+Math.floor(Math.random()*(H-30));html+=`<div style="position:absolute;left:${nx}px;top:${ny}px;font-size:18px;opacity:.55;pointer-events:none">${noise[i%noise.length]}</div>`;}
+    // place hidden items (smaller + blended)
+    items.forEach(item=>{const opacity=found.has(item.label)?'1':'0.5';const scale=found.has(item.label)?'1.3':'0.85';
+      html+=`<div class="hdItem" data-label="${item.label}" style="position:absolute;left:${item.x}px;top:${item.y}px;font-size:20px;transform:scale(${scale}) rotate(${Math.random()*40-20}deg);opacity:${opacity};cursor:pointer;transition:.2s">${item.emoji}</div>`;});
+    html+='</div>';
+    const left=items.length-found.size;
+    html+=`<div style="font-size:12px;color:var(--wood);text-align:center;margin-top:6px">Find: ${items.filter(i=>!found.has(i.label)).map(i=>i.emoji+' '+i.label).join('  ')} &nbsp; (${left} left)</div>`;
+    st.innerHTML=html;
+    st.querySelectorAll('.hdItem').forEach(el=>{
+      el.onclick=()=>{if(done)return;const lbl=el.dataset.label;if(found.has(lbl))return;found.add(lbl);
+        if(found.size>=items.length){done=true;render();setTimeout(()=>miniWin(n,t),400);}else render();};
+    });
+  };
+  const st=openMini('FIND IT',`Find the hidden objects in the office clutter.`);
+  render();
+}
+
 function loop(){if(state==='end')return;
   frame++;
   let moving=false;
