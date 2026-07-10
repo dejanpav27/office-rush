@@ -591,10 +591,10 @@ function backToUserMenu(){SCREENS.forEach(s=>{const el=document.getElementById(s
 /* start screen with sprite previews */
 const pick=document.getElementById('pickChars');
 ['dejan','teonem','steve','brana','sonja','pedja','nina','daniel'].forEach(id=>{
-  const d=document.createElement('div');d.className='char';d.style.minWidth='120px';
+  const d=document.createElement('div');d.className='char';d.style.cssText='min-width:130px;max-width:145px;padding:16px 12px 14px;';
   const pc=document.createElement('canvas');pc.width=90;pc.height=120;
-  pc.style.width='90px';pc.style.height='120px';
-  const pg=pc.getContext('2d');pg.imageSmoothingEnabled=true;
+  pc.style.cssText='width:90px;height:120px;display:block;margin:0 auto 8px;image-rendering:pixelated;';
+  const pg=pc.getContext('2d');pg.imageSmoothingEnabled=false;
   function paint(){const img=SPRITES[id];pg.clearRect(0,0,90,120);
     if(img&&img.complete&&img.naturalWidth>0){
       const w=img.naturalWidth,h=img.naturalHeight;const dh=110,dw=w*(dh/h);
