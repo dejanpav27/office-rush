@@ -449,14 +449,30 @@ function updateLeaderboard(name,score){
   lb.sort((a,b)=>b.score-a.score);lb=lb.slice(0,10);
   try{localStorage.setItem(LB_KEY,JSON.stringify(lb));}catch(e){}
 }
+function renderLeaderboard(){
+  const lb=loadLeaderboard();
+  const el=document.getElementById('lbList');
+  if(!lb.length){el.innerHTML='<div class="lbEmpty">No scores yet — survive a full week!</div>';return;}
+  const medals=['🥇','🥈','🥉'];
+  el.innerHTML=lb.map((e,i)=>
+    '<div class="lbRow">'+
+      '<div class="lbRank">'+(medals[i]||i+1)+'</div>'+
+      '<div class="lbName">'+esc(e.name)+'</div>'+
+      '<div class="lbScore">'+e.score+' pt</div>'+
+    '</div>'
+  ).join('');
+}
 
 /* ── SCREEN NAVIGATION ───────────────────────────────── */
-const SCREENS=['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end'];
+const SCREENS=['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end','leaderboardScreen','firedScreen'];
 function showScreen(id){SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display=(s===id)?'flex':'none';});}
 
 /* mode select */
 document.getElementById('modePlay').onclick=()=>{renderSlots();showScreen('userSelect');};
 document.getElementById('modeTest').onclick=()=>{document.getElementById('modeScreen').style.display='none';startTest();};
+document.getElementById('modeLeaderboard').onclick=()=>{renderLeaderboard();showScreen('leaderboardScreen');};
+document.getElementById('lbBack').onclick=()=>showScreen('modeScreen');
+document.getElementById('firedBack').onclick=backToUserMenu;
 
 /* user select — render 3 slots */
 function renderSlots(){
@@ -2153,18 +2169,17 @@ function showWeekWin(){
   setEndButton('Back to menu',backToUserMenu);
 }
 
-// failed the day → fired
+// failed the day → Nino fires you — cinematic screen
 function showFired(){
   bankWeek(false);
-  const el=document.getElementById('end');el.style.display='flex';
-  document.getElementById('endTitle').textContent="YOU'RE FIRED";
-  document.getElementById('endTitle').style.color='var(--red)';
-  document.getElementById('endSub').textContent=DAY_CONFIG[week.day].name+' — only '+week.points+'/'+week.target+' pt';
-  document.getElementById('endMsg').innerHTML=
-    'Nino: "Clean out your desk."<br><br>'+
-    'You made it to <b>'+DAY_CONFIG[week.day].name+'</b>.<br>'+
-    'Coins banked anyway: <b>'+week.coins+'</b>';
-  setEndButton('Back to menu',backToUserMenu);
+  const el=document.getElementById('firedScreen');
+  el.style.display='flex';
+  document.getElementById('firedTitle').textContent="YOU'RE FIRED";
+  document.getElementById('firedMsg').innerHTML=
+    '"Clean out your desk."<br><br>'+
+    'You made it to <b>'+DAY_CONFIG[week.day].name+'</b> with '+week.points+' / '+week.target+' pt.<br>'+
+    'Coins banked anyway: <b>'+week.coins+' 🪙</b><br><br>'+
+    'Dust yourself off. Try again.';
 }
 
 // write week results into the user's save

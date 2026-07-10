@@ -33,6 +33,20 @@
   <div class="chars" style="margin-top:20px">
     <div class="char" id="modePlay" style="min-width:190px"><div class="n">&#9654; PLAY</div><div class="d">Pick a character, clear the whole board before the shift ends.</div></div>
     <div class="char" id="modeTest" style="min-width:190px"><div class="n">&#128295; TEST</div><div class="d">No timer. Every NPC has every task — try each mini-game freely.</div></div>
+    <div class="char" id="modeLeaderboard" style="min-width:190px"><div class="n">&#127942; SCORES</div><div class="d">Top 10 best scores across all players on this device.</div></div>
+  </div>
+</div>
+<div class="screen" id="leaderboardScreen" style="display:none">
+  <h1>&#127942; LEADERBOARD</h1><h2>&#9670; TOP SCORES &#9670;</h2>
+  <div id="lbList" class="panel" style="max-width:380px;min-width:280px;padding:0"></div>
+  <button class="btn ghost" id="lbBack" style="margin-top:20px">&laquo; Back</button>
+</div>
+<div class="screen" id="firedScreen" style="display:none">
+  <div id="firedInner">
+    <div id="firedNino">&#128084;</div>
+    <h1 id="firedTitle">YOU'RE FIRED</h1>
+    <p id="firedMsg"></p>
+    <button class="btn ghost" id="firedBack" style="margin-top:20px">&laquo; Back to menu</button>
   </div>
 </div>
 <div class="screen" id="start" style="display:none">
