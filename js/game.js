@@ -2786,7 +2786,7 @@ function miniPipe(n,t){
 }
 
 function drawMinimap(){
-  const MW=110,MH=70,MX=viewW-MW-10,MY=10,PAD=4;
+  const MW=110,MH=70,MX=viewW-MW-10,MY=viewH-MH-10,PAD=4;
   const scaleX=(MW-PAD*2)/(COLS*TS),scaleY=(MH-PAD*2)/(ROWS*TS);
   ctx.fillStyle='rgba(20,12,6,.82)';ctx.strokeStyle='rgba(200,160,80,.5)';ctx.lineWidth=1.5;
   const rr=(x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();};
@@ -2894,12 +2894,7 @@ function loop(){if(state==='end'||state==='paused')return;
       ctx.fillStyle='#6b431f';ctx.fillRect(hx-13,hy-11+bb,26,15);
       ctx.fillStyle='#f6e7c1';ctx.font='bold 11px monospace';ctx.textAlign='center';ctx.fillText('[E]',hx,hy+bb);}}
   ctx.restore();
-  if(state==='play'&&player){
-    const dpr=window.devicePixelRatio||1;
-    ctx.save();ctx.setTransform(dpr,0,0,dpr,0,0);
-    drawMinimap();
-    ctx.restore();
-  }
+  if(state==='play'&&player)drawMinimap();
   const g=ctx.createRadialGradient(viewW/2,viewH/2,viewH/2.4,viewW/2,viewH/2,viewH*0.95);
   g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(30,15,5,.35)');
   ctx.fillStyle=g;ctx.fillRect(0,0,viewW,viewH);
