@@ -2894,7 +2894,12 @@ function loop(){if(state==='end'||state==='paused')return;
       ctx.fillStyle='#6b431f';ctx.fillRect(hx-13,hy-11+bb,26,15);
       ctx.fillStyle='#f6e7c1';ctx.font='bold 11px monospace';ctx.textAlign='center';ctx.fillText('[E]',hx,hy+bb);}}
   ctx.restore();
-  if(state==='play'&&player)drawMinimap();
+  if(state==='play'&&player){
+    const dpr=window.devicePixelRatio||1;
+    ctx.save();ctx.setTransform(dpr,0,0,dpr,0,0);
+    drawMinimap();
+    ctx.restore();
+  }
   const g=ctx.createRadialGradient(viewW/2,viewH/2,viewH/2.4,viewW/2,viewH/2,viewH*0.95);
   g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(30,15,5,.35)');
   ctx.fillStyle=g;ctx.fillRect(0,0,viewW,viewH);
