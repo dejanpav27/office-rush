@@ -509,8 +509,6 @@ function drawPerson(g,cx,cy,look,scale,bob,facing){
   g.save();g.translate(cx,cy+b);
   // shadow
   g.fillStyle='rgba(40,20,5,.35)';g.beginPath();g.ellipse(0,s*8,s*6,s*2.4,0,0,7);g.fill();
-  // legs
-  g.fillStyle=look.pants;g.fillRect(-s*3,s*3,s*2.4,s*5);g.fillRect(s*0.6,s*3,s*2.4,s*5);
   // body
   g.fillStyle=look.shirt;g.fillRect(-s*wdt/2,-s*3,s*wdt,s*7);
   // boss tie
@@ -518,6 +516,8 @@ function drawPerson(g,cx,cy,look,scale,bob,facing){
   // arms
   g.fillStyle=look.shirt;g.fillRect(-s*wdt/2-s*1.6,-s*2.5,s*1.6,s*5);g.fillRect(s*wdt/2,-s*2.5,s*1.6,s*5);
   g.fillStyle=look.skin;g.fillRect(-s*wdt/2-s*1.6,s*2,s*1.6,s*1.6);g.fillRect(s*wdt/2,s*2,s*1.6,s*1.6);
+  // legs — drawn after body so they're always visible
+  g.fillStyle=look.pants;g.fillRect(-s*3,s*3,s*2.4,s*5);g.fillRect(s*0.6,s*3,s*2.4,s*5);
   // head
   g.fillStyle=look.skin;g.fillRect(-s*4,-s*(hgt-4),s*8,s*7);
   // hair
