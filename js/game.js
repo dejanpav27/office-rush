@@ -356,6 +356,19 @@ function updateCamera(){
 
 const TASKS_PER_NPC=2;
 
+// ── 5-DAY WEEK CONFIG ──────────────────────────────────
+// tasksPerNPC = how many tasks each of the 8 NPCs gets that day
+// target = points needed to survive the day; time = seconds on the clock
+const DAY_CONFIG=[
+  {name:'Monday',   tasksPerNPC:1, target:60,  time:300},
+  {name:'Tuesday',  tasksPerNPC:1, target:90,  time:300},
+  {name:'Wednesday',tasksPerNPC:2, target:120, time:330},
+  {name:'Thursday', tasksPerNPC:2, target:160, time:360},
+  {name:'Friday',   tasksPerNPC:2, target:200, time:390},
+];
+// per-week run state (points/coins reset each week; coins bank to the user on survival)
+let week={day:0,points:0,coins:0,streak:0,target:0,dayCoins:0,dayFails:0,chosenId:null};
+
 let player,state='start',time=420,timerId,dialogOpen=false,miniOpen=false;
 let smoking=false,smokeParticles=[],smokeUntil=0;
 let vaping=false,vapeParticles=[],vapeUntil=0;
@@ -425,6 +438,17 @@ function blankUser(name){return{name:name,created:Date.now(),coins:0,unlockedNPC
 function loadSlot(i){try{const raw=localStorage.getItem(SLOT_KEY(i));return raw?JSON.parse(raw):null;}catch(e){return null;}}
 function saveSlot(i,user){try{localStorage.setItem(SLOT_KEY(i),JSON.stringify(user));}catch(e){}}
 function saveCurrent(){if(currentSlot!==null&&currentUser)saveSlot(currentSlot,currentUser);}
+
+// ── LEADERBOARD (shared across slots on this device) ──
+const LB_KEY='officeRush_leaderboard';
+function loadLeaderboard(){try{return JSON.parse(localStorage.getItem(LB_KEY))||[];}catch(e){return [];}}
+function updateLeaderboard(name,score){
+  let lb=loadLeaderboard();
+  const ex=lb.find(e=>e.name===name);
+  if(ex){if(score>ex.score)ex.score=score;}else lb.push({name,score});
+  lb.sort((a,b)=>b.score-a.score);lb=lb.slice(0,10);
+  try{localStorage.setItem(LB_KEY,JSON.stringify(lb));}catch(e){}
+}
 
 /* ── SCREEN NAVIGATION ───────────────────────────────── */
 const SCREENS=['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end'];
@@ -533,23 +557,36 @@ function startTest(){
   loop();
 }
 
+// startGame(chosenId): begin a fresh WEEK with the chosen character
 function startGame(chosenId){
   testMode=false;
+  week={day:0,points:0,coins:0,streak:0,target:0,dayCoins:0,dayFails:0,chosenId:chosenId};
+  startDay(0);
+}
+
+// spawn a fresh board for day index d and start its clock
+function startDay(d){
+  week.day=d;week.dayCoins=0;week.dayFails=0;
+  const cfg=DAY_CONFIG[d];week.target=cfg.target;
+  const chosenId=week.chosenId;
   const all=['brana','sonja','pedja','nina','daniel','dejan','teonem','steve'];
   const order=all.filter(id=>id!==chosenId);
   NPCS=order.map(id=>{const p=POOLS[id];
-    const tasks=shuffle(p.pool).slice(0,TASKS_PER_NPC).map((t,i)=>({...t,id:id+'_'+i,done:false}));
+    const tasks=shuffle(p.pool).slice(0,cfg.tasksPerNPC).map((t,i)=>({...t,id:id+'_'+d+'_'+i,done:false}));
     return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:400+Math.random()*700,tasks};});
   player={id:chosenId,name:cap(chosenId),x:6.25*TS,y:12.25*TS,r:12};
   SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display='none';});
-  document.getElementById('whoami').textContent='playing: '+cap(chosenId);
-  state='play';renderTasks();
+  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
+  time=cfg.time;
+  state='play';renderTasks();updateHUD();
+  clearInterval(timerId);
   timerId=setInterval(()=>{if(dialogOpen||miniOpen||state==='paused')return;time--;
-    if(time<=0){time=0;endGame(false,'Time ran out');}
+    if(time<=0){time=0;endDay();}
     const m=String(Math.floor(time/60)).padStart(2,'0'),s=String(time%60).padStart(2,'0');
     document.getElementById('timer').textContent=m+':'+s;},1000);
   loop();
 }
+
 
 // ── PAUSE ──────────────────────────────────────────────
 let prevState=null,pauseWired=false;
@@ -641,11 +678,15 @@ function interact(){
   const n=nearestNPC();if(!n)return;
   if(n.id==='nino'){
     const delT=allTasks().find(t=>!t.done&&t.type==='deliver'&&t.to==='nino'&&carrying&&carrying.item===t.item);
-    if(delT){delT.done=true;const it=carrying.item;const owner=NPCS.find(x=>x.tasks.includes(delT));setCarry(null);renderTasks();
+    if(delT){delT.done=true;const it=carrying.item;const owner=NPCS.find(x=>x.tasks.includes(delT));setCarry(null);
+      if(!testMode){const pts=10+Math.floor(Math.random()*11);week.points+=pts;week.streak++;
+        if(week.streak===3){week.coins+=15;week.dayCoins+=15;}else if(week.streak===5){week.coins+=30;week.dayCoins+=30;}
+        updateHUD();}
+      renderTasks();
       openDialog('Boss Nino','Ah, the '+it+' from '+owner.name+'. Good.',
-        [{label:'Ok',fn:()=>{closeDialog();openDialog(owner.name,delT.reward,[{label:'ok',fn:closeDialog}]);}}]);return;}
+        [{label:'Ok',fn:()=>{closeDialog();openDialog(owner.name,delT.reward,[{label:'ok',fn:()=>{closeDialog();checkBoardCleared();}}]);}}]);return;}
     const allDone=allTasks().every(t=>t.done);
-    if(allDone)openDialog('Boss Nino','Whole board clear? I built this from nothing, you know. One more small task... kidding. Go home. Well done.',[{label:'End shift',fn:()=>endGame(true)}]);
+    if(allDone)openDialog('Boss Nino','Whole board clear? I built this from nothing, you know. One more small task... kidding. Go home. Well done.',[{label:'End shift',fn:()=>{closeDialog();endDay();}}]);
     else{const left=allTasks().filter(t=>!t.done).length;openDialog('Boss Nino','In a million things. Finish the rest — '+left+' left.',[{label:'Got it boss',fn:closeDialog}]);}
     return;}
   if(testMode){ // pick any of this NPC's tasks to test
@@ -665,7 +706,42 @@ function startTask(n,t){
   }else openDialog(n.name,t.ask,[{label:'Start',fn:()=>{closeDialog();runMini(n,t);}},{label:'Later',cls:'ghost',fn:closeDialog}]);
 }
 function finish(n,t){if(testMode){renderTasks();openDialog(n.name,t.reward+'  (test: replayable)',[{label:'ok',fn:closeDialog}]);return;}
-  t.done=true;renderTasks();openDialog(n.name,t.reward,[{label:'ok',fn:closeDialog}]);}
+  t.done=true;
+  // ── award points + coins ──
+  const cfg=DAY_CONFIG[week.day];
+  const pts=10+Math.floor(Math.random()*11); // 10–20 pts per task
+  week.points+=pts;
+  week.streak++;
+  let coinMsg='';
+  // speed bonus: finished with >50% of the clock still remaining
+  if(time>cfg.time*0.5){week.coins+=5;week.dayCoins+=5;coinMsg+='  ⚡ +5';}
+  // streak bonuses
+  if(week.streak===3){week.coins+=15;week.dayCoins+=15;coinMsg+='  🔥 +15';}
+  else if(week.streak===5){week.coins+=30;week.dayCoins+=30;coinMsg+='  🔥 +30';}
+  updateHUD();renderTasks();
+  const rewardTxt=t.reward+'   (+'+pts+' pt'+coinMsg+')';
+  openDialog(n.name,rewardTxt,[{label:'ok',fn:()=>{closeDialog();checkBoardCleared();}}]);}
+
+// if the whole board is cleared, end the day early (win)
+function checkBoardCleared(){
+  if(state!=='play')return;
+  if(allTasks().every(x=>x.done))endDay();
+}
+
+// ── HUD ──
+function updateHUD(){
+  const cfg=DAY_CONFIG[week.day];
+  const wa=document.getElementById('whoami');
+  if(wa)wa.innerHTML='<b>'+cfg.name+'</b> (day '+(week.day+1)+'/5)';
+  const hud=document.getElementById('econHud');
+  if(hud){
+    hud.innerHTML='⭐ <b>'+week.points+'</b> / '+week.target+' pt'+
+      ' &nbsp; 🪙 <b>'+week.coins+'</b>'+
+      ' &nbsp; 🔥 '+week.streak;
+    hud.style.color=week.points>=week.target?'var(--green)':'var(--wood2)';
+  }
+}
+
 function openDialog(who,txt,choices){dialogOpen=true;
   document.getElementById('dWho').textContent=who;document.getElementById('dTxt').textContent=txt;
   const c=document.getElementById('dChoices');c.innerHTML='';
@@ -685,7 +761,7 @@ function openMini(title,desc,useTimer){miniOpen=true;
   return st;}
 function closeMini(){miniOpen=false;document.getElementById('mini').style.display='none';
   if(activeKeyHandler){document.removeEventListener('keydown',activeKeyHandler);activeKeyHandler=null;}}
-function fail(n,msg){const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('bad');setTimeout(()=>{b.classList.remove('bad');closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);},380);}else{closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);}}
+function fail(n,msg){if(!testMode){week.streak=0;week.dayFails++;updateHUD();}const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('bad');setTimeout(()=>{b.classList.remove('bad');closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);},380);}else{closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);}}
 function miniWin(n,t){const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('win');setTimeout(()=>{b.classList.remove('win');closeMini();finish(n,t);},470);}else{closeMini();finish(n,t);}}
 function setKey(fn){if(activeKeyHandler)document.removeEventListener('keydown',activeKeyHandler);
   activeKeyHandler=fn;document.addEventListener('keydown',fn);}
@@ -2035,14 +2111,94 @@ function miniHandover(n,t){
       else{msg.textContent='Not yet — do the earlier steps first.';b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),300);}};});}
 
 
-function endGame(win,reason){state='end';clearInterval(timerId);
-  document.getElementById('end').style.display='flex';
-  const t=document.getElementById('endTitle'),s=document.getElementById('endSub'),m=document.getElementById('endMsg');
-  const all=allTasks(),d=all.filter(x=>x.done).length;
-  if(win){t.textContent='SHIFT COMPLETE';t.style.color='var(--green)';s.textContent='Board cleared';
-    m.textContent='Nino is pleased (briefly). Team heads home. Tomorrow: a new board.';
-  }else{t.textContent='OUT OF TIME';t.style.color='var(--red)';s.textContent=reason+' — '+d+'/'+all.length+' done';
-    m.textContent='The board is still full. Nina is already typing in the group chat.';}}
+// called when the day's clock hits 0 OR the board is cleared early
+function endDay(){
+  if(state==='end')return;
+  state='end';clearInterval(timerId);
+  const cfg=DAY_CONFIG[week.day];
+  const survived=week.points>=week.target;
+  // perfect-day bonus
+  if(survived&&week.dayFails===0){week.coins+=50;week.dayCoins+=50;}
+  if(!survived){showFired();return;}
+  if(week.day>=DAY_CONFIG.length-1){showWeekWin();return;}
+  showEndOfDay();
+}
+
+// between-days screen
+function showEndOfDay(){
+  const cfg=DAY_CONFIG[week.day];
+  const el=document.getElementById('end');el.style.display='flex';
+  document.getElementById('endTitle').textContent=cfg.name.toUpperCase()+' DONE';
+  document.getElementById('endTitle').style.color='var(--green)';
+  document.getElementById('endSub').textContent='Survived — target '+week.target+' pt reached';
+  document.getElementById('endMsg').innerHTML=
+    'Points this week: <b>'+week.points+'</b><br>'+
+    'Coins earned today: <b>'+week.dayCoins+'</b> &nbsp; (total this week: '+week.coins+')<br>'+
+    'Next up: <b>'+DAY_CONFIG[week.day+1].name+'</b> — target '+DAY_CONFIG[week.day+1].target+' pt';
+  setEndButton('▶ Next day',()=>{document.getElementById('end').style.display='none';startDay(week.day+1);});
+}
+
+// beat all 5 days
+function showWeekWin(){
+  bankWeek(true);
+  const el=document.getElementById('end');el.style.display='flex';
+  document.getElementById('endTitle').textContent='YOU SURVIVED THE WEEK';
+  document.getElementById('endTitle').style.color='var(--gold)';
+  document.getElementById('endSub').textContent='Friday cleared';
+  document.getElementById('endMsg').innerHTML=
+    'Final score: <b>'+week.points+' pt</b><br>'+
+    'Coins banked: <b>'+week.coins+'</b><br>'+
+    (currentUser?('New best: '+currentUser.stats.bestScore+' pt'):'')+
+    '<br>The office is quiet. For now.';
+  setEndButton('Back to menu',backToUserMenu);
+}
+
+// failed the day → fired
+function showFired(){
+  bankWeek(false);
+  const el=document.getElementById('end');el.style.display='flex';
+  document.getElementById('endTitle').textContent="YOU'RE FIRED";
+  document.getElementById('endTitle').style.color='var(--red)';
+  document.getElementById('endSub').textContent=DAY_CONFIG[week.day].name+' — only '+week.points+'/'+week.target+' pt';
+  document.getElementById('endMsg').innerHTML=
+    'Nino: "Clean out your desk."<br><br>'+
+    'You made it to <b>'+DAY_CONFIG[week.day].name+'</b>.<br>'+
+    'Coins banked anyway: <b>'+week.coins+'</b>';
+  setEndButton('Back to menu',backToUserMenu);
+}
+
+// write week results into the user's save
+function bankWeek(survivedWeek){
+  if(!currentUser)return;
+  currentUser.coins+=week.coins;
+  currentUser.stats.totalCoins+=week.coins;
+  currentUser.stats.weeksPlayed++;
+  if(survivedWeek)currentUser.stats.weeksSurvived++;
+  if(week.points>currentUser.stats.bestScore)currentUser.stats.bestScore=week.points;
+  saveCurrent();
+  updateLeaderboard(currentUser.name,currentUser.stats.bestScore);
+}
+
+function backToUserMenu(){
+  document.getElementById('end').style.display='none';
+  state='start';
+  if(currentSlot!==null){renderUserMenu();showScreen('userMenu');}
+  else showScreen('modeScreen');
+}
+
+// swap the #end screen's single button to a custom label+action
+function setEndButton(label,fn){
+  const el=document.getElementById('end');
+  let btn=el.querySelector('.endBtn');
+  if(!btn){btn=document.createElement('button');btn.className='btn endBtn';btn.style.marginTop='20px';el.appendChild(btn);}
+  btn.textContent=label;btn.onclick=fn;
+  // hide the old hardcoded "Play again" reload button if present
+  el.querySelectorAll('button:not(.endBtn)').forEach(b=>b.style.display='none');
+}
+
+// legacy endGame kept as alias in case anything else calls it
+function endGame(win,reason){endDay();}
+
 
 /* ---------- STARDEW-STYLE RENDER ---------- */
 function drawTile(x,y,t){
