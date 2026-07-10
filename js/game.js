@@ -360,11 +360,11 @@ const TASKS_PER_NPC=2;
 // tasksPerNPC = how many tasks each of the 8 NPCs gets that day
 // target = points needed to survive the day; time = seconds on the clock
 const DAY_CONFIG=[
-  {name:'Monday',   tasksPerNPC:1, target:60,  time:300},
-  {name:'Tuesday',  tasksPerNPC:1, target:90,  time:300},
-  {name:'Wednesday',tasksPerNPC:2, target:120, time:330},
-  {name:'Thursday', tasksPerNPC:2, target:160, time:360},
-  {name:'Friday',   tasksPerNPC:2, target:200, time:390},
+  {name:'Monday',   tasksPerNPC:1, target:80,  time:300},
+  {name:'Tuesday',  tasksPerNPC:2, target:160, time:360},
+  {name:'Wednesday',tasksPerNPC:3, target:240, time:420},
+  {name:'Thursday', tasksPerNPC:4, target:320, time:480},
+  {name:'Friday',   tasksPerNPC:5, target:420, time:540},
 ];
 // per-week run state (points/coins reset each week; coins bank to the user on survival)
 let week={day:0,points:0,coins:0,streak:0,target:0,dayCoins:0,dayFails:0,chosenId:null};
