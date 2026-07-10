@@ -38,7 +38,7 @@ const LOOKS={
   dejan:{skin:'#e8b88a',hair:'#6b4a2a',shirt:'#2e4a72',pants:'#333',glasses:true},
   teonem:{skin:'#e8b88a',hair:'#1f1f1f',shirt:'#8a2e3e',pants:'#2a2a3a'},
   steve:{skin:'#e8c49a',hair:'#7a5a35',shirt:'#3e6b3a',pants:'#3a3a3a',beard:true,wide:true},
-  brana:{skin:'#e8b88a',hair:'#4a2a5a',shirt:'#6b3e8a',pants:'#4a3a6a',long:true},
+  brana:{skin:'#e8b88a',hair:'#4a2a5a',shirt:'#6b3e8a',pants:'#2a1a3a',long:true},
   sonja:{skin:'#edc9a2',hair:'#c9903f',shirt:'#3f8a80',pants:'#444',long:true},
   pedja:{skin:'#e8b88a',hair:'#2a2a2a',shirt:'#b8863e',pants:'#2f2f3f',tall:true},
   nina:{skin:'#edc9a2',hair:'#8a2e2e',shirt:'#d9663d',pants:'#3a2a2a',long:true},
