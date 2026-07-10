@@ -346,12 +346,49 @@ const ROWS=MAP.length,COLS=MAP[0].length;
 const FINE=[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]];
 const FROWS=FINE.length,FCOLS=FINE[0].length,FTS=TS/2;
 function fineWalk(px,py){const cx=Math.floor(px/FTS),cy=Math.floor(py/FTS);if(cy<0||cy>=FROWS||cx<0||cx>=FCOLS)return false;return FINE[cy][cx]===0;}
+// ── CAMERA ─────────────────────────────────────────────
+// camZoom = current zoom level (1.4 = default, fills screen nicely)
+// camX/camY = camera top-left corner in world pixels
+// targetZoom = where zoom is lerping toward
 let zoom=1,offX=0,offY=0;
+let camX=0,camY=0,camZoom=1.4,targetZoom=1.4;
+const CAM_ZOOM_MIN=0.75,CAM_ZOOM_MAX=2.0,CAM_LERP=0.10,CAM_ZOOM_LERP=0.12;
+
+// scroll to zoom
+cv.addEventListener('wheel',e=>{
+  if(state!=='play')return;
+  e.preventDefault();
+  targetZoom=Math.max(CAM_ZOOM_MIN,Math.min(CAM_ZOOM_MAX,targetZoom-e.deltaY*0.001));
+},{passive:false});
+
 function updateCamera(){
-  zoom=Math.min(viewW/(COLS*TS), viewH/(ROWS*TS));
-  offX=(viewW-COLS*TS*zoom)/2;
-  offY=(viewH-ROWS*TS*zoom)/2;
+  if(state!=='play'||!player){
+    // fallback: fit whole map when not playing
+    zoom=Math.min(viewW/(COLS*TS),viewH/(ROWS*TS));
+    offX=(viewW-COLS*TS*zoom)/2;offY=(viewH-ROWS*TS*zoom)/2;camZoom=zoom;return;
+  }
+  // smooth zoom lerp
+  camZoom+=(targetZoom-camZoom)*CAM_ZOOM_LERP;
+  // target: center camera on player
+  const targetX=player.x-viewW/(2*camZoom);
+  const targetY=player.y-viewH/(2*camZoom);
+  // clamp so we never show outside the map
+  const maxX=COLS*TS-viewW/camZoom;
+  const maxY=ROWS*TS-viewH/camZoom;
+  const clampedX=Math.max(0,Math.min(maxX,targetX));
+  const clampedY=Math.max(0,Math.min(maxY,targetY));
+  // smooth lerp toward target
+  camX+=(clampedX-camX)*CAM_LERP;
+  camY+=(clampedY-camY)*CAM_LERP;
+  // expose as offX/offY/zoom for the renderer (ctx.translate(offX,offY); ctx.scale(zoom,zoom))
+  zoom=camZoom;
+  offX=-camX*camZoom;
+  offY=-camY*camZoom;
 }
+
+// convert screen coords → world coords (for mouse picking if needed later)
+function screenToWorld(sx,sy){return{x:sx/camZoom+camX,y:sy/camZoom+camY};}
+
 
 
 const TASKS_PER_NPC=2;
@@ -591,6 +628,8 @@ function startDay(d){
     const tasks=shuffle(p.pool).slice(0,cfg.tasksPerNPC).map((t,i)=>({...t,id:id+'_'+d+'_'+i,done:false}));
     return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:400+Math.random()*700,tasks};});
   player={id:chosenId,name:cap(chosenId),x:6.25*TS,y:12.25*TS,r:12};
+  // reset camera to player start position
+  camX=player.x-viewW/(2*1.4);camY=player.y-viewH/(2*1.4);camZoom=1.4;targetZoom=1.4;
   SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display='none';});
   const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
   time=cfg.time;
@@ -2407,6 +2446,29 @@ function updateNPCs(){
     }
   });
 }
+function drawMinimap(){
+  const MW=110,MH=70,MX=viewW-MW-10,MY=10,PAD=4;
+  const scaleX=(MW-PAD*2)/(COLS*TS), scaleY=(MH-PAD*2)/(ROWS*TS);
+  // background
+  ctx.fillStyle='rgba(20,12,6,.82)';ctx.strokeStyle='rgba(200,160,80,.5)';ctx.lineWidth=1.5;
+  const rr=(x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();};
+  rr(MX,MY,MW,MH,5);ctx.fill();ctx.stroke();
+  // camera viewport rect
+  const vpX=MX+PAD+camX*scaleX, vpY=MY+PAD+camY*scaleY;
+  const vpW=(viewW/camZoom)*scaleX, vpH=(viewH/camZoom)*scaleY;
+  ctx.strokeStyle='rgba(220,180,80,.55)';ctx.lineWidth=1;
+  ctx.strokeRect(vpX,vpY,vpW,vpH);
+  // NPC dots
+  NPCS.forEach(n=>{
+    const done=npcDone(n);
+    const dx=MX+PAD+n.x*TS*scaleX, dy=MY+PAD+n.y*TS*scaleY;
+    ctx.fillStyle=done?'#5aa848':'#c9a86b';
+    ctx.beginPath();ctx.arc(dx,dy,2.2,0,7);ctx.fill();});
+  // player dot (bright)
+  const px2=MX+PAD+player.x*scaleX, py2=MY+PAD+player.y*scaleY;
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(px2,py2,3,0,7);ctx.fill();
+  ctx.fillStyle='#e86b4a';ctx.beginPath();ctx.arc(px2,py2,2,0,7);ctx.fill();}
+
 function loop(){if(state==='end'||state==='paused')return;
   frame++;
   let moving=false;
@@ -2505,6 +2567,8 @@ function loop(){if(state==='end'||state==='paused')return;
       ctx.fillStyle='#6b431f';ctx.fillRect(hx-13,hy-11+bb,26,15);
       ctx.fillStyle='#f6e7c1';ctx.font='bold 11px monospace';ctx.textAlign='center';ctx.fillText('[E]',hx,hy+bb);}}
   ctx.restore();
+  // ── MINIMAP (screen space, top-right corner) ──
+  if(state==='play'&&player){drawMinimap();}
   const g=ctx.createRadialGradient(viewW/2,viewH/2,viewH/2.4,viewW/2,viewH/2,viewH*0.95);
   g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(30,15,5,.35)');
   ctx.fillStyle=g;ctx.fillRect(0,0,viewW,viewH);
