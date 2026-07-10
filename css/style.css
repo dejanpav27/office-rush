@@ -63,28 +63,41 @@ canvas {
   display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; padding:24px; overflow:auto;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(200,149,92,.12) 0%, transparent 60%),
-    linear-gradient(160deg, #2e1c0c 0%, #1e1108 50%, #160d05 100%);
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 50% -10%, rgba(200,149,92,.18) 0%, transparent 55%),
+    linear-gradient(175deg, #321a08 0%, #1e1007 40%, #130a04 100%);
 }
 
-/* Decorative top border on screens */
+/* Decorative top + bottom gold border */
 .screen::before {
   content:'';
-  position:fixed; top:0; left:0; right:0; height:4px;
-  background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent);
+  position:fixed; top:0; left:0; right:0; height:5px;
+  background: linear-gradient(90deg, transparent 0%, var(--wood3) 10%, var(--gold-dim) 30%, var(--gold) 50%, var(--gold-dim) 70%, var(--wood3) 90%, transparent 100%);
+  z-index:1;
+}
+.screen::after {
+  content:'';
+  position:fixed; bottom:0; left:0; right:0; height:3px;
+  background: linear-gradient(90deg, transparent 0%, var(--wood2) 20%, var(--gold-dim) 50%, var(--wood2) 80%, transparent 100%);
+  opacity:.5; z-index:1;
 }
 
 /* ── SCREEN TITLE (carved gold look) ─────────────────── */
 .screen h1 {
-  font-size: clamp(32px, 5.5vw, 58px);
-  letter-spacing: 5px;
-  color: var(--gold);
+  font-size: clamp(44px, 7vw, 80px);
+  letter-spacing: 8px;
+  font-weight: bold;
+  color: var(--gold-light);
   text-shadow:
-    3px 3px 0 var(--wood3),
-    -1px -1px 0 rgba(0,0,0,.6),
-    0 0 40px rgba(232,185,60,.3);
-  margin-bottom: 4px;
+    0 0 0 var(--gold),
+    4px 4px 0 var(--wood3),
+    5px 5px 0 rgba(0,0,0,.5),
+    -2px -2px 0 rgba(232,185,60,.15),
+    0 0 60px rgba(232,185,60,.25);
+  margin-bottom: 6px;
   text-transform: uppercase;
+  -webkit-text-stroke: 1.5px var(--gold-dim);
+  paint-order: stroke fill;
 }
 
 .screen h2 {
@@ -106,45 +119,53 @@ canvas {
   font-size: 13px;
 }
 
-/* ── SUBTITLE BANNER (under main title) ───────────────── */
+/* ── SUBTITLE BANNER (wooden plaque) ─────────────────── */
 .subtitle-banner {
   display: inline-block;
-  background: linear-gradient(90deg, transparent, var(--wood2) 15%, var(--wood2) 85%, transparent);
+  position: relative;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--wood3) 8%,
+    #5a3518 12%,
+    #7a4a22 50%,
+    #5a3518 88%,
+    var(--wood3) 92%,
+    transparent 100%);
   color: var(--woodlite);
-  font-size: 11px;
-  letter-spacing: 5px;
-  padding: 5px 32px;
-  margin-bottom: 32px;
+  font-size: 12px;
+  letter-spacing: 6px;
+  padding: 7px 48px;
+  margin-bottom: 36px;
   text-transform: uppercase;
+  border-top: 1px solid rgba(200,149,92,.3);
+  border-bottom: 1px solid rgba(200,149,92,.3);
 }
 
 /* ── CARDS / CHARS ────────────────────────────────────── */
 .chars {
-  display:flex; gap:14px; flex-wrap:wrap; justify-content:center;
+  display:flex; gap:18px; flex-wrap:wrap; justify-content:center;
   margin: 8px 0 24px;
 }
 
 .char {
-  background: linear-gradient(160deg, var(--paper) 0%, var(--paper2) 100%);
-  border: 3px solid var(--cream-bdr);
-  outline: 1px solid rgba(232,185,60,.25);
-  border-radius: 14px;
-  padding: 18px 16px 14px;
+  background: linear-gradient(175deg, #f8efd4 0%, #efe0b5 60%, #e8d4a0 100%);
+  border: 4px solid var(--wood2);
+  outline: 2px solid var(--cream-bdr);
+  outline-offset: -8px;
+  border-radius: 10px;
+  padding: 24px 20px 18px;
   cursor: pointer;
   transition: transform .15s, box-shadow .15s;
-  min-width: 150px;
-  box-shadow: var(--shadow-card);
+  min-width: 170px;
+  box-shadow:
+    0 10px 36px rgba(0,0,0,.6),
+    0 2px 0 var(--wood3),
+    inset 0 1px 0 rgba(255,255,255,.5);
   position: relative;
 }
-.char::after {
-  content:'';
-  position:absolute; inset:0; border-radius:12px;
-  background: linear-gradient(160deg, rgba(255,255,255,.12) 0%, transparent 60%);
-  pointer-events:none;
-}
 .char:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 14px 40px rgba(0,0,0,.65), 0 0 0 2px var(--gold-dim);
+  transform: translateY(-7px) scale(1.02);
+  box-shadow: 0 18px 48px rgba(0,0,0,.7), 0 0 0 2px var(--gold), 0 2px 0 var(--wood3);
 }
 .char canvas {
   border:none; box-shadow:none;
@@ -155,79 +176,80 @@ canvas {
   font-weight:bold; font-size:14px; letter-spacing:2px;
   color: var(--inkbrown); text-transform:uppercase; margin-bottom:4px;
 }
-.char .d {
-  color: var(--wood); font-size:10px; line-height:1.5;
-}
+.char .d { color: var(--wood); font-size:10px; line-height:1.5; }
 
 /* empty slot */
 .char.empty-slot {
-  background: linear-gradient(160deg, #2e1e10 0%, #221508 100%);
-  border-color: var(--wood3);
-  outline-color: transparent;
+  background: linear-gradient(175deg, #2a1a0c 0%, #1e1208 100%);
+  border-color: #4a2e14;
+  outline-color: #3a2210;
 }
-.char.empty-slot .n { color: var(--woodlite); opacity:.6; }
-.char.empty-slot .d { color: var(--gold); font-size:18px; opacity:.7; }
-.char.empty-slot:hover { box-shadow: 0 14px 40px rgba(0,0,0,.65), 0 0 0 2px var(--gold-dim); }
+.char.empty-slot .n { color: #7a5a3a; }
+.char.empty-slot .d { color: var(--woodlite); font-size:24px; margin-top:6px; }
+.char.empty-slot:hover { box-shadow: 0 18px 48px rgba(0,0,0,.7), 0 0 0 2px var(--gold-dim); }
 
 /* slot stats */
 .slot-stat {
-  display:flex; align-items:center; gap:5px;
-  font-size:11px; color:var(--wood); margin-top:3px;
+  display:flex; align-items:center; gap:6px;
+  font-size:11px; color:var(--wood); margin-top:5px;
 }
-.slot-stat span:first-child { font-size:13px; }
+.slot-stat b { color:var(--inkbrown); margin-left:auto; }
 
-/* ── BUTTONS ──────────────────────────────────────────── */
+/* ── MODE BUTTONS (main menu) ─────────────────────────── */
+.btn-mode {
+  background: linear-gradient(175deg, #f8efd4 0%, #efe0b5 60%, #e8d4a0 100%);
+  border: 4px solid var(--wood2);
+  outline: 2px solid var(--cream-bdr);
+  outline-offset: -8px;
+  border-radius: 10px;
+  padding: 28px 24px 22px;
+  min-width: 180px;
+  max-width: 200px;
+  cursor:pointer;
+  transition: transform .15s, box-shadow .15s;
+  box-shadow: 0 10px 36px rgba(0,0,0,.6), 0 2px 0 var(--wood3), inset 0 1px 0 rgba(255,255,255,.5);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+.btn-mode:hover {
+  transform:translateY(-7px);
+  box-shadow: 0 18px 48px rgba(0,0,0,.7), 0 0 0 2px var(--gold), 0 2px 0 var(--wood3);
+}
+.btn-mode .mode-icon { font-size:32px; line-height:1; }
+.btn-mode .mode-title {
+  font-weight:bold; font-size:16px; letter-spacing:3px;
+  color:var(--inkbrown); text-transform:uppercase;
+  -webkit-text-stroke: .5px var(--wood2);
+}
+.btn-mode .mode-desc { font-size:11px; color:var(--wood); line-height:1.6; max-width:150px; }
+#modePlay .mode-title  { color: #2a5e20; }
+#modeLeaderboard .mode-title { color: #8a6010; }
+
+/* ── ACTION BUTTONS ───────────────────────────────────── */
 .btn {
-  background: linear-gradient(160deg, var(--accent2) 0%, var(--accent) 100%);
+  background: linear-gradient(175deg, #d98a3a 0%, #b86a20 100%);
   color: #fff8ea;
   border: 2px solid var(--wood3);
-  border-bottom: 4px solid var(--wood3);
-  padding: 9px 18px;
+  border-bottom: 4px solid #2a1606;
+  padding: 10px 20px;
   border-radius: 8px;
   font-family: inherit; font-weight:bold; font-size:13px;
   cursor:pointer; pointer-events:auto;
-  text-transform:uppercase; letter-spacing:1px;
+  text-transform:uppercase; letter-spacing:1.5px;
   transition: filter .1s, transform .1s;
-  box-shadow: 0 4px 12px rgba(0,0,0,.4);
+  box-shadow: 0 4px 14px rgba(0,0,0,.45);
 }
 .btn:hover  { filter:brightness(1.1); }
 .btn:active { transform:translateY(2px); border-bottom-width:2px; }
-
 .btn.ghost {
-  background: linear-gradient(160deg, #3a2a18 0%, #2a1c0e 100%);
+  background: linear-gradient(175deg, #3e2814 0%, #2a1a0a 100%);
   color: var(--woodlite);
-  border-color: var(--wood2);
-  border-bottom-color: var(--wood3);
+  border-color: var(--wood2); border-bottom-color: var(--wood3);
 }
-.btn.ghost:hover { filter:brightness(1.15); }
-
+.btn.ghost:hover { filter:brightness(1.2); }
 .btn.green {
-  background: linear-gradient(160deg, #6ab84e 0%, #4a9038 100%);
+  background: linear-gradient(175deg, #6ab84e 0%, #3d7a32 100%);
   border-color: #2d5e22; border-bottom-color: #1e3e16;
 }
-
-/* icon buttons on main menu */
-.btn-mode {
-  background: linear-gradient(160deg, var(--paper) 0%, var(--paper2) 100%);
-  border: 3px solid var(--cream-bdr);
-  border-bottom: 5px solid var(--wood2);
-  border-radius: 14px;
-  padding: 22px 20px 18px;
-  min-width: 160px;
-  cursor:pointer;
-  transition: transform .15s, box-shadow .15s;
-  box-shadow: var(--shadow-card);
-  display:flex; flex-direction:column; align-items:center; gap:8px;
-  position:relative;
-}
-.btn-mode:hover { transform:translateY(-4px); box-shadow:0 14px 40px rgba(0,0,0,.65), 0 0 0 2px var(--gold-dim); }
-.btn-mode .mode-icon { font-size:28px; }
-.btn-mode .mode-title { font-weight:bold; font-size:15px; letter-spacing:2px; color:var(--inkbrown); text-transform:uppercase; }
-.btn-mode .mode-desc  { font-size:10px; color:var(--wood); line-height:1.5; max-width:140px; }
-
-/* play button special */
-#modePlay .mode-title { color: var(--green2); }
-#modeLeaderboard .mode-title { color: var(--gold-dim); }
 
 /* ── CONTROLS BAR ─────────────────────────────────────── */
 .controls {
