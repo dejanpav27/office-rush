@@ -93,7 +93,12 @@ const POOLS={
    {type:'wordsearch',words:['CODE','BUG','LOG'],ask:"Find the three keywords buried in the error log grid.",reward:'"All found. You have the eyes of a grep command."'},
    {type:'toggle',hint:'Set switches to match the target server config.',ask:"Set the server flags to match the prod config — every switch matters.",reward:'"Flags match. Zero downtime. Legendary."'},
    {type:'binary',val:13,ask:"Convert server port 13 to binary — flip the right bulbs.",reward:'"Binary correct. You could work at NASA."'},
-   {type:'mirror',word:'DEBUG',ask:"Terminal flipped on me — mirror mode. Type DEBUG normally to fix it.",reward:'"Fixed. Mirror mode, classic Dejan problem."'}
+   {type:'mirror',word:'DEBUG',ask:"Terminal flipped on me — mirror mode. Type DEBUG normally to fix it.",reward:'"Fixed. Mirror mode, classic Dejan problem."'},
+   {type:'park',ask:"Server room is full — parallel park the equipment rack into the last open slot. Don't scrape anything.",reward:'"Tight fit. Not a scratch. Respect."'},
+   {type:'gauge',ask:"CPU temp is spiking — watch the gauge and tell me when it crosses the red line.",reward:'"Caught it at 94°. Throttled in time."'},
+   {type:'switchboard',callerHint:'Nino calling about the server',hint:'Route Nino to the server room extension.',ask:"Switchboard's going crazy — route Nino to the right extension before he loses it.",reward:'"Connected. He only yelled a little."'},
+   {type:'docsort',ask:"My Downloads folder is a disaster. Sort the files into the right project folders.",reward:'"Finally. I can find things again. Almost."'},
+   {type:'recipe',ask:"New dev environment setup — follow the install steps in exact order or it breaks.",reward:'"Environment up. First try. Legendary."'}
  ]},
  teonem:{desc:'Sales, always "out in town"',home:{x:10,y:9},pool:[
    {type:'deliver',item:'contract',itemLabel:'contract',to:'nino',ask:"Running into town (work!). Take this contract to Nino.",reward:'"Legend. I never left, clear?" *left*'},
@@ -123,7 +128,12 @@ const POOLS={
    {type:'triage',cards:[{label:'Client ready to sign',bucket:'urgent'},{label:'Cold lead newsletter',bucket:'archive'},{label:'Follow-up in a week',bucket:'normal'},{label:'Demo request today',bucket:'urgent'},{label:'Unsubscribed prospect',bucket:'archive'}],ask:"Triage my sales pipeline — urgent, normal, or archive each one.",reward:'"Perfect sort. That is a clean pipeline."'},
    {type:'frequency',target:101,hint:'Tune the radio for the client drive — exactly 101.0 FM.',ask:"Set the car radio to 101.0 before the client gets in. Nothing worse than static.",reward:'"101.0. Smooth. Client is already impressed."'},
    {type:'approvalchain',chain:['Sales Rep','Team Lead','Sales Director','CEO'],hint:'Who approves a large deal, step by step?',ask:"Big deal needs sign-off up the chain — click each approver in the right order.",reward:'"Approved at every level. Deal\'s done."'},
-   {type:'slot',target:[2,2,2],hint:'Stop all three reels on the checkmark.',ask:"Three clients all say yes at once — stop the reels on the triple win!",reward:'"Triple close. I can\'t even explain this."'}
+   {type:'slot',target:[2,2,2],hint:'Stop all three reels on the checkmark.',ask:"Three clients all say yes at once — stop the reels on the triple win!",reward:'"Triple close. I can\'t even explain this."'},
+   {type:'inspect',ask:"Client returning the demo car — find every scratch and dent before he claims it was there before.",reward:'"Four scratches. Two definitely his. Documentation saves lives."'},
+   {type:'arrange',items:[['🔑','keys'],['📋','contract'],['🪪','id']],hint:'Lay out the handover items in the exact order.',ask:"Set up the delivery table before the client arrives — keys, contract, ID in my exact order.",reward:'"Perfect setup. First impressions close deals."'},
+   {type:'barcode',ask:"New stock just arrived from the importer — scan each VIN barcode. Steady hand.",reward:'"All logged. Inventory updated. Clean."'},
+   {type:'safe',ask:"Commission envelope's in the office safe — crack it before Nino gets back.",reward:'"Opened. Commission secured. Teonem was never here."'},
+   {type:'spy',ask:"Competitor's price list is on the table — find the Golf price before they notice.",reward:'"Got it. We\'re cheaper by 800. Beautiful."'}
  ]},
  steve:{desc:'Beard, vape, sells in Croatia',home:{x:4,y:2},pool:[
    {type:'fetch',item:'vape',itemLabel:'vape',ask:"Left my vape by the entrance. No fog, no deals.",reward:'*huge cloud* "Now we do business."'},
@@ -150,7 +160,12 @@ const POOLS={
    {type:'redact',sentences:['Client name: Marko Horvat signed today','Contact: +385 91 555 0192','Bank: IBAN HR1234567890123456'],sensitive:['Marko Horvat','+385 91 555 0192','HR1234567890123456'],ask:"Redact the client data before sending this to the wrong department. *vapor*",reward:'*vapor* "Clean send. Privacy intact."'},
    {type:'hotkey',items:[{k:'S',l:'Save'},{k:'P',l:'Print'},{k:'E',l:'Export'},{k:'C',l:'Close'}],target:'P',ask:"Print the contract — keyboard only, no mouse. That is how pros do it.",reward:'*vapor* "Printed. Respect."'},
    {type:'cipher',shift:3,raw:'INVOICE',ask:"Client sent an encoded message — shift 3 letters to decode. Which shift is it?",reward:'*vapor* "Decoded. Classic Caesar. Old school."'},
-   {type:'contract',fields:['Supplier signature','Date','Reference number'],ask:"Supplier contract came in — scroll through and sign every field before it expires.",reward:'*vapor* "All signed. Deal\'s locked."'}
+   {type:'contract',fields:['Supplier signature','Date','Reference number'],ask:"Supplier contract came in — scroll through and sign every field before it expires.",reward:'*vapor* "All signed. Deal\'s locked."'},
+   {type:'handover',steps:['Greet the client','Verify ID and registration','Walk around the car together','Explain the warranty','Hand over the keys','Wave them off'],hint:'Croatian client handover — every step matters.',ask:"Zagreb client picking up their car. Do the handover properly — step by step. *vapor*",reward:'*vapor* "Flawless. That\'s a five-star review."'},
+   {type:'calendar',ask:"Schedule the Zagreb client visit — find the free slot this week that works across time zones.",reward:'*vapor* "Booked. Croatia never sleeps."'},
+   {type:'rotary',combo:[30,60,10],hint:'Spin to each number and press SET.',ask:"Office safe with the Croatian contracts — spin the combo before the courier leaves.",reward:'*vapor* "Opened. Contracts secured."'},
+   {type:'heatmap',zones:['Zagreb','Split','Rijeka','Osijek'],hotIdx:0,hint:'Which territory is generating most leads right now?',ask:"Look at the territory heatmap — where should I focus this week?",reward:'*vapor* "Zagreb. Always Zagreb."'},
+   {type:'dragfile',ask:"Client files from Zagreb are in the wrong folders again — drag them to the right place.",reward:'*vapor* "Organized. I can find things now."'}
  ]},
  brana:{desc:'Watches everyone (secretly)',home:{x:3,y:9},pool:[
    {type:'fetch',item:'logsheet',itemLabel:'attendance log',ask:"Bring that sheet by the entrance. I do not track people... just get it.",reward:'*hides it* "I did not ask for this. But I did."'},
@@ -181,7 +196,12 @@ const POOLS={
    {type:'triage',cards:[{label:'Someone arrived late',bucket:'urgent'},{label:'Birthday card signing',bucket:'normal'},{label:'Old meeting notes',bucket:'archive'},{label:'Attendance discrepancy',bucket:'urgent'},{label:'Lunch order spam',bucket:'archive'}],ask:"Triage these office incidents. I have a system. I always have a system.",reward:'"Exactly my order. We are aligned."'},
    {type:'approvalchain',chain:['Employee','HR','Manager','Brana'],hint:'Absence form goes up the chain. Who signs last?',ask:"Someone filed an absence form. Route it up the chain in the right order.",reward:'"Filed. Chronologically. Immaculately."'},
    {type:'voicemail',pool:['Tuesday','Thursday','Friday','Monday','Wednesday'],ask:"Someone left a day-by-day voicemail — remember and type back only the LAST day mentioned.",reward:'"Correct. I already knew, but I tested you."'},
-   {type:'binary',val:7,ask:"Access code for the archive room is 7 in binary. Set the light panel correctly.",reward:'"Correct pattern. The archive is yours. Briefly."'}
+   {type:'binary',val:7,ask:"Access code for the archive room is 7 in binary. Set the light panel correctly.",reward:'"Correct pattern. The archive is yours. Briefly."'},
+   {type:'stopwatch',ms:3000,ask:"Time how long Teonem's been gone. Stop the watch at exactly 3 seconds — I\'m calibrating my estimates.",reward:'"3.0 seconds. My internal clock was right. As always."'},
+   {type:'dodge',ask:"HR memo flood — dodge the irrelevant ones, let the important ones through.",reward:'"Perfect filter. I read everything anyway."'},
+   {type:'jam',ask:"Office printer jammed mid-document — clear the jam sequence before anyone notices.",reward:'"Unjammed. Document: attendance report. Asking for a friend."'},
+   {type:'qralign',ask:"Visitor badge QR needs scanning — line it up before they realize I\'ve been watching.",reward:'"Scanned. Visitor logged. I do not track people."'},
+   {type:'inbox',emails:[{from:'Teonem',sub:'Working from "client site"',type:'spam'},{from:'HR',sub:'Attendance policy update',type:'urgent'},{from:'Pedja',sub:'Lunch order question',type:'safe'},{from:'Unknown',sub:'You\'ve been selected!',type:'spam'},{from:'Nino',sub:'Staff meeting NOW',type:'urgent'}],ask:"My inbox has noise. Flag urgent, file safe, delete spam. You know the drill.",reward:'"Perfect sort. I would have done the same. Exactly the same."'}
  ]},
  sonja:{desc:'Quiet, runs payroll',home:{x:4,y:11},pool:[
    {type:'deliver',item:'router',itemLabel:'the router',to:'nino',ask:"Payroll needs internet. Give the router to Steve — he's the IT guy.",reward:'barely audible: "...thank you."'},
@@ -210,7 +230,12 @@ const POOLS={
    {type:'contract',fields:['Employee signature','HR signature','Effective date'],ask:"New hire contract needs every field signed before their start date. Scroll and sign.",reward:'"...filed. Quietly."'},
    {type:'toggle',hint:'Toggle only the approved bonus items — match HR guidelines.',ask:"Bonus eligibility flags need to match the policy doc — toggle them correctly.",reward:'"...matches policy. Precisely."'},
    {type:'voicemail',pool:['invoice','payment','transfer','balance','receipt'],ask:"Accounting voicemail had five terms — type back the last one you heard.",reward:'"...correct. Every word matters."'},
-   {type:'frequency',target:97,hint:'Tune to 97 FM for the payroll compliance broadcast.',ask:"Tune the office radio to 97.0 — compliance update is broadcasting now.",reward:'"...97.0. On time. Always."'}
+   {type:'frequency',target:97,hint:'Tune to 97 FM for the payroll compliance broadcast.',ask:"Tune the office radio to 97.0 — compliance update is broadcasting now.",reward:'"...97.0. On time. Always."'},
+   {type:'conveyor',target:'📄',fakes:['📧','📁','📊'],ask:"Payslips coming off the printer belt — catch only the payslips, nothing else.",reward:'"...all payslips caught. Not one misfiled."'},
+   {type:'gauge',ask:"Tax calculation is running — watch the progress gauge and stop it exactly at 100%. Not 99. Not 101.",reward:'"...100.0. Precisely. Of course."'},
+   {type:'patchline',pairs:[['Sonja','Payroll extension'],['Nino','Director line'],['HR','Compliance desk']],hint:'Drag a line from each person to their extension.',ask:"Phone routing got reset again. Patch each person back to their correct line.",reward:'"...patched. Quietly efficient."'},
+   {type:'circuit',ask:"Accounting software threw a fault — trace the circuit to find the broken connection.",reward:'"...found it. Third node. Fixed."'},
+   {type:'cableroute',ask:"Server room cables got shuffled during the audit — route the payroll server back to the right port.",reward:'"...correct port. Payroll system online."'}
  ]},
  pedja:{desc:'Ex-waiter, 2m tall, rookie',home:{x:4,y:3},pool:[
    {type:'timing',ask:"Holding a glass on the top shelf — say NOW at the right moment.",reward:'*hops down* "No tip, but we are good."'},
@@ -242,7 +267,12 @@ const POOLS={
    {type:'conveyor',target:'\uD83C\uDF7D',fakes:['\uD83E\uDDD2','\uD83E\uDDE2','\uD83D\uDCF1'],ask:"Plates coming off the kitchen belt fast — grab only the food plates, not the junk.",reward:'"Five plates, zero drops. Beautiful."'},
    {type:'slot',target:[0,0,0],hint:'Stop all three reels on the money sign.',ask:"Triple tips day! Stop the reels on the jackpot — all three match.",reward:'"Jackpot shift. Best day ever."'},
    {type:'pricetag',items:[{name:'House special',price:'€14'},{name:'Side salad',price:'€5'},{name:'Espresso',price:'€2'}],hint:'Drag each price to the right menu item.',ask:"New menu, new prices — drag each price tag to the right dish before service starts.",reward:'"Correct prices. Service ready."'},
-   {type:'whiteboard',pts:[[20,80],[80,30],[160,50],[220,110],[160,150]],ask:"Draw the delivery route on the whiteboard map — hit every stop in order.",reward:'"Route mapped. Efficient. Rookie instincts."'}
+   {type:'whiteboard',pts:[[20,80],[80,30],[160,50],[220,110],[160,150]],ask:"Draw the delivery route on the whiteboard map — hit every stop in order.",reward:'"Route mapped. Efficient. Rookie instincts."'},
+   {type:'rhythm',ask:"Kitchen prep has a rhythm — tap along to keep pace with the orders. Old habit.",reward:'"In the groove. Chef would be proud."'},
+   {type:'slider',ask:"Find the sweet spot on the sauce recipe — not too much, not too little. Feel it out.",reward:'"Perfect balance. Two years of that trains the hand."'},
+   {type:'higherlower',ask:"Guess the table number the big order went to. I\'ll say warmer or colder.",reward:'"Table 12. Waiter memory never fades."'},
+   {type:'voltage',ask:"Kitchen equipment on three circuits — keep them all green during the dinner rush.",reward:'"All green. Didn\'t blow a single breaker."'},
+   {type:'oddeven',ask:"Odd tables get the fixed menu, even tables get à la carte. Sort them fast.",reward:'"Split perfectly. Old instincts, new job."'}
  ]},
  nina:{desc:"Boss's daughter, control freak",home:{x:13,y:9},pool:[
    {type:'simon',ask:"Do EXACTLY as I say, in order. Because I am always right. Repeat.",reward:'"See? Works when you listen to ME."'},
@@ -272,7 +302,12 @@ const POOLS={
    {type:'heatmap',zones:['My desk','Meeting room','Coffee corner','Entrance'],hotIdx:0,hint:'Where is the most important activity in this office happening?',ask:"Office heatmap — identify where the most critical work happens. Obviously.",reward:'"My desk. Obviously. Good."'},
    {type:'anagram',word:'REVIEW',ask:"Unscramble what I demand from everyone before anything ships.",reward:'"REVIEW. Yes. Obviously. Always."'},
    {type:'mirror',word:'APPROVE',ask:"My screen flipped again. Type APPROVE normally — display is mirrored.",reward:'"Approved. Even in mirror mode I am in control."'},
-   {type:'pricetag',items:[{name:'Premium seat',price:'€200'},{name:'Standard seat',price:'€80'},{name:'Basic seat',price:'€40'}],hint:'Drag the price tags to the conference seats.',ask:"Conference room seating — drag the right price tag to each tier before clients arrive.",reward:'"Correct pricing. Premium goes to me, obviously."'}
+   {type:'pricetag',items:[{name:'Premium seat',price:'€200'},{name:'Standard seat',price:'€80'},{name:'Basic seat',price:'€40'}],hint:'Drag the price tags to the conference seats.',ask:"Conference room seating — drag the right price tag to each tier before clients arrive.",reward:'"Correct pricing. Premium goes to me, obviously."'},
+   {type:'rolodex',cards:['Nino — Director','Sonja — Payroll','Daniel — Design','Me — Basically everything'],correctIdx:3,ask:"Who actually runs this company? Scroll to the right card. Obviously.",reward:'"Me. Obviously. I\'m glad we agree."'},
+   {type:'voicemail',pool:['approved','rejected','pending','revised','escalated'],ask:"Five status updates on my voicemail — type back the last one. I delete as I go.",reward:'"Correct. Escalated. As it should be."'},
+   {type:'wire',pairs:[['Nina','Final approval'],['Nino','Budget sign-off'],['Sonja','Payroll processing']],hint:'Connect each person to their actual responsibility.',ask:"New org chart — wire each person to their real role. My role is obvious.",reward:'"Wired correctly. Finally, clarity."'},
+   {type:'cableroute',ask:"Conference room AV got scrambled before my presentation — route the signal back to the main screen.",reward:'"Connected. Presentation will be flawless. Obviously."'},
+   {type:'approvalchain',chain:['Employee','Manager','Nina','Nino'],hint:'Every request goes through Nina before Nino. Obviously.',ask:"Someone submitted a request skipping me. Show them the correct approval chain.",reward:'"Through ME first. Always. Obviously."'}
  ]},
  daniel:{desc:'Designer, chill, big vibes',home:{x:4,y:5},pool:[
    {type:'choose',q:'Which design has the best vibe?',opts:[{t:'Clean & minimal',ok:true},{t:'5 fonts, 3 gradients',ok:false},{t:'Default bootstrap',ok:false}],ask:"Yo, which design has the best vibe? Just feel it. *smoke*",reward:'*thumbs up through haze* "Flawless vibe, respect."'},
@@ -306,7 +341,12 @@ const POOLS={
    {type:'whiteboard',pts:[[30,40],[120,20],[200,80],[160,140],[80,130]],ask:"Sketch the design flow on the whiteboard — connect the dots in order.",reward:'"Flow is mapped. Beautiful process."'},
    {type:'anagram',word:'CANVAS',ask:"Unscramble the word for my workspace. It\'s also an app I built.",reward:'"CANVAS. Obviously. Named it myself."'},
    {type:'whiteboard',pts:[[30,30],[130,20],[220,70],[200,140],[100,150]],ask:"Storyboard the client presentation — connect the slides on the whiteboard in order.",reward:'"Flow is perfect. Client won\'t know what hit them."'},
-   {type:'binary',val:10,ask:"The client\'s revision count is 10 — flip the binary light panel to match.",reward:'"Ten revisions in binary. The client\'s lucky I\'m patient."'}
+   {type:'binary',val:10,ask:"The client\'s revision count is 10 — flip the binary light panel to match.",reward:'"Ten revisions in binary. The client\'s lucky I\'m patient."'},
+   {type:'park',ask:"Design expo parking — squeeze the van (with all the equipment) into the last spot. Don\'t scratch the vibe.",reward:'"Parallel parked. The equipment is safe. The vibe is intact."'},
+   {type:'cash',ask:"Client paid the invoice in cash — count it out and confirm before I issue the receipt.",reward:'"Counted. Exact. Even the design industry runs on money, man."'},
+   {type:'moving',ask:"New office layout — catch the furniture pieces as they move into the right spots.",reward:'"Every piece landed right. Space has intention now."'},
+   {type:'qte',ask:"Client presentation combo — advance slides, dim lights, click demo, all in sequence. Go.",reward:'"Flawless execution. The room was speechless."'},
+   {type:'redact',sentences:['Client budget: €45,000 for full rebrand','Contact: Ana Kovač, CEO +385 99 111 2233','Deadline: confidential — before competitor launch'],sensitive:['€45,000','Ana Kovač, CEO +385 99 111 2233','confidential'],ask:"Agency brief before sending to the printer — redact the sensitive bits.",reward:'"Redacted. Brief is clean. Printer gets the safe version."'}
  ]},
 };
 
@@ -346,65 +386,15 @@ const ROWS=MAP.length,COLS=MAP[0].length;
 const FINE=[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1], [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1]];
 const FROWS=FINE.length,FCOLS=FINE[0].length,FTS=TS/2;
 function fineWalk(px,py){const cx=Math.floor(px/FTS),cy=Math.floor(py/FTS);if(cy<0||cy>=FROWS||cx<0||cx>=FCOLS)return false;return FINE[cy][cx]===0;}
-// ── CAMERA ─────────────────────────────────────────────
-// camZoom = current zoom level (1.4 = default, fills screen nicely)
-// camX/camY = camera top-left corner in world pixels
-// targetZoom = where zoom is lerping toward
 let zoom=1,offX=0,offY=0;
-let camX=0,camY=0,camZoom=1.4,targetZoom=1.4;
-const CAM_ZOOM_MIN=0.75,CAM_ZOOM_MAX=2.0,CAM_LERP=0.10,CAM_ZOOM_LERP=0.12;
-
-// scroll to zoom
-cv.addEventListener('wheel',e=>{
-  if(state!=='play')return;
-  e.preventDefault();
-  targetZoom=Math.max(CAM_ZOOM_MIN,Math.min(CAM_ZOOM_MAX,targetZoom-e.deltaY*0.001));
-},{passive:false});
-
 function updateCamera(){
-  if(state!=='play'||!player){
-    // fallback: fit whole map when not playing
-    zoom=Math.min(viewW/(COLS*TS),viewH/(ROWS*TS));
-    offX=(viewW-COLS*TS*zoom)/2;offY=(viewH-ROWS*TS*zoom)/2;camZoom=zoom;return;
-  }
-  // smooth zoom lerp
-  camZoom+=(targetZoom-camZoom)*CAM_ZOOM_LERP;
-  // target: center camera on player
-  const targetX=player.x-viewW/(2*camZoom);
-  const targetY=player.y-viewH/(2*camZoom);
-  // clamp so we never show outside the map
-  const maxX=COLS*TS-viewW/camZoom;
-  const maxY=ROWS*TS-viewH/camZoom;
-  const clampedX=Math.max(0,Math.min(maxX,targetX));
-  const clampedY=Math.max(0,Math.min(maxY,targetY));
-  // smooth lerp toward target
-  camX+=(clampedX-camX)*CAM_LERP;
-  camY+=(clampedY-camY)*CAM_LERP;
-  // expose as offX/offY/zoom for the renderer (ctx.translate(offX,offY); ctx.scale(zoom,zoom))
-  zoom=camZoom;
-  offX=-camX*camZoom;
-  offY=-camY*camZoom;
+  zoom=Math.min(viewW/(COLS*TS), viewH/(ROWS*TS));
+  offX=(viewW-COLS*TS*zoom)/2;
+  offY=(viewH-ROWS*TS*zoom)/2;
 }
-
-// convert screen coords → world coords (for mouse picking if needed later)
-function screenToWorld(sx,sy){return{x:sx/camZoom+camX,y:sy/camZoom+camY};}
-
 
 
 const TASKS_PER_NPC=2;
-
-// ── 5-DAY WEEK CONFIG ──────────────────────────────────
-// tasksPerNPC = how many tasks each of the 8 NPCs gets that day
-// target = points needed to survive the day; time = seconds on the clock
-const DAY_CONFIG=[
-  {name:'Monday',   tasksPerNPC:1, target:80,  time:300},
-  {name:'Tuesday',  tasksPerNPC:2, target:160, time:360},
-  {name:'Wednesday',tasksPerNPC:3, target:240, time:420},
-  {name:'Thursday', tasksPerNPC:4, target:320, time:480},
-  {name:'Friday',   tasksPerNPC:5, target:420, time:540},
-];
-// per-week run state (points/coins reset each week; coins bank to the user on survival)
-let week={day:0,points:0,coins:0,streak:0,target:0,dayCoins:0,dayFails:0,chosenId:null};
 
 let player,state='start',time=420,timerId,dialogOpen=false,miniOpen=false;
 let smoking=false,smokeParticles=[],smokeUntil=0;
@@ -466,106 +456,13 @@ function drawPerson(g,cx,cy,look,scale,bob,facing){
   g.restore();
 }
 
-/* ── SAVE SYSTEM (localStorage, 3 slots) ─────────────── */
-const SLOT_KEY=i=>'officeRush_slot_'+i;
-const NUM_SLOTS=3;
-let currentSlot=null,currentUser=null;
-function blankUser(name){return{name:name,created:Date.now(),coins:0,unlockedNPCs:[],
-  stats:{bestScore:0,totalCoins:0,weeksPlayed:0,weeksSurvived:0}};}
-function loadSlot(i){try{const raw=localStorage.getItem(SLOT_KEY(i));return raw?JSON.parse(raw):null;}catch(e){return null;}}
-function saveSlot(i,user){try{localStorage.setItem(SLOT_KEY(i),JSON.stringify(user));}catch(e){}}
-function saveCurrent(){if(currentSlot!==null&&currentUser)saveSlot(currentSlot,currentUser);}
-
-// ── LEADERBOARD (shared across slots on this device) ──
-const LB_KEY='officeRush_leaderboard';
-function loadLeaderboard(){try{return JSON.parse(localStorage.getItem(LB_KEY))||[];}catch(e){return [];}}
-function updateLeaderboard(name,score){
-  let lb=loadLeaderboard();
-  const ex=lb.find(e=>e.name===name);
-  if(ex){if(score>ex.score)ex.score=score;}else lb.push({name,score});
-  lb.sort((a,b)=>b.score-a.score);lb=lb.slice(0,10);
-  try{localStorage.setItem(LB_KEY,JSON.stringify(lb));}catch(e){}
-}
-function renderLeaderboard(){
-  const lb=loadLeaderboard();
-  const el=document.getElementById('lbList');
-  if(!lb.length){el.innerHTML='<div class="lbEmpty">No scores yet — survive a full week!</div>';return;}
-  const medals=['🥇','🥈','🥉'];
-  el.innerHTML=lb.map((e,i)=>
-    '<div class="lbRow">'+
-      '<div class="lbRank">'+(medals[i]||i+1)+'</div>'+
-      '<div class="lbName">'+esc(e.name)+'</div>'+
-      '<div class="lbScore">'+e.score+' pt</div>'+
-    '</div>'
-  ).join('');
-}
-
-/* ── SCREEN NAVIGATION ───────────────────────────────── */
-const SCREENS=['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end','leaderboardScreen','firedScreen'];
-function showScreen(id){SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display=(s===id)?'flex':'none';});}
-
 /* mode select */
-document.getElementById('modePlay').onclick=()=>{renderSlots();showScreen('userSelect');};
-document.getElementById('modeTest').onclick=()=>{document.getElementById('modeScreen').style.display='none';startTest();};
-document.getElementById('modeLeaderboard').onclick=()=>{renderLeaderboard();showScreen('leaderboardScreen');};
-document.getElementById('lbBack').onclick=()=>showScreen('modeScreen');
-document.getElementById('firedBack').onclick=backToUserMenu;
-
-/* user select — render 3 slots */
-function renderSlots(){
-  const list=document.getElementById('slotList');list.innerHTML='';
-  for(let i=0;i<NUM_SLOTS;i++){
-    const u=loadSlot(i);const d=document.createElement('div');d.className='char';d.style.minWidth='150px';
-    if(u){
-      d.innerHTML='<div class="n">'+esc(u.name)+'</div>'+
-        '<div class="d">Best: '+u.stats.bestScore+' pt<br>Coins: '+u.coins+'<br>Weeks: '+u.stats.weeksSurvived+'/'+u.stats.weeksPlayed+'</div>'+
-        '<div class="slotDel" data-slot="'+i+'">&#128465; delete</div>';
-      d.onclick=(e)=>{if(e.target.classList.contains('slotDel'))return;openUser(i);};
-    }else{
-      d.innerHTML='<div class="n" style="color:var(--wood)">Empty</div><div class="d">+ New game</div>';
-      d.onclick=()=>{newGameSlot=i;document.getElementById('newGameName').value='';showScreen('newGame');setTimeout(()=>document.getElementById('newGameName').focus(),50);};
-    }
-    list.appendChild(d);
-  }
-  // wire delete buttons
-  list.querySelectorAll('.slotDel').forEach(b=>b.onclick=(e)=>{e.stopPropagation();
-    const i=+b.dataset.slot;if(confirm('Delete this save slot?')){localStorage.removeItem(SLOT_KEY(i));renderSlots();}});
-}
-document.getElementById('userSelectBack').onclick=()=>showScreen('modeScreen');
-
-/* new game */
-let newGameSlot=null;
-function createNewGame(){
-  const name=(document.getElementById('newGameName').value||'').trim()||'Player';
-  const u=blankUser(name);saveSlot(newGameSlot,u);openUser(newGameSlot);
-}
-document.getElementById('newGameCreate').onclick=createNewGame;
-document.getElementById('newGameName').addEventListener('keydown',e=>{if(e.key==='Enter')createNewGame();});
-document.getElementById('newGameBack').onclick=()=>{renderSlots();showScreen('userSelect');};
-
-/* user menu */
-function openUser(i){currentSlot=i;currentUser=loadSlot(i)||blankUser('Player');renderUserMenu();showScreen('userMenu');}
-function renderUserMenu(){
-  const u=currentUser;
-  document.getElementById('userMenuName').textContent=u.name.toUpperCase();
-  document.getElementById('userStats').innerHTML=
-    '<div style="font-size:13px;line-height:1.9;color:var(--inkbrown)">'+
-      '<div>&#11088; Best score: <b>'+u.stats.bestScore+' pt</b></div>'+
-      '<div>&#129689; Coins: <b>'+u.coins+'</b></div>'+
-      '<div>&#128197; Weeks played: <b>'+u.stats.weeksPlayed+'</b></div>'+
-      '<div>&#127942; Weeks survived: <b>'+u.stats.weeksSurvived+'</b></div>'+
-    '</div>';
-}
-document.getElementById('userPlay').onclick=()=>{document.getElementById('modeScreen').style.display='none';showScreen('start');};
-document.getElementById('userShop').onclick=()=>{document.getElementById('shopCoins').textContent='Your coins: '+(currentUser?currentUser.coins:0);showScreen('shopScreen');};
-document.getElementById('userMenuBack').onclick=()=>{renderSlots();showScreen('userSelect');};
-document.getElementById('shopBack').onclick=()=>{renderUserMenu();showScreen('userMenu');};
-
-/* start (character pick) back button */
-document.getElementById('startBack').onclick=()=>{if(currentSlot!==null){renderUserMenu();showScreen('userMenu');}else{showScreen('modeScreen');}};
-
-function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
-
+document.getElementById('modePlay').onclick=()=>{
+  document.getElementById('modeScreen').style.display='none';
+  document.getElementById('start').style.display='flex';};
+document.getElementById('modeTest').onclick=()=>{
+  document.getElementById('modeScreen').style.display='none';
+  startTest();};
 
 /* start screen with sprite previews */
 const pick=document.getElementById('pickChars');
@@ -610,67 +507,23 @@ function startTest(){
   loop();
 }
 
-// startGame(chosenId): begin a fresh WEEK with the chosen character
 function startGame(chosenId){
   testMode=false;
-  week={day:0,points:0,coins:0,streak:0,target:0,dayCoins:0,dayFails:0,chosenId:chosenId};
-  startDay(0);
-}
-
-// spawn a fresh board for day index d and start its clock
-function startDay(d){
-  week.day=d;week.dayCoins=0;week.dayFails=0;
-  const cfg=DAY_CONFIG[d];week.target=cfg.target;
-  const chosenId=week.chosenId;
   const all=['brana','sonja','pedja','nina','daniel','dejan','teonem','steve'];
   const order=all.filter(id=>id!==chosenId);
   NPCS=order.map(id=>{const p=POOLS[id];
-    const tasks=shuffle(p.pool).slice(0,cfg.tasksPerNPC).map((t,i)=>({...t,id:id+'_'+d+'_'+i,done:false}));
+    const tasks=shuffle(p.pool).slice(0,TASKS_PER_NPC).map((t,i)=>({...t,id:id+'_'+i,done:false}));
     return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:400+Math.random()*700,tasks};});
   player={id:chosenId,name:cap(chosenId),x:6.25*TS,y:12.25*TS,r:12};
-  // reset camera to player start position
-  camX=player.x-viewW/(2*1.4);camY=player.y-viewH/(2*1.4);camZoom=1.4;targetZoom=1.4;
-  SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display='none';});
-  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
-  time=cfg.time;
-  state='play';renderTasks();updateHUD();
-  clearInterval(timerId);
-  timerId=setInterval(()=>{if(dialogOpen||miniOpen||state==='paused')return;time--;
-    if(time<=0){time=0;endDay();}
+  document.getElementById('start').style.display='none';
+  document.getElementById('whoami').textContent='playing: '+cap(chosenId);
+  state='play';renderTasks();
+  timerId=setInterval(()=>{if(dialogOpen||miniOpen)return;time--;
+    if(time<=0){time=0;endGame(false,'Time ran out');}
     const m=String(Math.floor(time/60)).padStart(2,'0'),s=String(time%60).padStart(2,'0');
     document.getElementById('timer').textContent=m+':'+s;},1000);
   loop();
 }
-
-
-// ── PAUSE ──────────────────────────────────────────────
-let prevState=null,pauseWired=false;
-function pauseGame(){
-  if(state!=='play')return;
-  prevState=state;state='paused';
-  const ov=document.getElementById('pauseOverlay');if(!ov)return;
-  if(!pauseWired){
-    const r=ov.querySelector('#pauseResume'),m=ov.querySelector('#pauseMenu');
-    if(r)r.onclick=resumeGame;if(m)m.onclick=quitToMenu;pauseWired=true;
-  }
-  ov.style.display='flex';
-}
-function resumeGame(){
-  if(state!=='paused')return;
-  state=prevState||'play';prevState=null;
-  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
-  loop(); // loop() bailed out while paused; restart it
-}
-function quitToMenu(){
-  // stop timer + loop, hide pause, return to user menu (or mode-select in test mode)
-  clearInterval(timerId);
-  state='start';prevState=null;
-  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
-  closeMini&&closeMini();
-  if(currentSlot!==null&&!testMode){renderUserMenu();showScreen('userMenu');}
-  else{showScreen('modeScreen');}
-}
-
 function allTasks(){return NPCS.flatMap(n=>n.tasks);}
 function npcDone(n){return n.tasks.every(t=>t.done);}
 function nextTask(n){return n.tasks.find(t=>!t.done);}
@@ -704,11 +557,8 @@ function setCarry(item,label){carrying=item?{item,label}:null;
 
 const keys={};
 addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;
-  // ESC = pause/resume (only while actually playing)
-  if(e.key==='Escape'){e.preventDefault();if(state==='play')pauseGame();else if(state==='paused')resumeGame();return;}
-  if(state==='paused')return; // swallow other keys while paused
   if(e.key.toLowerCase()==='e'){e.preventDefault();interact();}
-  if(e.key==='+'||e.key==='='){e.preventDefault();window.DEBUG_COLL=!window.DEBUG_COLL;} // debug collision overlay
+  if(e.key.toLowerCase()==='g'){e.preventDefault();window.DEBUG_COLL=!window.DEBUG_COLL;}
   if(e.key.toLowerCase()==='f'){e.preventDefault();tryCigarette();}
   if(e.key===' '&&dialogOpen){e.preventDefault();closeDialog();}});
 addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
@@ -733,15 +583,11 @@ function interact(){
   const n=nearestNPC();if(!n)return;
   if(n.id==='nino'){
     const delT=allTasks().find(t=>!t.done&&t.type==='deliver'&&t.to==='nino'&&carrying&&carrying.item===t.item);
-    if(delT){delT.done=true;const it=carrying.item;const owner=NPCS.find(x=>x.tasks.includes(delT));setCarry(null);
-      if(!testMode){const pts=10+Math.floor(Math.random()*11);week.points+=pts;week.streak++;
-        if(week.streak===3){week.coins+=15;week.dayCoins+=15;}else if(week.streak===5){week.coins+=30;week.dayCoins+=30;}
-        updateHUD();}
-      renderTasks();
+    if(delT){delT.done=true;const it=carrying.item;const owner=NPCS.find(x=>x.tasks.includes(delT));setCarry(null);renderTasks();
       openDialog('Boss Nino','Ah, the '+it+' from '+owner.name+'. Good.',
-        [{label:'Ok',fn:()=>{closeDialog();openDialog(owner.name,delT.reward,[{label:'ok',fn:()=>{closeDialog();checkBoardCleared();}}]);}}]);return;}
+        [{label:'Ok',fn:()=>{closeDialog();openDialog(owner.name,delT.reward,[{label:'ok',fn:closeDialog}]);}}]);return;}
     const allDone=allTasks().every(t=>t.done);
-    if(allDone)openDialog('Boss Nino','Whole board clear? I built this from nothing, you know. One more small task... kidding. Go home. Well done.',[{label:'End shift',fn:()=>{closeDialog();endDay();}}]);
+    if(allDone)openDialog('Boss Nino','Whole board clear? I built this from nothing, you know. One more small task... kidding. Go home. Well done.',[{label:'End shift',fn:()=>endGame(true)}]);
     else{const left=allTasks().filter(t=>!t.done).length;openDialog('Boss Nino','In a million things. Finish the rest — '+left+' left.',[{label:'Got it boss',fn:closeDialog}]);}
     return;}
   if(testMode){ // pick any of this NPC's tasks to test
@@ -761,42 +607,7 @@ function startTask(n,t){
   }else openDialog(n.name,t.ask,[{label:'Start',fn:()=>{closeDialog();runMini(n,t);}},{label:'Later',cls:'ghost',fn:closeDialog}]);
 }
 function finish(n,t){if(testMode){renderTasks();openDialog(n.name,t.reward+'  (test: replayable)',[{label:'ok',fn:closeDialog}]);return;}
-  t.done=true;
-  // ── award points + coins ──
-  const cfg=DAY_CONFIG[week.day];
-  const pts=10+Math.floor(Math.random()*11); // 10–20 pts per task
-  week.points+=pts;
-  week.streak++;
-  let coinMsg='';
-  // speed bonus: finished with >50% of the clock still remaining
-  if(time>cfg.time*0.5){week.coins+=5;week.dayCoins+=5;coinMsg+='  ⚡ +5';}
-  // streak bonuses
-  if(week.streak===3){week.coins+=15;week.dayCoins+=15;coinMsg+='  🔥 +15';}
-  else if(week.streak===5){week.coins+=30;week.dayCoins+=30;coinMsg+='  🔥 +30';}
-  updateHUD();renderTasks();
-  const rewardTxt=t.reward+'   (+'+pts+' pt'+coinMsg+')';
-  openDialog(n.name,rewardTxt,[{label:'ok',fn:()=>{closeDialog();checkBoardCleared();}}]);}
-
-// if the whole board is cleared, end the day early (win)
-function checkBoardCleared(){
-  if(state!=='play')return;
-  if(allTasks().every(x=>x.done))endDay();
-}
-
-// ── HUD ──
-function updateHUD(){
-  const cfg=DAY_CONFIG[week.day];
-  const wa=document.getElementById('whoami');
-  if(wa)wa.innerHTML='<b>'+cfg.name+'</b> (day '+(week.day+1)+'/5)';
-  const hud=document.getElementById('econHud');
-  if(hud){
-    hud.innerHTML='⭐ <b>'+week.points+'</b> / '+week.target+' pt'+
-      ' &nbsp; 🪙 <b>'+week.coins+'</b>'+
-      ' &nbsp; 🔥 '+week.streak;
-    hud.style.color=week.points>=week.target?'var(--green)':'var(--wood2)';
-  }
-}
-
+  t.done=true;renderTasks();openDialog(n.name,t.reward,[{label:'ok',fn:closeDialog}]);}
 function openDialog(who,txt,choices){dialogOpen=true;
   document.getElementById('dWho').textContent=who;document.getElementById('dTxt').textContent=txt;
   const c=document.getElementById('dChoices');c.innerHTML='';
@@ -816,7 +627,7 @@ function openMini(title,desc,useTimer){miniOpen=true;
   return st;}
 function closeMini(){miniOpen=false;document.getElementById('mini').style.display='none';
   if(activeKeyHandler){document.removeEventListener('keydown',activeKeyHandler);activeKeyHandler=null;}}
-function fail(n,msg){if(!testMode){week.streak=0;week.dayFails++;updateHUD();}const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('bad');setTimeout(()=>{b.classList.remove('bad');closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);},380);}else{closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);}}
+function fail(n,msg){const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('bad');setTimeout(()=>{b.classList.remove('bad');closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);},380);}else{closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);}}
 function miniWin(n,t){const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('win');setTimeout(()=>{b.classList.remove('win');closeMini();finish(n,t);},470);}else{closeMini();finish(n,t);}}
 function setKey(fn){if(activeKeyHandler)document.removeEventListener('keydown',activeKeyHandler);
   activeKeyHandler=fn;document.addEventListener('keydown',fn);}
@@ -2166,93 +1977,14 @@ function miniHandover(n,t){
       else{msg.textContent='Not yet — do the earlier steps first.';b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),300);}};});}
 
 
-// called when the day's clock hits 0 OR the board is cleared early
-function endDay(){
-  if(state==='end')return;
-  state='end';clearInterval(timerId);
-  const cfg=DAY_CONFIG[week.day];
-  const survived=week.points>=week.target;
-  // perfect-day bonus
-  if(survived&&week.dayFails===0){week.coins+=50;week.dayCoins+=50;}
-  if(!survived){showFired();return;}
-  if(week.day>=DAY_CONFIG.length-1){showWeekWin();return;}
-  showEndOfDay();
-}
-
-// between-days screen
-function showEndOfDay(){
-  const cfg=DAY_CONFIG[week.day];
-  const el=document.getElementById('end');el.style.display='flex';
-  document.getElementById('endTitle').textContent=cfg.name.toUpperCase()+' DONE';
-  document.getElementById('endTitle').style.color='var(--green)';
-  document.getElementById('endSub').textContent='Survived — target '+week.target+' pt reached';
-  document.getElementById('endMsg').innerHTML=
-    'Points this week: <b>'+week.points+'</b><br>'+
-    'Coins earned today: <b>'+week.dayCoins+'</b> &nbsp; (total this week: '+week.coins+')<br>'+
-    'Next up: <b>'+DAY_CONFIG[week.day+1].name+'</b> — target '+DAY_CONFIG[week.day+1].target+' pt';
-  setEndButton('▶ Next day',()=>{document.getElementById('end').style.display='none';startDay(week.day+1);});
-}
-
-// beat all 5 days
-function showWeekWin(){
-  bankWeek(true);
-  const el=document.getElementById('end');el.style.display='flex';
-  document.getElementById('endTitle').textContent='YOU SURVIVED THE WEEK';
-  document.getElementById('endTitle').style.color='var(--gold)';
-  document.getElementById('endSub').textContent='Friday cleared';
-  document.getElementById('endMsg').innerHTML=
-    'Final score: <b>'+week.points+' pt</b><br>'+
-    'Coins banked: <b>'+week.coins+'</b><br>'+
-    (currentUser?('New best: '+currentUser.stats.bestScore+' pt'):'')+
-    '<br>The office is quiet. For now.';
-  setEndButton('Back to menu',backToUserMenu);
-}
-
-// failed the day → Nino fires you — cinematic screen
-function showFired(){
-  bankWeek(false);
-  const el=document.getElementById('firedScreen');
-  el.style.display='flex';
-  document.getElementById('firedTitle').textContent="YOU'RE FIRED";
-  document.getElementById('firedMsg').innerHTML=
-    '"Clean out your desk."<br><br>'+
-    'You made it to <b>'+DAY_CONFIG[week.day].name+'</b> with '+week.points+' / '+week.target+' pt.<br>'+
-    'Coins banked anyway: <b>'+week.coins+' 🪙</b><br><br>'+
-    'Dust yourself off. Try again.';
-}
-
-// write week results into the user's save
-function bankWeek(survivedWeek){
-  if(!currentUser)return;
-  currentUser.coins+=week.coins;
-  currentUser.stats.totalCoins+=week.coins;
-  currentUser.stats.weeksPlayed++;
-  if(survivedWeek)currentUser.stats.weeksSurvived++;
-  if(week.points>currentUser.stats.bestScore)currentUser.stats.bestScore=week.points;
-  saveCurrent();
-  updateLeaderboard(currentUser.name,currentUser.stats.bestScore);
-}
-
-function backToUserMenu(){
-  document.getElementById('end').style.display='none';
-  state='start';
-  if(currentSlot!==null){renderUserMenu();showScreen('userMenu');}
-  else showScreen('modeScreen');
-}
-
-// swap the #end screen's single button to a custom label+action
-function setEndButton(label,fn){
-  const el=document.getElementById('end');
-  let btn=el.querySelector('.endBtn');
-  if(!btn){btn=document.createElement('button');btn.className='btn endBtn';btn.style.marginTop='20px';el.appendChild(btn);}
-  btn.textContent=label;btn.onclick=fn;
-  // hide the old hardcoded "Play again" reload button if present
-  el.querySelectorAll('button:not(.endBtn)').forEach(b=>b.style.display='none');
-}
-
-// legacy endGame kept as alias in case anything else calls it
-function endGame(win,reason){endDay();}
-
+function endGame(win,reason){state='end';clearInterval(timerId);
+  document.getElementById('end').style.display='flex';
+  const t=document.getElementById('endTitle'),s=document.getElementById('endSub'),m=document.getElementById('endMsg');
+  const all=allTasks(),d=all.filter(x=>x.done).length;
+  if(win){t.textContent='SHIFT COMPLETE';t.style.color='var(--green)';s.textContent='Board cleared';
+    m.textContent='Nino is pleased (briefly). Team heads home. Tomorrow: a new board.';
+  }else{t.textContent='OUT OF TIME';t.style.color='var(--red)';s.textContent=reason+' — '+d+'/'+all.length+' done';
+    m.textContent='The board is still full. Nina is already typing in the group chat.';}}
 
 /* ---------- STARDEW-STYLE RENDER ---------- */
 function drawTile(x,y,t){
@@ -2446,30 +2178,7 @@ function updateNPCs(){
     }
   });
 }
-function drawMinimap(){
-  const MW=110,MH=70,MX=viewW-MW-10,MY=10,PAD=4;
-  const scaleX=(MW-PAD*2)/(COLS*TS), scaleY=(MH-PAD*2)/(ROWS*TS);
-  // background
-  ctx.fillStyle='rgba(20,12,6,.82)';ctx.strokeStyle='rgba(200,160,80,.5)';ctx.lineWidth=1.5;
-  const rr=(x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();};
-  rr(MX,MY,MW,MH,5);ctx.fill();ctx.stroke();
-  // camera viewport rect
-  const vpX=MX+PAD+camX*scaleX, vpY=MY+PAD+camY*scaleY;
-  const vpW=(viewW/camZoom)*scaleX, vpH=(viewH/camZoom)*scaleY;
-  ctx.strokeStyle='rgba(220,180,80,.55)';ctx.lineWidth=1;
-  ctx.strokeRect(vpX,vpY,vpW,vpH);
-  // NPC dots
-  NPCS.forEach(n=>{
-    const done=npcDone(n);
-    const dx=MX+PAD+n.x*TS*scaleX, dy=MY+PAD+n.y*TS*scaleY;
-    ctx.fillStyle=done?'#5aa848':'#c9a86b';
-    ctx.beginPath();ctx.arc(dx,dy,2.2,0,7);ctx.fill();});
-  // player dot (bright)
-  const px2=MX+PAD+player.x*scaleX, py2=MY+PAD+player.y*scaleY;
-  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(px2,py2,3,0,7);ctx.fill();
-  ctx.fillStyle='#e86b4a';ctx.beginPath();ctx.arc(px2,py2,2,0,7);ctx.fill();}
-
-function loop(){if(state==='end'||state==='paused')return;
+function loop(){if(state==='end')return;
   frame++;
   let moving=false;
   if(smoking&&Date.now()>smokeUntil)smoking=false;
@@ -2567,8 +2276,6 @@ function loop(){if(state==='end'||state==='paused')return;
       ctx.fillStyle='#6b431f';ctx.fillRect(hx-13,hy-11+bb,26,15);
       ctx.fillStyle='#f6e7c1';ctx.font='bold 11px monospace';ctx.textAlign='center';ctx.fillText('[E]',hx,hy+bb);}}
   ctx.restore();
-  // ── MINIMAP (screen space, top-right corner) ──
-  if(state==='play'&&player){drawMinimap();}
   const g=ctx.createRadialGradient(viewW/2,viewH/2,viewH/2.4,viewW/2,viewH/2,viewH*0.95);
   g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(30,15,5,.35)');
   ctx.fillStyle=g;ctx.fillRect(0,0,viewW,viewH);
