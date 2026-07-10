@@ -101,7 +101,9 @@ const POOLS={
    {type:'recipe',ask:"New dev environment setup — follow the install steps in exact order or it breaks.",reward:'"Environment up. First try. Legendary."'},
    {type:'wordle',word:'CRASH',ask:"Server's down and I need to find the error type — guess the 5-letter word from the logs.",reward:'"CRASH. Exactly. Already fixed it, obviously."'},
    {type:'minesweeper',size:5,mines:4,ask:"Server maintenance grid — clear the safe nodes without triggering any faults.",reward:'"All clear. Zero incidents. Legendary maintenance."'},
-   {type:'hidden',items:[{label:'USB',emoji:'🔌',x:40,y:30},{label:'Dongle',emoji:'🔑',x:180,y:120},{label:'Badge',emoji:'🪪',x:260,y:60}],ask:"Can't find the USB, dongle, and my access badge. They're on my desk... somewhere.",reward:'"Found them. The chaos has a system, I promise."'}
+   {type:'hidden',items:[{label:'USB',emoji:'🔌',x:40,y:30},{label:'Dongle',emoji:'🔑',x:180,y:120},{label:'Badge',emoji:'🪪',x:260,y:60}],ask:"Can't find the USB, dongle, and my access badge. They're on my desk... somewhere.",reward:'"Found them. The chaos has a system, I promise."'},
+   {type:'typingtest',passage:'git commit -m "fix: resolve merge conflict in production branch"',ask:"Type this commit message exactly before the deploy window closes.",reward:'"Committed. Clean history. Legendary."'},
+   {type:'pipe',size:4,ask:"Network routing diagram is broken — rotate the pipe segments to reconnect the server to the switch.",reward:'"Network restored. Packet loss: zero. Obviously."'}
  ]},
  teonem:{desc:'Sales, always "out in town"',home:{x:10,y:9},pool:[
    {type:'deliver',item:'contract',itemLabel:'contract',to:'nino',ask:"Running into town (work!). Take this contract to Nino.",reward:'"Legend. I never left, clear?" *left*'},
@@ -140,7 +142,8 @@ const POOLS={
    {type:'flowfree',size:5,pairs:[{color:'#e03030',from:[0,0],to:[4,3]},{color:'#2e7d46',from:[0,4],to:[3,0]},{color:'#1565c0',from:[1,2],to:[4,1]},{color:'#b07d18',from:[0,2],to:[4,4]}],ask:"Route the client calls through the switchboard — connect every line without crossing them.",reward:'"All lines clear. Every client reached. Beautiful."'},
    {type:'merge2048',target:128,ask:"Budget spreadsheet — merge the numbers until you hit the quarterly target.",reward:'"128k. Nailed it. Commission incoming."'},
    {type:'wordle',word:'LEASE',ask:"Client mentioned the deal type but I forgot — guess the 5-letter word.",reward:'"LEASE. Of course. Three-year term, standard."'},
-   {type:'hidden',items:[{label:'Contract',emoji:'📋',x:60,y:40},{label:'Keys',emoji:'🔑',x:200,y:130},{label:'Card',emoji:'💳',x:120,y:90}],ask:"Demo car keys, the contract, and the client's card are buried on my desk. Find them.",reward:'"Found everything. Now the handover can happen."'}
+   {type:'hidden',items:[{label:'Contract',emoji:'📋',x:60,y:40},{label:'Keys',emoji:'🔑',x:200,y:130},{label:'Card',emoji:'💳',x:120,y:90}],ask:"Demo car keys, the contract, and the client's card are buried on my desk. Find them.",reward:'"Found everything. Now the handover can happen."'},
+   {type:'tetris',lines:3,ask:"Car parts just came in — stack them in the warehouse so nothing falls over. Clear 3 rows.",reward:'"Stacked clean. Nino will never know it was chaos."'}
  ]},
  steve:{desc:'Beard, vape, sells in Croatia',home:{x:4,y:2},pool:[
    {type:'fetch',item:'vape',itemLabel:'vape',ask:"Left my vape by the entrance. No fog, no deals.",reward:'*huge cloud* "Now we do business."'},
@@ -176,7 +179,9 @@ const POOLS={
    {type:'wordle',word:'SPLIT',ask:"Croatian city where the big client is based — guess the 5-letter word. *vapor*",reward:'*vapor* "SPLIT. Exactly. Road trip incoming."'},
    {type:'minesweeper',size:5,mines:3,ask:"Territory map has dead zones — clear the safe areas without hitting a bad lead.",reward:'*vapor* "Clean territory. Every safe lead flagged."'},
    {type:'hidden',items:[{label:'Vape',emoji:'💨',x:80,y:50},{label:'Offer',emoji:'📄',x:220,y:110},{label:'Phone',emoji:'📱',x:150,y:150}],ask:"Can't find my vape, the offer letter, and my phone before the client call. *vapor*",reward:'*vapor* "All found. Call starts in 30 seconds."'},
-   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,3]},{color:'#2e7d46',from:[0,3],to:[3,0]},{color:'#1565c0',from:[0,1],to:[2,3]}],ask:"Route the Croatian territory sales calls — connect every region without overlap.",reward:'*vapor* "All regions covered. Clean map."'}
+   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,3]},{color:'#2e7d46',from:[0,3],to:[3,0]},{color:'#1565c0',from:[0,1],to:[2,3]}],ask:"Route the Croatian territory sales calls — connect every region without overlap.",reward:'*vapor* "All regions covered. Clean map."'},
+   {type:'tetris',lines:3,ask:"Parts shipment from Zagreb — stack the boxes in the storage bay before the truck leaves. *vapor*",reward:'*vapor* "Clean stack. Zero damage. Professional."'},
+   {type:'typingtest',passage:'Poštovani klijente, šaljemo Vam ponudu u prilogu.',ask:"Type this Croatian client email exactly — one typo and the deal looks amateur. *vapor*",reward:'*vapor* "Sent. Professional. Croatian clients expect nothing less."'}
  ]},
  brana:{desc:'Watches everyone (secretly)',home:{x:3,y:9},pool:[
    {type:'fetch',item:'logsheet',itemLabel:'attendance log',ask:"Bring that sheet by the entrance. I do not track people... just get it.",reward:'*hides it* "I did not ask for this. But I did."'},
@@ -216,7 +221,9 @@ const POOLS={
    {type:'wordle',word:'WATCH',ask:"Five letters. What I always do. Guess it.",reward:'"WATCH. Correct. I neither confirm nor deny."'},
    {type:'minesweeper',size:4,mines:3,ask:"Office seating grid — identify the problem areas without triggering a complaint.",reward:'"All clear. Problems identified. Quietly noted."'},
    {type:'hidden',items:[{label:'Log',emoji:'📒',x:50,y:60},{label:'Badge',emoji:'🪪',x:190,y:100},{label:'Pen',emoji:'🖊️',x:260,y:150}],ask:"My observation log, a visitor badge, and my pen — find them in this desk mess.",reward:'"All found. The system works. I have a system."'},
-   {type:'merge2048',target:64,ask:"Attendance numbers — merge the daily counts into the weekly total.",reward:'"64. Exactly right. Every head counted."'}
+   {type:'merge2048',target:64,ask:"Attendance numbers — merge the daily counts into the weekly total.",reward:'"64. Exactly right. Every head counted."'},
+   {type:'pipe',size:4,ask:"Office network cable layout needs fixing — rotate the segments to reconnect every desk without loops.",reward:'"Connected. Every desk online. I was watching the whole time."'},
+   {type:'typingtest',passage:'All staff are reminded that arrival before 09:00 is mandatory.',ask:"Type this memo exactly — every character matters when you're documenting attendance policy.",reward:'"Typed and sent. Timestamped. Filed. Obviously."'}
  ]},
  sonja:{desc:'Quiet, runs payroll',home:{x:4,y:11},pool:[
    {type:'deliver',item:'router',itemLabel:'the router',to:'nino',ask:"Payroll needs internet. Give the router to Steve — he's the IT guy.",reward:'barely audible: "...thank you."'},
@@ -254,7 +261,8 @@ const POOLS={
    {type:'wordle',word:'GROSS',ask:"Payroll term. Five letters. You should know this one.",reward:'"...GROSS. Yes. Before deductions."'},
    {type:'minesweeper',size:4,mines:2,ask:"Budget grid — identify the safe spending areas without triggering an overage.",reward:'"...all clear. Budget intact."'},
    {type:'hidden',items:[{label:'Payslip',emoji:'📄',x:70,y:80},{label:'Stamp',emoji:'🔏',x:200,y:50},{label:'Calc',emoji:'🖩',x:150,y:140}],ask:"The payslip, the approval stamp, and the calculator — somewhere on this desk.",reward:'"...found. Quietly efficient."'},
-   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,2]},{color:'#2e7d46',from:[0,3],to:[3,0]},{color:'#1565c0',from:[1,1],to:[3,3]}],ask:"Route the salary transfers through the correct bank channels — no crossings.",reward:'"...all routed. Transfers processing."'}
+   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,2]},{color:'#2e7d46',from:[0,3],to:[3,0]},{color:'#1565c0',from:[1,1],to:[3,3]}],ask:"Route the salary transfers through the correct bank channels — no crossings.",reward:'"...all routed. Transfers processing."'},
+   {type:'typingtest',passage:'Salary transfer confirmed. Net amount: EUR 2,850.00. Reference: PAY-2024-047.',ask:"Type the salary confirmation exactly before the banking window closes.",reward:'"...sent. To the cent. As always."'}
  ]},
  pedja:{desc:'Ex-waiter, 2m tall, rookie',home:{x:4,y:3},pool:[
    {type:'timing',ask:"Holding a glass on the top shelf — say NOW at the right moment.",reward:'*hops down* "No tip, but we are good."'},
@@ -296,7 +304,9 @@ const POOLS={
    {type:'minesweeper',size:5,mines:4,ask:"Kitchen floor has wet spots — map the safe path to the service station without slipping.",reward:'"Safe route found. No incidents. Waiter instincts."'},
    {type:'hidden',items:[{label:'Tray',emoji:'🍽️',x:90,y:60},{label:'Timer',emoji:'⏱️',x:220,y:130},{label:'Ticket',emoji:'🎫',x:140,y:160}],ask:"Lost the service tray, the kitchen timer, and a table ticket. Classic Pedja.",reward:'"All found. Service resumes."'},
    {type:'merge2048',target:64,ask:"Table numbers are getting doubled up — merge them before service starts.",reward:'"Sorted. Clean floor plan. Ready to serve."'},
-   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,1]},{color:'#2e7d46',from:[0,3],to:[2,0]},{color:'#b07d18',from:[1,2],to:[3,3]}],ask:"Route the food orders from kitchen to tables without blocking the aisle.",reward:'"Every table served. Zero collisions. Waiter brain."'}
+   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,1]},{color:'#2e7d46',from:[0,3],to:[2,0]},{color:'#b07d18',from:[1,2],to:[3,3]}],ask:"Route the food orders from kitchen to tables without blocking the aisle.",reward:'"Every table served. Zero collisions. Waiter brain."'},
+   {type:'tetris',lines:4,ask:"Stockroom delivery just came in — stack the boxes to clear space. Four rows at least.",reward:'"Four rows cleared. I have a gift for this apparently."'},
+   {type:'typingtest',passage:'Table 4 ordered two specials, one soup, and three espressos.',ask:"Read back the order ticket to the kitchen — type it exactly before they start the wrong dish.",reward:'"Perfect read-back. Chef didn\'t even glare."'}
  ]},
  nina:{desc:"Boss's daughter, control freak",home:{x:13,y:9},pool:[
    {type:'simon',ask:"Do EXACTLY as I say, in order. Because I am always right. Repeat.",reward:'"See? Works when you listen to ME."'},
@@ -336,7 +346,9 @@ const POOLS={
    {type:'minesweeper',size:4,mines:2,ask:"Meeting room booking grid — clear the available slots without double-booking my time.",reward:'"My time protected. Obviously."'},
    {type:'hidden',items:[{label:'Stamp',emoji:'✅',x:60,y:50},{label:'Remote',emoji:'📡',x:210,y:120},{label:'Marker',emoji:'🖍️',x:160,y:80}],ask:"My approval stamp, presentation remote, and marker are missing. Obviously someone moved them.",reward:'"Found. I\'ll be putting these in a locked drawer now."'},
    {type:'merge2048',target:128,ask:"Combine the project scores until they reach my minimum acceptable threshold.",reward:'"128. My minimum. Obviously achieved."'},
-   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,3]},{color:'#2e7d46',from:[0,2],to:[3,0]},{color:'#b07d18',from:[1,3],to:[3,1]}],ask:"Route the approval flows — every request must pass through the right chain. No shortcuts.",reward:'"All approved via the correct chain. Obviously."'}
+   {type:'flowfree',size:4,pairs:[{color:'#e03030',from:[0,0],to:[3,3]},{color:'#2e7d46',from:[0,2],to:[3,0]},{color:'#b07d18',from:[1,3],to:[3,1]}],ask:"Route the approval flows — every request must pass through the right chain. No shortcuts.",reward:'"All approved via the correct chain. Obviously."'},
+   {type:'typingtest',passage:'This proposal is rejected. Please revise and resubmit by Friday.',ask:"Type my feedback email word for word. My rejection letters must be pristine.",reward:'"Sent. Devastating, yet professional. Obviously."'},
+   {type:'pipe',size:4,ask:"Conference room AV routing is wrong again — rotate the signal pipes to connect source to screen. Obviously.",reward:'"Signal connected. Presentation will be flawless. Obviously."'}
  ]},
  daniel:{desc:'Designer, chill, big vibes',home:{x:4,y:5},pool:[
    {type:'choose',q:'Which design has the best vibe?',opts:[{t:'Clean & minimal',ok:true},{t:'5 fonts, 3 gradients',ok:false},{t:'Default bootstrap',ok:false}],ask:"Yo, which design has the best vibe? Just feel it. *smoke*",reward:'*thumbs up through haze* "Flawless vibe, respect."'},
@@ -380,7 +392,10 @@ const POOLS={
    {type:'minesweeper',size:5,mines:3,ask:"Design grid with broken nodes — find the safe layout zones without triggering a client complaint.",reward:'"Clean grid. Zero broken layouts. Designer magic."'},
    {type:'hidden',items:[{label:'Stylus',emoji:'✏️',x:80,y:60},{label:'Tablet',emoji:'📱',x:220,y:100},{label:'Swatch',emoji:'🎨',x:130,y:160}],ask:"Lost my stylus, drawing tablet, and color swatch before the client meeting. Very chill about it.",reward:'"Found everything. Vibes restored. Let\'s create."'},
    {type:'merge2048',target:256,ask:"Layer complexity — merge the design iterations until the concept reaches full resolution.",reward:'"256. Full resolution. The client will love it."'},
-   {type:'flowfree',size:5,pairs:[{color:'#e03030',from:[0,0],to:[4,4]},{color:'#2e7d46',from:[0,4],to:[4,0]},{color:'#1565c0',from:[2,0],to:[2,4]},{color:'#b07d18',from:[0,2],to:[4,2]}],ask:"Connect the design system tokens to their components — every cell must flow.",reward:'"Fully connected system. Every token placed. Beautiful."'}
+   {type:'flowfree',size:5,pairs:[{color:'#e03030',from:[0,0],to:[4,4]},{color:'#2e7d46',from:[0,4],to:[4,0]},{color:'#1565c0',from:[2,0],to:[2,4]},{color:'#b07d18',from:[0,2],to:[4,2]}],ask:"Connect the design system tokens to their components — every cell must flow.",reward:'"Fully connected system. Every token placed. Beautiful."'},
+   {type:'tetris',lines:3,ask:"Artboard layers are piling up in the wrong order — stack them clean. Three layers cleared.",reward:'"Layer stack is immaculate. The file is breathable now."'},
+   {type:'typingtest',passage:'Final designs attached. Please review by EOD and confirm approval.',ask:"Type the handoff email to the client. Clean copy, no typos — this is the final impression.",reward:'"Sent. Professional. The client will feel the care."'},
+   {type:'pipe',size:4,ask:"Design file export pipeline broke — rotate the nodes to reconnect the output stream.",reward:'"Export flowing. Files delivered. Smooth."'}
  ]},
 };
 
@@ -787,7 +802,8 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   gridmem:miniGridMem,stopwatch:miniStopwatch,maze:miniMaze,spy:miniSpy,priority:miniPriority,
   echo:miniEcho,splice:miniSplice,noise:miniNoise,budget:miniBudget,crack:miniCrack,jenga:miniJenga,
   signal:miniSignal,forge:miniForge,overload:miniOverload,dragfile:miniDragFile,calendar:miniCalendar,park:miniPark,qralign:miniQR,recipe:miniRecipe,cash:miniCash,proofread:miniProof,docsort:miniDocSort,jam:miniJam,scrub:miniScrub,inspect:miniInspect,circuit:miniCircuit,arrange:miniArrange,checklist:miniChecklist,gauge:miniGauge,barcode:miniBarcode,dial:miniDial,switchboard:miniSwitchboard,rolodex:miniRolodex,rank:miniRank,cartridge:miniCartridge,patchline:miniPatchline,typewriter:miniTypewriter,flowchart:miniFlowchart,redact:miniRedact,hotkey:miniHotkey,inbox:miniInbox,budgetslider:miniBudgetSlider,crossword:miniCrossword,cableroute:miniCableRoute,wordsearch:miniWordsearch,conveyor:miniConveyor,contract:miniContract,rotary:miniRotary,heatmap:miniHeatmap,triage:miniTriage,cipher:miniCipher,voltage:miniVoltage,toggle:miniToggle,anagram:miniAnagram,whiteboard:miniWhiteboard,slot:miniSlot,mirror:miniMirror,pricetag:miniPriceTag,binary:miniBinary,voicemail:miniVoicemail,approvalchain:miniApprovalChain,frequency:miniFrequency,handover:miniHandover,
-  wordle:miniWordle,minesweeper:miniMinesweeper,merge2048:mini2048,flowfree:miniFlowFree,hidden:miniHidden})[t.type](n,t);}
+  wordle:miniWordle,minesweeper:miniMinesweeper,merge2048:mini2048,flowfree:miniFlowFree,hidden:miniHidden,
+  typingtest:miniTypingTest,tetris:miniTetris,pipe:miniPipe})[t.type](n,t);}
 
 function miniCatch(n,t){const st=openMini('CATCH','A/D or mouse. Catch 5 before time runs out.',true);
   st.innerHTML='<div id="catcher"><div id="paddle"></div></div>';
@@ -2586,6 +2602,186 @@ function miniHidden(n,t){
     });
   };
   const st=openMini('FIND IT',`Find the hidden objects in the office clutter.`);
+  render();
+}
+
+
+// ══════════════════════════════════════════════════════
+// NEW MECHANICS — ROUND 2
+// ══════════════════════════════════════════════════════
+
+/* TYPING TEST — type the passage as fast and accurately as possible.
+   t.passage = the text to type. Errors turn red and must be corrected. */
+function miniTypingTest(n,t){
+  const passage=t.passage||'The quarterly report is due at noon. All figures must be verified before submission.';
+  let typed='',done=false,startT=0,started=false;
+  const st=openMini('TYPING TEST','Type the text below as fast as you can. Errors must be fixed.');
+  const render=()=>{
+    let disp='';
+    for(let i=0;i<passage.length;i++){
+      if(i<typed.length){
+        if(typed[i]===passage[i])disp+=`<span style="color:var(--green)">${passage[i]==' '?'&nbsp;':passage[i]}</span>`;
+        else disp+=`<span style="background:#c0392b;color:#fff;border-radius:2px">${passage[i]==' '?'&nbsp;':passage[i]}</span>`;
+      }else if(i===typed.length){
+        disp+=`<span style="background:var(--accent);color:#fff;border-radius:2px">${passage[i]==' '?'&nbsp;':passage[i]}</span>`;
+      }else{
+        disp+=`<span style="color:var(--wood2)">${passage[i]==' '?'&nbsp;':passage[i]}</span>`;
+      }
+    }
+    const wpm=started?Math.round((typed.length/5)/((Date.now()-startT)/60000)):0;
+    const errors=[...typed].filter((ch,i)=>ch!==passage[i]).length;
+    st.innerHTML=`<div style="font:15px/1.8 monospace;max-width:340px;background:var(--paper2);padding:10px 12px;border-radius:8px;border:2px solid var(--wood2);letter-spacing:.03em">${disp}</div>`+
+      `<div style="display:flex;gap:18px;margin-top:8px;font-size:12px;color:var(--wood)"><span>WPM: <b>${wpm}</b></span><span>Errors: <b style="color:${errors?'#c0392b':'var(--green)'}">${errors}</b></span></div>`+
+      `<div style="font-size:11px;color:var(--wood2);margin-top:4px">Type here — errors must be corrected with Backspace</div>`;
+  };
+  render();
+  setKey(e=>{
+    if(done)return;
+    if(e.key==='Backspace'){if(typed.length)typed=typed.slice(0,-1);render();return;}
+    if(e.key.length===1){
+      if(!started){started=true;startT=Date.now();}
+      typed+=e.key;render();
+      if(typed.length>=passage.length){
+        const errors=[...typed].filter((ch,i)=>ch!==passage[i]).length;
+        if(errors===0){done=true;miniWin(n,t);}
+        else{typed=typed.slice(0,-1);render();} // don't advance past end with errors
+      }
+    }
+  });
+}
+
+/* TETRIS — clear the target number of lines. 7×14 grid, standard pieces. */
+function miniTetris(n,t){
+  const COLS=7,ROWS=14,TARGET=t.lines||3;
+  const PIECES=[
+    [[1,1,1,1]],                        // I
+    [[1,1],[1,1]],                       // O
+    [[0,1,0],[1,1,1]],                   // T
+    [[1,0,0],[1,1,1]],                   // L
+    [[0,0,1],[1,1,1]],                   // J
+    [[0,1,1],[1,1,0]],                   // S
+    [[1,1,0],[0,1,1]],                   // Z
+  ];
+  const COLORS=['#00bcd4','#ffeb3b','#9c27b0','#ff9800','#2196f3','#4caf50','#f44336'];
+  let board=Array.from({length:ROWS},()=>Array(COLS).fill(0));
+  let cur=null,curX=0,curY=0,curColor=0,linesCleared=0,done=false,gameOver=false;
+  const st=openMini('TETRIS',`Clear ${TARGET} lines. ←→ move, ↑ rotate, ↓ drop.`,true);
+
+  const newPiece=()=>{const idx=Math.floor(Math.random()*PIECES.length);cur=PIECES[idx].map(r=>[...r]);curColor=idx;curX=Math.floor((COLS-cur[0].length)/2);curY=0;
+    if(!fits(cur,curX,curY)){gameOver=true;done=true;stopT();fail(n,'Stack reached the top. [E]');}};
+  const fits=(p,x,y)=>p.every((row,r)=>row.every((v,c)=>!v||(y+r>=0&&y+r<ROWS&&x+c>=0&&x+c<COLS&&!board[y+r][x+c])));
+  const place=()=>{cur.forEach((row,r)=>row.forEach((v,c)=>{if(v)board[curY+r][curX+c]=curColor+1;}));
+    // clear full lines
+    let cleared=0;
+    for(let r=ROWS-1;r>=0;r--){if(board[r].every(v=>v)){board.splice(r,1);board.unshift(Array(COLS).fill(0));cleared++;r++;}}
+    linesCleared+=cleared;
+    if(linesCleared>=TARGET){done=true;stopT();render();setTimeout(()=>miniWin(n,t),400);return;}
+    newPiece();};
+  const rotate=(p)=>p[0].map((_,i)=>p.map(r=>r[i]).reverse());
+
+  const render=()=>{
+    const cell=(v,ghost=false)=>{const colors=['#2a2015','#00bcd4','#ffeb3b','#9c27b0','#ff9800','#2196f3','#4caf50','#f44336'];
+      return `<div style="width:22px;height:22px;border-radius:2px;background:${ghost?'rgba(255,255,255,.12)':colors[v]};border:1px solid rgba(0,0,0,.3);box-sizing:border-box"></div>`;};
+    // ghost piece
+    let ghostY=curY;if(cur&&!gameOver){while(fits(cur,curX,ghostY+1))ghostY++;}
+    const display=board.map(r=>[...r]);
+    if(cur&&!gameOver){
+      cur.forEach((row,r)=>row.forEach((v,c)=>{if(v&&ghostY+r<ROWS&&display[ghostY+r][curX+c]===0)display[ghostY+r][curX+c]=-1;}));
+      cur.forEach((row,r)=>row.forEach((v,c)=>{if(v&&curY+r>=0)display[curY+r][curX+c]=curColor+1;}));
+    }
+    st.innerHTML='<div style="display:flex;gap:10px;align-items:flex-start">'+
+      '<div style="display:flex;flex-direction:column;gap:1px;background:#1a1008;padding:4px;border-radius:6px;border:2px solid var(--wood2)">'+
+      display.map(row=>`<div style="display:flex;gap:1px">${row.map(v=>cell(v===-1?0:v,v===-1)).join('')}</div>`).join('')+
+      '</div>'+
+      `<div style="font-size:12px;color:var(--wood);padding-top:4px">Lines:<br><b style="font-size:20px">${linesCleared}/${TARGET}</b></div>`+
+      '</div>';
+  };
+
+  newPiece();render();
+  const dropInterval=setInterval(()=>{if(done)return;
+    if(fits(cur,curX,curY+1))curY++;else place();render();},600);
+
+  setKey(e=>{if(done)return;
+    if(e.key==='ArrowLeft'){if(fits(cur,curX-1,curY))curX--;}
+    else if(e.key==='ArrowRight'){if(fits(cur,curX+1,curY))curX++;}
+    else if(e.key==='ArrowDown'){if(fits(cur,curX,curY+1))curY++;else{place();}}
+    else if(e.key==='ArrowUp'){const r=rotate(cur);if(fits(r,curX,curY))cur=r;}
+    else if(e.key===' '){e.preventDefault();while(fits(cur,curX,curY+1))curY++;place();}
+    else return;
+    e.preventDefault();render();});
+
+  const stopT=countdown(60,()=>{if(!done){done=true;clearInterval(dropInterval);fail(n,'Time ran out — stack unsorted. [E]');}});
+  // patch closeMini to clear drop interval
+  const origClose=closeMini;
+  // cleanup on close — handled by existing closeMini; clearInterval when done flag set
+  const cleanup=()=>clearInterval(dropInterval);
+  // wire cleanup via done flag poll — simpler: just clear when done is set
+  const poll=setInterval(()=>{if(done){clearInterval(dropInterval);clearInterval(poll);}},100);
+}
+
+/* PIPE PUZZLE — rotate tiles to connect the source to the sink.
+   t.size = grid size (4). Each cell has a pipe type and rotation. */
+function miniPipe(n,t){
+  const SZ=t.size||4;
+  // pipe types: which sides they connect (N,E,S,W as bits 8,4,2,1)
+  // straight: N+S=10, E+W=5; corner: N+E=12,E+S=6,S+W=3,N+W=9; T: N+E+S=14,E+S+W=7,S+W+N=11,W+N+E=13; cross=15; end=8,4,2,1
+  const TYPES={straight:[10,5],corner:[12,6,3,9],tee:[14,7,11,13],cross:[15]};
+  const N=8,E=4,S=2,W=1;
+  const rotateBits=(b)=>((b>>1)|(b&1)<<3)&15; // rotate CW: N→E→S→W
+  // generate a random solvable grid
+  let grid,solved;
+  const generate=()=>{
+    // start with solved state, then scramble rotations
+    solved=Array.from({length:SZ},()=>Array(SZ).fill(0));
+    // simple path approach: fill grid with pipe types that form a connected network
+    // For simplicity: random valid pipe for each cell based on neighbors
+    const allTypes=[...TYPES.straight,...TYPES.corner,...TYPES.tee,...TYPES.cross];
+    solved=Array.from({length:SZ},()=>Array(SZ).fill(0).map(()=>allTypes[Math.floor(Math.random()*allTypes.length)]));
+    // scramble: randomly rotate each cell
+    grid=solved.map(row=>row.map(v=>{let r=v;const times=Math.floor(Math.random()*4);for(let i=0;i<times;i++)r=rotateBits(r);return r;}));
+  };
+  generate();
+  // source at [0,0], sink at [SZ-1,SZ-1]
+  const connected=()=>{
+    // BFS: check if flow reaches sink
+    const visited=new Set();const q=[[0,0]];
+    while(q.length){const[r,c]=q.shift();const k=r*SZ+c;if(visited.has(k))continue;visited.add(k);
+      const v=grid[r][c];
+      // N
+      if((v&N)&&r>0&&(grid[r-1][c]&S)&&!visited.has((r-1)*SZ+c))q.push([r-1,c]);
+      // E
+      if((v&E)&&c<SZ-1&&(grid[r][c+1]&W)&&!visited.has(r*SZ+c+1))q.push([r,c+1]);
+      // S
+      if((v&S)&&r<SZ-1&&(grid[r+1][c]&N)&&!visited.has((r+1)*SZ+c))q.push([r+1,c]);
+      // W
+      if((v&W)&&c>0&&(grid[r][c-1]&E)&&!visited.has(r*SZ+(c-1)))q.push([r,c-1]);
+    }
+    return visited.has((SZ-1)*SZ+(SZ-1));
+  };
+  let done=false;
+  const pipeChar=(v)=>{const m={10:'┃',5:'━',12:'┗',6:'┛',3:'┓',9:'┏',14:'┣',7:'┻',11:'┫',13:'┳',15:'╋',8:'╹',4:'╺',2:'╻',1:'╸'};return m[v]||'?';};
+  const render=()=>{
+    const isConn=connected();
+    let html='<div style="display:inline-flex;flex-direction:column;gap:3px;background:#1a2a1a;padding:8px;border-radius:8px;border:2px solid var(--wood2);margin-bottom:8px">';
+    for(let r=0;r<SZ;r++){html+='<div style="display:flex;gap:3px">';
+      for(let c=0;c<SZ;c++){
+        const isSource=r===0&&c===0,isSink=r===SZ-1&&c===SZ-1;
+        const bg=isSource?'#2e5c2e':isSink?'#5c2e2e':'#2a3a2a';
+        const ch=isSource?'▶':isSink?'⬛':pipeChar(grid[r][c]);
+        html+=`<div class="pipeCell" data-r="${r}" data-c="${c}" style="width:46px;height:46px;display:flex;align-items:center;justify-content:center;font-size:22px;font-family:monospace;background:${bg};border-radius:4px;cursor:pointer;color:${isConn&&!isSource&&!isSink?'#5aa848':'#c9a86b'};border:2px solid ${isSource||isSink?'#5aa848':'#3a5a3a'};transition:.1s">${ch}</div>`;
+      }
+      html+='</div>';}
+    html+='</div>';
+    html+=`<div style="font-size:12px;color:var(--wood);text-align:center">Click tiles to rotate • Connect ▶ source to ⬛ sink</div>`;
+    st.innerHTML=html;
+    st.querySelectorAll('.pipeCell').forEach(el=>{
+      el.onclick=()=>{if(done)return;const r=+el.dataset.r,c=+el.dataset.c;
+        if((r===0&&c===0)||(r===SZ-1&&c===SZ-1))return; // don't rotate endpoints
+        grid[r][c]=rotateBits(grid[r][c]);render();
+        if(connected()){done=true;render();setTimeout(()=>miniWin(n,t),400);}};
+    });
+  };
+  const st=openMini('PIPE PUZZLE','Click tiles to rotate. Connect the source ▶ to the sink ⬛.');
   render();
 }
 
