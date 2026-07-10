@@ -421,14 +421,45 @@ const FINE=[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 const FROWS=FINE.length,FCOLS=FINE[0].length,FTS=TS/2;
 function fineWalk(px,py){const cx=Math.floor(px/FTS),cy=Math.floor(py/FTS);if(cy<0||cy>=FROWS||cx<0||cx>=FCOLS)return false;return FINE[cy][cx]===0;}
 let zoom=1,offX=0,offY=0;
+let camX=0,camY=0,camZoom=1.4,targetZoom=1.4;
+const CAM_ZOOM_MIN=0.75,CAM_ZOOM_MAX=2.0,CAM_LERP=0.10,CAM_ZOOM_LERP=0.12;
+cv.addEventListener('wheel',e=>{if(state!=='play')return;e.preventDefault();targetZoom=Math.max(CAM_ZOOM_MIN,Math.min(CAM_ZOOM_MAX,targetZoom-e.deltaY*0.001));},{passive:false});
 function updateCamera(){
-  zoom=Math.min(viewW/(COLS*TS), viewH/(ROWS*TS));
-  offX=(viewW-COLS*TS*zoom)/2;
-  offY=(viewH-ROWS*TS*zoom)/2;
+  if(state!=='play'||!player){zoom=Math.min(viewW/(COLS*TS),viewH/(ROWS*TS));offX=(viewW-COLS*TS*zoom)/2;offY=(viewH-ROWS*TS*zoom)/2;camZoom=zoom;return;}
+  camZoom+=(targetZoom-camZoom)*CAM_ZOOM_LERP;
+  const targetX=player.x-viewW/(2*camZoom),targetY=player.y-viewH/(2*camZoom);
+  const maxX=COLS*TS-viewW/camZoom,maxY=ROWS*TS-viewH/camZoom;
+  camX+=(Math.max(0,Math.min(maxX,targetX))-camX)*CAM_LERP;
+  camY+=(Math.max(0,Math.min(maxY,targetY))-camY)*CAM_LERP;
+  zoom=camZoom;offX=-camX*camZoom;offY=-camY*camZoom;
 }
 
 
 const TASKS_PER_NPC=2;
+
+// ── 5-DAY WEEK CONFIG ──────────────────────────────────
+const DAY_CONFIG=[
+  {name:'Monday',   tasksPerNPC:1, target:80,  time:300},
+  {name:'Tuesday',  tasksPerNPC:2, target:160, time:360},
+  {name:'Wednesday',tasksPerNPC:3, target:240, time:420},
+  {name:'Thursday', tasksPerNPC:4, target:320, time:480},
+  {name:'Friday',   tasksPerNPC:5, target:420, time:540},
+];
+let week={day:0,points:0,coins:0,streak:0,target:0,dayCoins:0,dayFails:0,chosenId:null};
+
+// ── SAVE SYSTEM ────────────────────────────────────────
+const SLOT_KEY=i=>'officeRush_slot_'+i;
+const NUM_SLOTS=3;
+let currentSlot=null,currentUser=null;
+function blankUser(name){return{name,created:Date.now(),coins:0,unlockedNPCs:[],stats:{bestScore:0,totalCoins:0,weeksPlayed:0,weeksSurvived:0}};}
+function loadSlot(i){try{const r=localStorage.getItem(SLOT_KEY(i));return r?JSON.parse(r):null;}catch(e){return null;}}
+function saveSlot(i,u){try{localStorage.setItem(SLOT_KEY(i),JSON.stringify(u));}catch(e){}}
+function saveCurrent(){if(currentSlot!==null&&currentUser)saveSlot(currentSlot,currentUser);}
+const LB_KEY='officeRush_leaderboard';
+function loadLeaderboard(){try{return JSON.parse(localStorage.getItem(LB_KEY))||[];}catch(e){return[];}}
+function updateLeaderboard(name,score){let lb=loadLeaderboard();const ex=lb.find(e=>e.name===name);if(ex){if(score>ex.score)ex.score=score;}else lb.push({name,score});lb.sort((a,b)=>b.score-a.score);lb=lb.slice(0,10);try{localStorage.setItem(LB_KEY,JSON.stringify(lb));}catch(e){}}
+function renderLeaderboard(){const lb=loadLeaderboard();const el=document.getElementById('lbList');if(!lb.length){el.innerHTML='<div class="lbEmpty">No scores yet — survive a full week!</div>';return;}const medals=['🥇','🥈','🥉'];el.innerHTML=lb.map((e,i)=>'<div class="lbRow"><div class="lbRank">'+(medals[i]||i+1)+'</div><div class="lbName">'+esc(e.name)+'</div><div class="lbScore">'+e.score+' pt</div></div>').join('');}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 
 let player,state='start',time=420,timerId,dialogOpen=false,miniOpen=false;
 let smoking=false,smokeParticles=[],smokeUntil=0;
@@ -490,13 +521,47 @@ function drawPerson(g,cx,cy,look,scale,bob,facing){
   g.restore();
 }
 
+/* ── SCREEN NAVIGATION ───────────────────────────────── */
+const SCREENS=['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end','leaderboardScreen','firedScreen'];
+function showScreen(id){SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display=(s===id)?'flex':'none';});}
+
 /* mode select */
-document.getElementById('modePlay').onclick=()=>{
-  document.getElementById('modeScreen').style.display='none';
-  document.getElementById('start').style.display='flex';};
-document.getElementById('modeTest').onclick=()=>{
-  document.getElementById('modeScreen').style.display='none';
-  startTest();};
+document.getElementById('modePlay').onclick=()=>{renderSlots();showScreen('userSelect');};
+document.getElementById('modeTest').onclick=()=>{document.getElementById('modeScreen').style.display='none';startTest();};
+document.getElementById('modeLeaderboard').onclick=()=>{renderLeaderboard();showScreen('leaderboardScreen');};
+document.getElementById('lbBack').onclick=()=>showScreen('modeScreen');
+document.getElementById('firedBack').onclick=backToUserMenu;
+
+/* user select */
+function renderSlots(){
+  const list=document.getElementById('slotList');list.innerHTML='';
+  for(let i=0;i<NUM_SLOTS;i++){
+    const u=loadSlot(i);const d=document.createElement('div');d.className='char';d.style.minWidth='150px';
+    if(u){d.innerHTML='<div class="n">'+esc(u.name)+'</div><div class="d">Best: '+u.stats.bestScore+' pt<br>Coins: '+u.coins+'<br>Weeks: '+u.stats.weeksSurvived+'/'+u.stats.weeksPlayed+'</div><div class="slotDel" data-slot="'+i+'">🗑 delete</div>';
+      d.onclick=(e)=>{if(e.target.classList.contains('slotDel'))return;openUser(i);};}
+    else{d.innerHTML='<div class="n" style="color:var(--wood)">Empty</div><div class="d">+ New game</div>';d.onclick=()=>{newGameSlot=i;document.getElementById('newGameName').value='';showScreen('newGame');setTimeout(()=>document.getElementById('newGameName').focus(),50);};}
+    list.appendChild(d);}
+  list.querySelectorAll('.slotDel').forEach(b=>b.onclick=(e)=>{e.stopPropagation();const i=+b.dataset.slot;if(confirm('Delete save?')){localStorage.removeItem(SLOT_KEY(i));renderSlots();}});}
+document.getElementById('userSelectBack').onclick=()=>showScreen('modeScreen');
+
+/* new game */
+let newGameSlot=null;
+function createNewGame(){const name=(document.getElementById('newGameName').value||'').trim()||'Player';saveSlot(newGameSlot,blankUser(name));openUser(newGameSlot);}
+document.getElementById('newGameCreate').onclick=createNewGame;
+document.getElementById('newGameName').addEventListener('keydown',e=>{if(e.key==='Enter')createNewGame();});
+document.getElementById('newGameBack').onclick=()=>{renderSlots();showScreen('userSelect');};
+
+/* user menu */
+function openUser(i){currentSlot=i;currentUser=loadSlot(i)||blankUser('Player');renderUserMenu();showScreen('userMenu');}
+function renderUserMenu(){const u=currentUser;document.getElementById('userMenuName').textContent=u.name.toUpperCase();document.getElementById('userStats').innerHTML='<div style="font-size:13px;line-height:1.9;color:var(--inkbrown)"><div>⭐ Best score: <b>'+u.stats.bestScore+' pt</b></div><div>🪙 Coins: <b>'+u.coins+'</b></div><div>📅 Weeks played: <b>'+u.stats.weeksPlayed+'</b></div><div>🏆 Weeks survived: <b>'+u.stats.weeksSurvived+'</b></div></div>';}
+document.getElementById('userPlay').onclick=()=>{showScreen('start');};
+document.getElementById('userShop').onclick=()=>{document.getElementById('shopCoins').textContent='Your coins: '+(currentUser?currentUser.coins:0);showScreen('shopScreen');};
+document.getElementById('userMenuBack').onclick=()=>{renderSlots();showScreen('userSelect');};
+document.getElementById('shopBack').onclick=()=>{renderUserMenu();showScreen('userMenu');};
+document.getElementById('startBack').onclick=()=>{if(currentSlot!==null){renderUserMenu();showScreen('userMenu');}else showScreen('modeScreen');};
+
+function backToUserMenu(){SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display='none';});state='start';if(currentSlot!==null){renderUserMenu();showScreen('userMenu');}else showScreen('modeScreen');}
+
 
 /* start screen with sprite previews */
 const pick=document.getElementById('pickChars');
@@ -543,21 +608,49 @@ function startTest(){
 
 function startGame(chosenId){
   testMode=false;
+  week={day:0,points:0,coins:0,streak:0,target:0,dayCoins:0,dayFails:0,chosenId};
+  startDay(0);
+}
+function startDay(d){
+  week.day=d;week.dayCoins=0;week.dayFails=0;
+  const cfg=DAY_CONFIG[d];week.target=cfg.target;
+  const chosenId=week.chosenId;
   const all=['brana','sonja','pedja','nina','daniel','dejan','teonem','steve'];
-  const order=all.filter(id=>id!==chosenId);
-  NPCS=order.map(id=>{const p=POOLS[id];
-    const tasks=shuffle(p.pool).slice(0,TASKS_PER_NPC).map((t,i)=>({...t,id:id+'_'+i,done:false}));
-    return {id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:400+Math.random()*700,tasks};});
+  NPCS=all.filter(id=>id!==chosenId).map(id=>{const p=POOLS[id];
+    const tasks=shuffle(p.pool).slice(0,cfg.tasksPerNPC).map((t,i)=>({...t,id:id+'_'+d+'_'+i,done:false}));
+    return{id,name:cap(id),desc:p.desc,x:p.home.x,y:p.home.y,homeX:p.home.x,homeY:p.home.y,wState:'idle',wTimer:60+Math.random()*160,wTarget:null,face:1,speech:null,speechUntil:0,speechTimer:400+Math.random()*700,tasks};});
   player={id:chosenId,name:cap(chosenId),x:6.25*TS,y:12.25*TS,r:12};
-  document.getElementById('start').style.display='none';
-  document.getElementById('whoami').textContent='playing: '+cap(chosenId);
-  state='play';renderTasks();
-  timerId=setInterval(()=>{if(dialogOpen||miniOpen)return;time--;
-    if(time<=0){time=0;endGame(false,'Time ran out');}
+  camX=player.x-viewW/(2*1.4);camY=player.y-viewH/(2*1.4);camZoom=1.4;targetZoom=1.4;
+  SCREENS.forEach(s=>{const el=document.getElementById(s);if(el)el.style.display='none';});
+  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
+  time=cfg.time;state='play';renderTasks();updateHUD();
+  clearInterval(timerId);
+  timerId=setInterval(()=>{if(dialogOpen||miniOpen||state==='paused')return;time--;
+    if(time<=0){time=0;endDay();}
     const m=String(Math.floor(time/60)).padStart(2,'0'),s=String(time%60).padStart(2,'0');
     document.getElementById('timer').textContent=m+':'+s;},1000);
   loop();
 }
+function updateHUD(){
+  const cfg=DAY_CONFIG[week.day];
+  const wa=document.getElementById('whoami');if(wa)wa.innerHTML='<b>'+cfg.name+'</b> (day '+(week.day+1)+'/5)';
+  const hud=document.getElementById('econHud');
+  if(hud){hud.innerHTML='⭐ <b>'+week.points+'</b>/'+week.target+'pt &nbsp; 🪙 <b>'+week.coins+'</b> &nbsp; 🔥'+week.streak;hud.style.color=week.points>=week.target?'var(--green)':'var(--wood2)';}
+}
+
+// ── PAUSE ──────────────────────────────────────────────
+let prevState=null,pauseWired=false;
+function pauseGame(){if(state!=='play')return;prevState=state;state='paused';
+  const ov=document.getElementById('pauseOverlay');if(!ov)return;
+  if(!pauseWired){const r=ov.querySelector('#pauseResume'),m=ov.querySelector('#pauseMenu');if(r)r.onclick=resumeGame;if(m)m.onclick=quitToMenu;pauseWired=true;}
+  ov.style.display='flex';}
+function resumeGame(){if(state!=='paused')return;state=prevState||'play';prevState=null;
+  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';loop();}
+function quitToMenu(){clearInterval(timerId);state='start';prevState=null;
+  const ov=document.getElementById('pauseOverlay');if(ov)ov.style.display='none';
+  closeMini&&closeMini();backToUserMenu();}
+
+
 function allTasks(){return NPCS.flatMap(n=>n.tasks);}
 function npcDone(n){return n.tasks.every(t=>t.done);}
 function nextTask(n){return n.tasks.find(t=>!t.done);}
@@ -591,8 +684,10 @@ function setCarry(item,label){carrying=item?{item,label}:null;
 
 const keys={};
 addEventListener('keydown',e=>{keys[e.key.toLowerCase()]=true;
+  if(e.key==='Escape'){e.preventDefault();if(state==='play')pauseGame();else if(state==='paused')resumeGame();return;}
+  if(state==='paused')return;
   if(e.key.toLowerCase()==='e'){e.preventDefault();interact();}
-  if(e.key.toLowerCase()==='g'){e.preventDefault();window.DEBUG_COLL=!window.DEBUG_COLL;}
+  if(e.key==='+'||e.key==='='){e.preventDefault();window.DEBUG_COLL=!window.DEBUG_COLL;}
   if(e.key.toLowerCase()==='f'){e.preventDefault();tryCigarette();}
   if(e.key===' '&&dialogOpen){e.preventDefault();closeDialog();}});
 addEventListener('keyup',e=>keys[e.key.toLowerCase()]=false);
@@ -617,11 +712,13 @@ function interact(){
   const n=nearestNPC();if(!n)return;
   if(n.id==='nino'){
     const delT=allTasks().find(t=>!t.done&&t.type==='deliver'&&t.to==='nino'&&carrying&&carrying.item===t.item);
-    if(delT){delT.done=true;const it=carrying.item;const owner=NPCS.find(x=>x.tasks.includes(delT));setCarry(null);renderTasks();
+    if(delT){delT.done=true;const it=carrying.item;const owner=NPCS.find(x=>x.tasks.includes(delT));setCarry(null);
+      if(!testMode){const pts=10+Math.floor(Math.random()*11);week.points+=pts;week.streak++;updateHUD();}
+      renderTasks();
       openDialog('Boss Nino','Ah, the '+it+' from '+owner.name+'. Good.',
-        [{label:'Ok',fn:()=>{closeDialog();openDialog(owner.name,delT.reward,[{label:'ok',fn:closeDialog}]);}}]);return;}
+        [{label:'Ok',fn:()=>{closeDialog();openDialog(owner.name,delT.reward,[{label:'ok',fn:()=>{closeDialog();checkBoardCleared();}}]);}}]);return;}
     const allDone=allTasks().every(t=>t.done);
-    if(allDone)openDialog('Boss Nino','Whole board clear? I built this from nothing, you know. One more small task... kidding. Go home. Well done.',[{label:'End shift',fn:()=>endGame(true)}]);
+    if(allDone)openDialog('Boss Nino','Whole board clear? Go home. Well done.',[{label:'End shift',fn:()=>{closeDialog();endDay();}}]);
     else{const left=allTasks().filter(t=>!t.done).length;openDialog('Boss Nino','In a million things. Finish the rest — '+left+' left.',[{label:'Got it boss',fn:closeDialog}]);}
     return;}
   if(testMode){ // pick any of this NPC's tasks to test
@@ -641,7 +738,18 @@ function startTask(n,t){
   }else openDialog(n.name,t.ask,[{label:'Start',fn:()=>{closeDialog();runMini(n,t);}},{label:'Later',cls:'ghost',fn:closeDialog}]);
 }
 function finish(n,t){if(testMode){renderTasks();openDialog(n.name,t.reward+'  (test: replayable)',[{label:'ok',fn:closeDialog}]);return;}
-  t.done=true;renderTasks();openDialog(n.name,t.reward,[{label:'ok',fn:closeDialog}]);}
+  t.done=true;
+  const cfg=DAY_CONFIG[week.day];
+  const pts=10+Math.floor(Math.random()*11);week.points+=pts;week.streak++;
+  let coinMsg='';
+  if(time>cfg.time*0.5){week.coins+=5;week.dayCoins+=5;coinMsg+=' ⚡+5';}
+  if(week.streak===3){week.coins+=15;week.dayCoins+=15;coinMsg+=' 🔥+15';}
+  else if(week.streak===5){week.coins+=30;week.dayCoins+=30;coinMsg+=' 🔥+30';}
+  updateHUD();renderTasks();
+  openDialog(n.name,t.reward+'  (+'+pts+'pt'+coinMsg+')',[{label:'ok',fn:()=>{closeDialog();checkBoardCleared();}}]);
+}
+function checkBoardCleared(){if(state==='play'&&allTasks().every(x=>x.done))endDay();}
+
 function openDialog(who,txt,choices){dialogOpen=true;
   document.getElementById('dWho').textContent=who;document.getElementById('dTxt').textContent=txt;
   const c=document.getElementById('dChoices');c.innerHTML='';
@@ -661,7 +769,7 @@ function openMini(title,desc,useTimer){miniOpen=true;
   return st;}
 function closeMini(){miniOpen=false;document.getElementById('mini').style.display='none';
   if(activeKeyHandler){document.removeEventListener('keydown',activeKeyHandler);activeKeyHandler=null;}}
-function fail(n,msg){const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('bad');setTimeout(()=>{b.classList.remove('bad');closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);},380);}else{closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);}}
+function fail(n,msg){if(!testMode){week.streak=0;week.dayFails++;updateHUD();}const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('bad');setTimeout(()=>{b.classList.remove('bad');closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);},380);}else{closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);}}
 function miniWin(n,t){const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('win');setTimeout(()=>{b.classList.remove('win');closeMini();finish(n,t);},470);}else{closeMini();finish(n,t);}}
 function setKey(fn){if(activeKeyHandler)document.removeEventListener('keydown',activeKeyHandler);
   activeKeyHandler=fn;document.addEventListener('keydown',fn);}
@@ -2012,14 +2120,51 @@ function miniHandover(n,t){
       else{msg.textContent='Not yet — do the earlier steps first.';b.classList.add('shake');setTimeout(()=>b.classList.remove('shake'),300);}};});}
 
 
-function endGame(win,reason){state='end';clearInterval(timerId);
-  document.getElementById('end').style.display='flex';
-  const t=document.getElementById('endTitle'),s=document.getElementById('endSub'),m=document.getElementById('endMsg');
-  const all=allTasks(),d=all.filter(x=>x.done).length;
-  if(win){t.textContent='SHIFT COMPLETE';t.style.color='var(--green)';s.textContent='Board cleared';
-    m.textContent='Nino is pleased (briefly). Team heads home. Tomorrow: a new board.';
-  }else{t.textContent='OUT OF TIME';t.style.color='var(--red)';s.textContent=reason+' — '+d+'/'+all.length+' done';
-    m.textContent='The board is still full. Nina is already typing in the group chat.';}}
+function endDay(){
+  if(state==='end')return;state='end';clearInterval(timerId);
+  const survived=week.points>=week.target;
+  if(survived&&week.dayFails===0){week.coins+=50;week.dayCoins+=50;}
+  if(!survived){showFired();return;}
+  if(week.day>=DAY_CONFIG.length-1){showWeekWin();return;}
+  showEndOfDay();
+}
+function showEndOfDay(){
+  const el=document.getElementById('end');el.style.display='flex';
+  document.getElementById('endTitle').textContent=DAY_CONFIG[week.day].name.toUpperCase()+' DONE';
+  document.getElementById('endTitle').style.color='var(--green)';
+  document.getElementById('endSub').textContent='Survived — '+week.points+'/'+week.target+' pt';
+  document.getElementById('endMsg').innerHTML='Coins today: <b>'+week.dayCoins+'</b> &nbsp; Total: <b>'+week.coins+'</b><br>Next: <b>'+DAY_CONFIG[week.day+1].name+'</b> — target '+DAY_CONFIG[week.day+1].target+' pt';
+  setEndButton('▶ Next day',()=>{el.style.display='none';startDay(week.day+1);});
+}
+function showWeekWin(){
+  bankWeek(true);const el=document.getElementById('end');el.style.display='flex';
+  document.getElementById('endTitle').textContent='WEEK SURVIVED!';document.getElementById('endTitle').style.color='var(--gold)';
+  document.getElementById('endSub').textContent='Friday cleared';
+  document.getElementById('endMsg').innerHTML='Score: <b>'+week.points+' pt</b> &nbsp; Coins banked: <b>'+week.coins+'</b>';
+  setEndButton('Back to menu',backToUserMenu);
+}
+function showFired(){
+  bankWeek(false);const el=document.getElementById('firedScreen');
+  if(!el){backToUserMenu();return;}el.style.display='flex';
+  document.getElementById('firedTitle').textContent="YOU'RE FIRED";
+  document.getElementById('firedMsg').innerHTML='"Clean out your desk."<br><br>Made it to <b>'+DAY_CONFIG[week.day].name+'</b> with '+week.points+'/'+week.target+' pt.<br>Coins banked: <b>'+week.coins+' 🪙</b>';
+}
+function bankWeek(survived){
+  if(!currentUser)return;
+  currentUser.coins+=week.coins;currentUser.stats.totalCoins+=week.coins;currentUser.stats.weeksPlayed++;
+  if(survived)currentUser.stats.weeksSurvived++;
+  if(week.points>currentUser.stats.bestScore)currentUser.stats.bestScore=week.points;
+  saveCurrent();updateLeaderboard(currentUser.name,currentUser.stats.bestScore);
+}
+function setEndButton(label,fn){
+  const el=document.getElementById('end');let btn=el.querySelector('.endBtn');
+  if(!btn){btn=document.createElement('button');btn.className='btn endBtn';btn.style.marginTop='20px';el.appendChild(btn);}
+  btn.textContent=label;btn.onclick=fn;
+  el.querySelectorAll('button:not(.endBtn)').forEach(b=>b.style.display='none');
+}
+function endGame(win,reason){endDay();}
+
+
 
 /* ---------- STARDEW-STYLE RENDER ---------- */
 function drawTile(x,y,t){
@@ -2444,7 +2589,18 @@ function miniHidden(n,t){
   render();
 }
 
-function loop(){if(state==='end')return;
+function drawMinimap(){
+  const MW=110,MH=70,MX=viewW-MW-10,MY=10,PAD=4;
+  const scaleX=(MW-PAD*2)/(COLS*TS),scaleY=(MH-PAD*2)/(ROWS*TS);
+  ctx.fillStyle='rgba(20,12,6,.82)';ctx.strokeStyle='rgba(200,160,80,.5)';ctx.lineWidth=1.5;
+  const rr=(x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();};
+  rr(MX,MY,MW,MH,5);ctx.fill();ctx.stroke();
+  const vpX=MX+PAD+camX*scaleX,vpY=MY+PAD+camY*scaleY,vpW=(viewW/camZoom)*scaleX,vpH=(viewH/camZoom)*scaleY;
+  ctx.strokeStyle='rgba(220,180,80,.55)';ctx.lineWidth=1;ctx.strokeRect(vpX,vpY,vpW,vpH);
+  NPCS.forEach(n=>{const dx=MX+PAD+n.x*TS*scaleX,dy=MY+PAD+n.y*TS*scaleY;ctx.fillStyle=npcDone(n)?'#5aa848':'#c9a86b';ctx.beginPath();ctx.arc(dx,dy,2.2,0,7);ctx.fill();});
+  const px2=MX+PAD+player.x*scaleX,py2=MY+PAD+player.y*scaleY;ctx.fillStyle='#e86b4a';ctx.beginPath();ctx.arc(px2,py2,3,0,7);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(px2,py2,1.5,0,7);ctx.fill();
+}
+function loop(){if(state==='end'||state==='paused')return;
   frame++;
   let moving=false;
   if(smoking&&Date.now()>smokeUntil)smoking=false;
@@ -2542,6 +2698,7 @@ function loop(){if(state==='end')return;
       ctx.fillStyle='#6b431f';ctx.fillRect(hx-13,hy-11+bb,26,15);
       ctx.fillStyle='#f6e7c1';ctx.font='bold 11px monospace';ctx.textAlign='center';ctx.fillText('[E]',hx,hy+bb);}}
   ctx.restore();
+  if(state==='play'&&player)drawMinimap();
   const g=ctx.createRadialGradient(viewW/2,viewH/2,viewH/2.4,viewW/2,viewH/2,viewH*0.95);
   g.addColorStop(0,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(30,15,5,.35)');
   ctx.fillStyle=g;ctx.fillRect(0,0,viewW,viewH);
