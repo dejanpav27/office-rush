@@ -551,12 +551,22 @@ document.getElementById('firedBack').onclick=backToUserMenu;
 function renderSlots(){
   const list=document.getElementById('slotList');list.innerHTML='';
   for(let i=0;i<NUM_SLOTS;i++){
-    const u=loadSlot(i);const d=document.createElement('div');d.className='char';d.style.minWidth='150px';
-    if(u){d.innerHTML='<div class="n">'+esc(u.name)+'</div><div class="d">Best: '+u.stats.bestScore+' pt<br>Coins: '+u.coins+'<br>Weeks: '+u.stats.weeksSurvived+'/'+u.stats.weeksPlayed+'</div><div class="slotDel" data-slot="'+i+'">🗑 delete</div>';
-      d.onclick=(e)=>{if(e.target.classList.contains('slotDel'))return;openUser(i);};}
-    else{d.innerHTML='<div class="n" style="color:var(--wood)">Empty</div><div class="d">+ New game</div>';d.onclick=()=>{newGameSlot=i;document.getElementById('newGameName').value='';showScreen('newGame');setTimeout(()=>document.getElementById('newGameName').focus(),50);};}
+    const u=loadSlot(i);const d=document.createElement('div');
+    if(u){
+      d.className='char';d.style.minWidth='160px';d.style.textAlign='left';
+      d.innerHTML=
+        '<div class="n" style="text-align:center;margin-bottom:10px">'+esc(u.name)+'</div>'+
+        '<div class="slot-stat"><span>⭐</span><span>Best: <b>'+u.stats.bestScore+' pt</b></span></div>'+
+        '<div class="slot-stat"><span>🪙</span><span>Coins: <b>'+u.coins+'</b></span></div>'+
+        '<div class="slot-stat"><span>📅</span><span>Weeks: <b>'+u.stats.weeksSurvived+'/'+u.stats.weeksPlayed+'</b></span></div>'+
+        '<div class="slotDel" data-slot="'+i+'">🗑 Delete</div>';
+      d.onclick=(e)=>{if(e.target.classList.contains('slotDel'))return;openUser(i);};
+    }else{
+      d.className='char empty-slot';d.style.minWidth='160px';d.style.textAlign='center';
+      d.innerHTML='<div class="n">Empty Slot</div><div class="d" style="font-size:22px;margin-top:8px">+</div><div class="d">New Game</div>';
+      d.onclick=()=>{newGameSlot=i;document.getElementById('newGameName').value='';showScreen('newGame');setTimeout(()=>document.getElementById('newGameName').focus(),50);};}
     list.appendChild(d);}
-  list.querySelectorAll('.slotDel').forEach(b=>b.onclick=(e)=>{e.stopPropagation();const i=+b.dataset.slot;if(confirm('Delete save?')){localStorage.removeItem(SLOT_KEY(i));renderSlots();}});}
+  list.querySelectorAll('.slotDel').forEach(b=>b.onclick=(e)=>{e.stopPropagation();const i=+b.dataset.slot;if(confirm('Delete this save?')){localStorage.removeItem(SLOT_KEY(i));renderSlots();}});}
 document.getElementById('userSelectBack').onclick=()=>showScreen('modeScreen');
 
 /* new game */
