@@ -2795,47 +2795,64 @@ function miniPipe(n,t){
   render();
 }
 
+/* ── MINIMAP: pre-render MAP_BG thumbnail once, blit every frame ── */
+let _mmCv=null,_mmReady=false;
+function buildMinimapCache(){
+  if(!MAP_BG.complete||!MAP_BG.naturalWidth)return;
+  const iw=MAP_BG.naturalWidth,ih=MAP_BG.naturalHeight;
+  const scale=220/iw; // target ~220px wide
+  const cw=Math.round(iw*scale),ch=Math.round(ih*scale);
+  _mmCv=document.createElement('canvas');_mmCv.width=cw;_mmCv.height=ch;
+  const mg=_mmCv.getContext('2d');
+  mg.imageSmoothingEnabled=true;mg.imageSmoothingQuality='high';
+  mg.drawImage(MAP_BG,0,0,cw,ch);
+  _mmReady=true;
+}
+MAP_BG.addEventListener('load',buildMinimapCache);
+if(MAP_BG.complete&&MAP_BG.naturalWidth)buildMinimapCache();
+
 function drawMinimap(){
-  const TW=9,TH=9; // pixels per tile
-  const PAD=5;
-  const MW=COLS*TW+PAD*2, MH=ROWS*TH+PAD*2;
-  const MX=viewW-MW-12, MY=viewH-MH-12;
-  // tile colors
-  const TC={0:'#c4a87a',1:'#5a4a3a',9:'#5e8a4a',10:'#4a7a3e',11:'#8a7a5a'};
-  // background + border
+  if(!_mmReady){buildMinimapCache();if(!_mmReady)return;}
+  const iw=_mmCv.width, ih=_mmCv.height;
+  const PAD=4;
+  const MW=iw+PAD*2, MH=ih+PAD*2;
+  const MX=viewW-MW-10, MY=viewH-MH-10;
+  // frame
   ctx.save();
-  ctx.shadowColor='rgba(0,0,0,.4)';ctx.shadowBlur=8;ctx.shadowOffsetY=2;
+  ctx.shadowColor='rgba(0,0,0,.45)';ctx.shadowBlur=10;ctx.shadowOffsetY=3;
   const rr=(x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();};
   rr(MX,MY,MW,MH,6);
-  ctx.fillStyle='rgba(16,10,6,.88)';ctx.fill();
+  ctx.fillStyle='rgba(12,8,4,.9)';ctx.fill();
   ctx.shadowColor='transparent';
-  ctx.strokeStyle='rgba(180,140,60,.6)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.strokeStyle='rgba(180,140,60,.55)';ctx.lineWidth=1.5;ctx.stroke();
   ctx.restore();
-  // draw tiles
+  // map image
   const ox=MX+PAD, oy=MY+PAD;
-  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
-    const t=MAP[r][c];
-    ctx.fillStyle=TC[t]||TC[0];
-    ctx.fillRect(ox+c*TW,oy+r*TH,TW-0.5,TH-0.5);
-    // wall top highlight
-    if(t===1&&r>0&&MAP[r-1][c]!==1){ctx.fillStyle='rgba(255,220,140,.12)';ctx.fillRect(ox+c*TW,oy+r*TH,TW-0.5,1.5);}
-  }
+  ctx.save();
+  rr(ox,oy,iw,ih,3);ctx.clip();
+  ctx.drawImage(_mmCv,0,0,iw,ih,ox,oy,iw,ih);
+  ctx.restore();
   // viewport rectangle
-  const scX=TW/TS, scY=TH/TS;
+  const scX=iw/(COLS*TS), scY=ih/(ROWS*TS);
   const vpX=ox+camX*scX, vpY=oy+camY*scY, vpW=(viewW/camZoom)*scX, vpH=(viewH/camZoom)*scY;
-  ctx.strokeStyle='rgba(220,180,60,.5)';ctx.lineWidth=1;
-  ctx.strokeRect(Math.max(vpX,ox),Math.max(vpY,oy),Math.min(vpW,MW-PAD*2),Math.min(vpH,MH-PAD*2));
-  // NPCs
+  ctx.strokeStyle='rgba(255,240,140,.45)';ctx.lineWidth=1.2;
+  ctx.strokeRect(Math.max(vpX,ox),Math.max(vpY,oy),
+    Math.min(vpW,iw-Math.max(0,(vpX-ox))),Math.min(vpH,ih-Math.max(0,(vpY-oy))));
+  // NPC dots
   NPCS.forEach(n=>{
-    const dx=ox+n.x*TW, dy=oy+n.y*TH;
-    ctx.fillStyle=npcDone(n)?'#5acd3a':'#e8c45a';
-    ctx.beginPath();ctx.arc(dx+TW/2,dy+TH/2,2.8,0,7);ctx.fill();
+    const dx=ox+n.x*TS*scX+TS*scX/2, dy=oy+n.y*TS*scY+TS*scY/2;
+    ctx.fillStyle=npcDone(n)?'#4adf30':'#f0d050';
+    ctx.beginPath();ctx.arc(dx,dy,3,0,7);ctx.fill();
+    ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=0.8;ctx.stroke();
   });
   // Boss Nino
-  ctx.fillStyle='#d4a030';ctx.beginPath();ctx.arc(ox+19*TW+TW/2,oy+5*TH+TH/2,2.8,0,7);ctx.fill();
+  const bx=ox+19*TS*scX+TS*scX/2, by=oy+5*TS*scY+TS*scY/2;
+  ctx.fillStyle='#d4a030';ctx.beginPath();ctx.arc(bx,by,3,0,7);ctx.fill();
+  ctx.strokeStyle='rgba(0,0,0,.5)';ctx.lineWidth=0.8;ctx.stroke();
   // Player
-  const ppx=ox+player.x/TS*TW, ppy=oy+player.y/TS*TH;
-  ctx.fillStyle='#e8553a';ctx.beginPath();ctx.arc(ppx,ppy,3.8,0,7);ctx.fill();
+  const ppx=ox+player.x*scX, ppy=oy+player.y*scY;
+  ctx.fillStyle='#ff4a30';ctx.beginPath();ctx.arc(ppx,ppy,4,0,7);ctx.fill();
+  ctx.strokeStyle='rgba(0,0,0,.6)';ctx.lineWidth=1;ctx.stroke();
   ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(ppx,ppy,1.8,0,7);ctx.fill();
 }
 function loop(){if(state==='end'||state==='paused')return;
