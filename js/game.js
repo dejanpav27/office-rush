@@ -2796,15 +2796,47 @@ function miniPipe(n,t){
 }
 
 function drawMinimap(){
-  const MW=110,MH=70,MX=viewW-MW-10,MY=viewH-MH-10,PAD=4;
-  const scaleX=(MW-PAD*2)/(COLS*TS),scaleY=(MH-PAD*2)/(ROWS*TS);
-  ctx.fillStyle='rgba(20,12,6,.82)';ctx.strokeStyle='rgba(200,160,80,.5)';ctx.lineWidth=1.5;
+  const TW=9,TH=9; // pixels per tile
+  const PAD=5;
+  const MW=COLS*TW+PAD*2, MH=ROWS*TH+PAD*2;
+  const MX=viewW-MW-12, MY=viewH-MH-12;
+  // tile colors
+  const TC={0:'#c4a87a',1:'#5a4a3a',9:'#5e8a4a',10:'#4a7a3e',11:'#8a7a5a'};
+  // background + border
+  ctx.save();
+  ctx.shadowColor='rgba(0,0,0,.4)';ctx.shadowBlur=8;ctx.shadowOffsetY=2;
   const rr=(x,y,w,h,r)=>{ctx.beginPath();ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);ctx.closePath();};
-  rr(MX,MY,MW,MH,5);ctx.fill();ctx.stroke();
-  const vpX=MX+PAD+camX*scaleX,vpY=MY+PAD+camY*scaleY,vpW=(viewW/camZoom)*scaleX,vpH=(viewH/camZoom)*scaleY;
-  ctx.strokeStyle='rgba(220,180,80,.55)';ctx.lineWidth=1;ctx.strokeRect(vpX,vpY,vpW,vpH);
-  NPCS.forEach(n=>{const dx=MX+PAD+n.x*TS*scaleX,dy=MY+PAD+n.y*TS*scaleY;ctx.fillStyle=npcDone(n)?'#5aa848':'#c9a86b';ctx.beginPath();ctx.arc(dx,dy,2.2,0,7);ctx.fill();});
-  const px2=MX+PAD+player.x*scaleX,py2=MY+PAD+player.y*scaleY;ctx.fillStyle='#e86b4a';ctx.beginPath();ctx.arc(px2,py2,3,0,7);ctx.fill();ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(px2,py2,1.5,0,7);ctx.fill();
+  rr(MX,MY,MW,MH,6);
+  ctx.fillStyle='rgba(16,10,6,.88)';ctx.fill();
+  ctx.shadowColor='transparent';
+  ctx.strokeStyle='rgba(180,140,60,.6)';ctx.lineWidth=1.5;ctx.stroke();
+  ctx.restore();
+  // draw tiles
+  const ox=MX+PAD, oy=MY+PAD;
+  for(let r=0;r<ROWS;r++)for(let c=0;c<COLS;c++){
+    const t=MAP[r][c];
+    ctx.fillStyle=TC[t]||TC[0];
+    ctx.fillRect(ox+c*TW,oy+r*TH,TW-0.5,TH-0.5);
+    // wall top highlight
+    if(t===1&&r>0&&MAP[r-1][c]!==1){ctx.fillStyle='rgba(255,220,140,.12)';ctx.fillRect(ox+c*TW,oy+r*TH,TW-0.5,1.5);}
+  }
+  // viewport rectangle
+  const scX=TW/TS, scY=TH/TS;
+  const vpX=ox+camX*scX, vpY=oy+camY*scY, vpW=(viewW/camZoom)*scX, vpH=(viewH/camZoom)*scY;
+  ctx.strokeStyle='rgba(220,180,60,.5)';ctx.lineWidth=1;
+  ctx.strokeRect(Math.max(vpX,ox),Math.max(vpY,oy),Math.min(vpW,MW-PAD*2),Math.min(vpH,MH-PAD*2));
+  // NPCs
+  NPCS.forEach(n=>{
+    const dx=ox+n.x*TW, dy=oy+n.y*TH;
+    ctx.fillStyle=npcDone(n)?'#5acd3a':'#e8c45a';
+    ctx.beginPath();ctx.arc(dx+TW/2,dy+TH/2,2.8,0,7);ctx.fill();
+  });
+  // Boss Nino
+  ctx.fillStyle='#d4a030';ctx.beginPath();ctx.arc(ox+19*TW+TW/2,oy+5*TH+TH/2,2.8,0,7);ctx.fill();
+  // Player
+  const ppx=ox+player.x/TS*TW, ppy=oy+player.y/TS*TH;
+  ctx.fillStyle='#e8553a';ctx.beginPath();ctx.arc(ppx,ppy,3.8,0,7);ctx.fill();
+  ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(ppx,ppy,1.8,0,7);ctx.fill();
 }
 function loop(){if(state==='end'||state==='paused')return;
   frame++;
