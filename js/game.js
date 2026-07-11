@@ -124,7 +124,12 @@ const POOLS={
    {type:'stamp',docs:['PR Review','Merge Request','Deploy Sign-off','Hotfix Approval'],ask:"Four docs need stamping before deploy. Get the order right.",reward:'"Stamped. Ship it."'},
    {type:'password',pw:'GROMIX',ask:"Gromix locked me out. Unscramble the password.",reward:'"Back in. Don\'t tell anyone the password."'},
    {type:'shredder',docs:['Old sprint plan','Draft v1','Draft v2','SSH key printout','Junk mail'],keep:'SSH key printout',ask:"Shred the old docs. Do NOT shred the SSH key printout.",reward:'"Good. That key is worth more than this building."'},
-   {type:'expenses',threshold:200,items:[{name:'AWS bill',amount:180},{name:'Gold monitor stand',amount:450},{name:'USB hub',amount:35},{name:'Ergonomic keyboard',amount:120},{name:'Personal drone',amount:800}],ask:"Approve dev expenses under $200, reject the rest.",reward:'"Budget clean. Finance won\'t bother us."'}
+   {type:'expenses',threshold:200,items:[{name:'AWS bill',amount:180},{name:'Gold monitor stand',amount:450},{name:'USB hub',amount:35},{name:'Ergonomic keyboard',amount:120},{name:'Personal drone',amount:800}],ask:"Approve dev expenses under $200, reject the rest.",reward:'"Budget clean. Finance won\'t bother us."'},
+   {type:'firewall',rounds:6,ask:"Production server's getting probed. Allow safe ports, block the sketchy ones.",reward:'"Firewall locked down. Zero breaches."'},
+   {type:'receipt',items:[{name:'SSD',price:85},{name:'RAM stick',price:42},{name:'Cables',price:13},{name:'Fan',price:20}],ask:"Hardware receipt — add it up for the PO.",reward:'"Math checks out. Procurement approved."'},
+   {type:'coffeeorder',count:3,ask:"Three devs need coffee. Memorize the order.",reward:'"Caffeinated and productive. Ship it."'},
+   {type:'schedule',meetings:[{name:'Standup',slot:'9:00'},{name:'Code Review',slot:'11:00'},{name:'Deploy',slot:'15:00'},{name:'Retro',slot:'16:00'}],ask:"Schedule today's dev ceremonies. No conflicts.",reward:'"Calendar clean. No meeting collisions."'},
+   {type:'rubberband',target:60,tol:12,ask:"Elastic deploy window — stretch to 60% and hold. Snap = rollback.",reward:'"Clean deploy. No rollback needed."'}
  ]},
  teonem:{desc:'Sales, always "out in town"',home:{x:10,y:9},pool:[
    {type:'deliver',item:'contract',itemLabel:'contract',to:'nino',ask:"Running into town (work!). Take this contract to Nino.",reward:'"Legend. I never left, clear?" *left*'},
@@ -168,7 +173,12 @@ const POOLS={
    {type:'elevator',floor:7,ask:"Client meeting is on floor 7. Stop the elevator right.",reward:'"Smooth ride. First impressions matter."'},
    {type:'phonetree',target:'International',ask:"Call HQ — navigate to International Sales.",reward:'"Connected. Time to close the deal from the parking lot."'},
    {type:'copier',rounds:3,ask:"Copy these contracts before the client leaves. Hit green, miss red.",reward:'"Three clean copies. Professional."'},
-   {type:'expenses',threshold:150,items:[{name:'Client lunch',amount:90},{name:'Parking',amount:15},{name:'Private jet fuel',amount:4200},{name:'Hotel room',amount:140},{name:'Champagne',amount:380}],ask:"Expense report time. Approve under $150.",reward:'"Clean expenses. Nino won\'t question a thing."'}
+   {type:'expenses',threshold:150,items:[{name:'Client lunch',amount:90},{name:'Parking',amount:15},{name:'Private jet fuel',amount:4200},{name:'Hotel room',amount:140},{name:'Champagne',amount:380}],ask:"Expense report time. Approve under $150.",reward:'"Clean expenses. Nino won\'t question a thing."'},
+   {type:'pingpong',rallies:5,ask:"Break room ping pong with the client. Keep the rally going — close deals over paddles.",reward:'"Five rallies. Client impressed. Deal as good as done."'},
+   {type:'namecard',names:['Babic','Cvijanovic','Djordjevic','Jovanovic','Markovic'],ask:"Sort these client business cards alphabetically. Gotta look organized.",reward:'"Sorted. Rolodex game strong."'},
+   {type:'receipt',items:[{name:'Fuel',price:55},{name:'Toll',price:12},{name:'Parking',price:8},{name:'Lunch',price:32},{name:'Coffee',price:5}],ask:"Add up today's road trip expenses for the report.",reward:'"112 dinara... wait, that\'s euros. Either way, approved."'},
+   {type:'schedule',meetings:[{name:'Cold call',slot:'9:00'},{name:'Client demo',slot:'11:00'},{name:'Lunch deal',slot:'13:00'},{name:'Follow-up',slot:'15:00'}],ask:"Schedule my sales day. Don't double-book me.",reward:'"Perfect calendar. Time to hit the road."'},
+   {type:'coffeeorder',count:4,ask:"Buying coffee for the whole client meeting. Remember who gets what.",reward:'"Four coffees, four happy clients. That\'s how deals happen."'}
  ]},
  steve:{desc:'Beard, vape, sells in Croatia',home:{x:4,y:2},pool:[
    {type:'fetch',item:'vape',itemLabel:'vape',ask:"Left my vape by the entrance. No fog, no deals.",reward:'*huge cloud* "Now we do business."'},
@@ -209,7 +219,13 @@ const POOLS={
    {type:'typingtest',passage:'Poštovani klijente, šaljemo Vam ponudu u prilogu.',ask:"Type this Croatian client email exactly — one typo and the deal looks amateur. *vapor*",reward:'*vapor* "Sent. Professional. Croatian clients expect nothing less."'},
    {type:'stamp',docs:['Import Form','Export Cert','Customs Declaration','Insurance'],ask:"*vapor* Stamp these trade docs before customs closes.",reward:'*vapor* "Stamped and shipped. Zagreb gets it tomorrow."'},
    {type:'waterplant',target:70,tol:12,ask:"*vapor* Water the office plants. Don't overdo it — kill a fern, kill the vibe.",reward:'*vapor* "Perfect. Even the plants vape around me."'},
-   {type:'filing',files:[{name:'Zagreb contract',cab:'Sales'},{name:'Split invoice',cab:'Finance'},{name:'Visa receipt',cab:'Travel'},{name:'Commission calc',cab:'Finance'}],ask:"*vapor* File these Croatian docs. Wrong drawer = Nino finds out.",reward:'*vapor* "Filed. Organized. Nino suspects nothing."'}
+   {type:'filing',files:[{name:'Zagreb contract',cab:'Sales'},{name:'Split invoice',cab:'Finance'},{name:'Visa receipt',cab:'Travel'},{name:'Commission calc',cab:'Finance'}],ask:"*vapor* File these Croatian docs. Wrong drawer = Nino finds out.",reward:'*vapor* "Filed. Organized. Nino suspects nothing."'},
+   {type:'rubberband',target:55,tol:10,ask:"*vapor* Price negotiation — stretch the margin to 55%. Don't snap the deal.",reward:'*vapor* "Clean margin. Client happy. Vape happy."'},
+   {type:'pingpong',rallies:4,ask:"*vapor* Quick game with the warehouse guys in Split. Keep the rally.",reward:'*vapor* "Four rallies. Croatian warehouse respects me now."'},
+   {type:'firewall',rounds:5,ask:"*vapor* IT asked to check the VPN. Allow legit ports, block the rest.",reward:'*vapor* "Secured. Even the firewall vapes."'},
+   {type:'receipt',items:[{name:'Vape juice',price:18},{name:'Coils',price:12},{name:'Battery',price:25},{name:'Case',price:15}],ask:"*vapor* Vape supply receipt. Add it up before the wife checks.",reward:'*vapor* "70 total. Reasonable. Don\'t tell anyone."'},
+   {type:'namecard',names:['Babic','Horvat','Kovacevic','Petrovic','Tomic'],ask:"*vapor* Sort the Croatian client cards. Alphabetical. Professional.",reward:'*vapor* "Sorted. Every card in place."'},
+   {type:'schedule',meetings:[{name:'Morning vape',slot:'9:00'},{name:'Client call',slot:'11:00'},{name:'Site visit',slot:'14:00'},{name:'Report',slot:'16:00'}],ask:"*vapor* Schedule the day. No double-booking the vape breaks.",reward:'*vapor* "Calendar locked. Efficient."'}
  ]},
  brana:{desc:'Watches everyone (secretly)',home:{x:3,y:9},pool:[
    {type:'fetch',item:'logsheet',itemLabel:'attendance log',ask:"Bring that sheet by the entrance. I do not track people... just get it.",reward:'*hides it* "I did not ask for this. But I did."'},
@@ -255,7 +271,12 @@ const POOLS={
    {type:'shredder',docs:['Old schedule','Break log','Incident report','Vacation form','Complaint draft'],keep:'Incident report',ask:"Shred these. Keep the incident report — I'll need it later.",reward:'"Good. That report stays in my drawer."'},
    {type:'copier',rounds:5,ask:"Copy the surveillance summaries. Five copies, no errors.",reward:'"Five clean copies. One for each person I\'m watching."'},
    {type:'stamp',docs:['Attendance Log','Tardiness Report','NPC Movement Sheet','Exit Records'],ask:"Stamp these tracking documents in order.",reward:'"Stamped. Every minute accounted for."'},
-   {type:'password',pw:'WATCH',ask:"My tracking spreadsheet is locked. Unscramble it.",reward:'"Back in. I see everything again."'}
+   {type:'password',pw:'WATCH',ask:"My tracking spreadsheet is locked. Unscramble it.",reward:'"Back in. I see everything again."'},
+   {type:'schedule',meetings:[{name:'Surveillance',slot:'9:00'},{name:'Report Filing',slot:'11:00'},{name:'Lunch Watch',slot:'13:00'},{name:'Exit Monitoring',slot:'16:00'}],ask:"Schedule my observation shifts. I need full coverage.",reward:'"Full day covered. Nobody escapes."'},
+   {type:'namecard',names:['Dejan','Daniel','Nina','Pedja','Steve'],ask:"Sort the personnel files alphabetically. For... reference.",reward:'"Sorted. Cross-referenced with my notes."'},
+   {type:'receipt',items:[{name:'Binoculars',price:35},{name:'Notebook',price:8},{name:'Pen set',price:12},{name:'Hidden camera',price:45}],ask:"Surveillance supply receipt. Add it up. Quietly.",reward:'"100. All accounted for. Tax deductible."'},
+   {type:'coffeeorder',count:3,ask:"Three people just ordered coffee. I need to know who drinks what. For the file.",reward:'"Noted. Coffee preferences logged."'},
+   {type:'firewall',rounds:5,ask:"Someone's accessing restricted files. Check the ports.",reward:'"Blocked. I see everything on this network too."'}
  ]},
  sonja:{desc:'Quiet, runs payroll',home:{x:4,y:11},pool:[
    {type:'deliver',item:'router',itemLabel:'the router',to:'nino',ask:"Payroll needs internet. Give the router to Steve — he's the IT guy.",reward:'barely audible: "...thank you."'},
@@ -298,7 +319,12 @@ const POOLS={
    {type:'expenses',threshold:100,items:[{name:'Printer ink',amount:45},{name:'Team lunch',amount:85},{name:'Standing desk',amount:420},{name:'Sticky notes',amount:8},{name:'Chair upgrade',amount:290}],ask:"...review these. Approve ≤$100.",reward:'"...processed. Budget balanced."'},
    {type:'filing',files:[{name:'January payslip',cab:'Q1'},{name:'March tax',cab:'Q1'},{name:'July bonus',cab:'Q3'},{name:'October invoice',cab:'Q4'}],ask:"...file these by quarter. Quietly.",reward:'"...filed. Every quarter accounted for."'},
    {type:'elevator',floor:3,ask:"...payroll office is floor 3. Don't miss it.",reward:'"...arrived. On time. As expected."'},
-   {type:'waterplant',target:50,tol:8,ask:"...water the desk plant. Not too much. It's sensitive.",reward:'"...perfect. Like the spreadsheets."'}
+   {type:'waterplant',target:50,tol:8,ask:"...water the desk plant. Not too much. It's sensitive.",reward:'"...perfect. Like the spreadsheets."'},
+   {type:'receipt',items:[{name:'Salary A',price:2850},{name:'Salary B',price:3100},{name:'Salary C',price:2600},{name:'Bonus',price:500}],ask:"...add up the payroll batch total.",reward:'"...9050. Correct to the cent."'},
+   {type:'schedule',meetings:[{name:'Payroll Run',slot:'9:00'},{name:'Tax Filing',slot:'11:00'},{name:'Audit Prep',slot:'14:00'},{name:'Bank Transfer',slot:'16:00'}],ask:"...schedule the finance day. No overlaps.",reward:'"...all scheduled. Quietly."'},
+   {type:'namecard',names:['Accounting','Finance','HR','Legal','Payroll'],ask:"...sort the department folders alphabetically.",reward:'"...sorted. As always."'},
+   {type:'rubberband',target:45,tol:8,ask:"...budget tolerance band. Stretch to 45%. Carefully.",reward:'"...within tolerance. Budget holds."'},
+   {type:'coffeeorder',count:3,ask:"...three payroll clerks need coffee before the run. Remember the orders.",reward:'"...delivered. They can focus now."'}
  ]},
  pedja:{desc:'Ex-waiter, 2m tall, rookie',home:{x:4,y:3},pool:[
    {type:'timing',ask:"Holding a glass on the top shelf — say NOW at the right moment.",reward:'*hops down* "No tip, but we are good."'},
@@ -346,7 +372,12 @@ const POOLS={
    {type:'stapler',beats:4,bpm:100,ask:"Staple these menus to the beat. Four staples, steady rhythm.",reward:'"Clean staples. The menus look professional."'},
    {type:'stamp',docs:['Health cert','Fire safety','Liquor license','Food handling'],ask:"Restaurant inspection — stamp these compliance docs in order.",reward:'"All stamped. Inspector leaves happy."'},
    {type:'shredder',docs:['Old menu','Broken receipt','Customer complaint','Health code cert','Napkin doodle'],keep:'Health code cert',ask:"Shred the old restaurant stuff. Keep the health code!",reward:'"Good. That cert is our lifeline."'},
-   {type:'phonetree',target:'International',ask:"Calling the supplier — navigate the phone menu to International orders.",reward:'"Connected. Ordering those special plates from Italy."'}
+   {type:'phonetree',target:'International',ask:"Calling the supplier — navigate the phone menu to International orders.",reward:'"Connected. Ordering those special plates from Italy."'},
+   {type:'coffeeorder',count:4,ask:"Table of four just ordered drinks. Remember every single one.",reward:'"Four drinks, perfect recall. Old muscle memory."'},
+   {type:'receipt',items:[{name:'Appetizer',price:8},{name:'Main x2',price:24},{name:'Dessert',price:7},{name:'Coffee x3',price:9},{name:'Wine',price:15}],ask:"Table's bill — add it up before they get impatient.",reward:'"63 total. Tip not included. Waiter math never dies."'},
+   {type:'pingpong',rallies:6,ask:"Break room ping pong — keep the rally alive. 2m reach is an advantage.",reward:'"Six rallies. Nobody can reach my serves."'},
+   {type:'schedule',meetings:[{name:'Morning Prep',slot:'9:00'},{name:'Service Training',slot:'11:00'},{name:'Lunch Rush',slot:'13:00'},{name:'Cleanup',slot:'16:00'}],ask:"Schedule the restaurant day. Old habits — everything on time.",reward:'"Shift schedule locked. Service runs smooth."'},
+   {type:'rubberband',target:70,tol:10,ask:"Stretch the tablecloth tight — 70% tension. Don't rip it.",reward:'"Perfect tension. The table looks immaculate."'}
  ]},
  nina:{desc:"Boss's daughter, control freak",home:{x:13,y:9},pool:[
    {type:'simon',ask:"Do EXACTLY as I say, in order. Because I am always right. Repeat.",reward:'"See? Works when you listen to ME."'},
@@ -392,7 +423,12 @@ const POOLS={
    {type:'copier',rounds:5,ask:"Five copies of MY report. Green means go. Obviously.",reward:'"Five perfect copies. As expected."'},
    {type:'filing',files:[{name:'Meeting notes',cab:'Management'},{name:'Koda vet bill',cab:'Personal'},{name:'Budget proposal',cab:'Finance'},{name:'Team review',cab:'Management'}],ask:"File these. Get one wrong and I tell my father. Obviously.",reward:'"All correct. I trained you well. Obviously."'},
    {type:'expenses',threshold:300,items:[{name:'Designer bag',amount:1200},{name:'Team workshop',amount:280},{name:'Koda grooming',amount:95},{name:'Office art',amount:450},{name:'Stationery',amount:30}],ask:"Approve expenses under $300. I decide what's reasonable. Obviously.",reward:'"Budget approved. My standards are impeccable."'},
-   {type:'stapler',beats:5,bpm:140,ask:"Staple my reports to MY rhythm. Five staples, fast and precise. Obviously.",reward:'"Perfectly stapled. You may go."'}
+   {type:'stapler',beats:5,bpm:140,ask:"Staple my reports to MY rhythm. Five staples, fast and precise. Obviously.",reward:'"Perfectly stapled. You may go."'},
+   {type:'schedule',meetings:[{name:'Morning Briefing',slot:'9:00'},{name:'Performance Review',slot:'11:00'},{name:'Lunch with Father',slot:'13:00'},{name:'Team Critique',slot:'15:00'}],ask:"My schedule. Place everything correctly. I don't repeat myself. Obviously.",reward:'"Perfect schedule. You\'re learning. Obviously."'},
+   {type:'coffeeorder',count:3,ask:"Three drinks for my meeting. Memorize them. Get one wrong and it's over. Obviously.",reward:'"All correct. You may fetch them now."'},
+   {type:'namecard',names:['Board Member','CEO','CFO','COO','CTO'],ask:"Sort my executive contacts. Alphabetical. Obviously.",reward:'"Sorted. These are the only people that matter."'},
+   {type:'receipt',items:[{name:'Koda treats',price:22},{name:'Designer pen',price:45},{name:'Planner',price:18},{name:'Scarf',price:85}],ask:"My personal expense receipt. Add it up. Don't question the items. Obviously.",reward:'"170. Father will reimburse. Obviously."'},
+   {type:'pingpong',rallies:4,ask:"Ping pong in the break room. Don't let me lose. Obviously.",reward:'"I won. As expected. Obviously."'}
  ]},
  daniel:{desc:'Designer, chill, big vibes',home:{x:4,y:5},pool:[
    {type:'choose',q:'Which design has the best vibe?',opts:[{t:'Clean & minimal',ok:true},{t:'5 fonts, 3 gradients',ok:false},{t:'Default bootstrap',ok:false}],ask:"Yo, which design has the best vibe? Just feel it. *smoke*",reward:'*thumbs up through haze* "Flawless vibe, respect."'},
@@ -443,7 +479,12 @@ const POOLS={
    {type:'waterplant',target:60,tol:10,ask:"Water the studio succulent. Too much = dead vibes.",reward:'"Perfect hydration. The succulent thrives."'},
    {type:'password',pw:'FIGMA',ask:"Design tool locked. Unscramble the password, dude.",reward:'"Back in. The artboard awaits."'},
    {type:'stamp',docs:['Concept Art','Wireframe','Mockup','Final Export'],ask:"Stamp the design deliverables in the right order.",reward:'"Stamped in order. The process is beautiful."'},
-   {type:'shredder',docs:['Old mockup','Draft logo','Brand guidelines','Sketch v1','Napkin idea'],keep:'Brand guidelines',ask:"Shred the old iterations. Keep the brand guidelines though.",reward:'"Clean desk. Brand intact. Vibes immaculate."'}
+   {type:'shredder',docs:['Old mockup','Draft logo','Brand guidelines','Sketch v1','Napkin idea'],keep:'Brand guidelines',ask:"Shred the old iterations. Keep the brand guidelines though.",reward:'"Clean desk. Brand intact. Vibes immaculate."'},
+   {type:'coffeeorder',count:3,ask:"Three designers need their morning fuel. Remember the vibes... I mean the orders.",reward:'"All correct. Caffeinated creativity incoming."'},
+   {type:'schedule',meetings:[{name:'Moodboard',slot:'9:00'},{name:'Client Pres',slot:'11:00'},{name:'Design Crit',slot:'14:00'},{name:'Wrap-up',slot:'16:00'}],ask:"Schedule the design day. Don't stack critiques — we need breathing room.",reward:'"Clean calendar. Space for inspiration."'},
+   {type:'receipt',items:[{name:'Pen set',price:28},{name:'Sketchbook',price:15},{name:'Markers',price:32},{name:'Color swatches',price:12}],ask:"Art supply receipt. Add it up for the reimbursement.",reward:'"87. Worth every cent for the craft."'},
+   {type:'pingpong',rallies:5,ask:"Creative break — ping pong clears the mind. Keep the rally, dude.",reward:'"Five rallies. Brain reset. Ready to design."'},
+   {type:'rubberband',target:50,tol:12,ask:"Stretch the canvas frame tension to 50%. Snap it and the canvas is ruined.",reward:'"Perfect tension. Canvas is gallery-ready."'}
  ]},
 };
 
@@ -884,7 +925,9 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   typingtest:miniTypingTest,tetris:miniTetris,pipe:miniPipe,
   stamp:miniStamp,elevator:miniElevator,copier:miniCopier,password:miniPassword,
   filing:miniFiling,phonetree:miniPhoneTree,waterplant:miniWaterPlant,shredder:miniShredder,
-  stapler:miniStapler,expenses:miniExpenses})[t.type](n,t);}
+  stapler:miniStapler,expenses:miniExpenses,
+  rubberband:miniRubberband,coffeeorder:miniCoffeeOrder,namecard:miniNamecard,
+  pingpong:miniPingPong,firewall:miniFirewall,receipt:miniReceipt,schedule:miniSchedule})[t.type](n,t);}
 
 function miniCatch(n,t){const st=openMini('CATCH','A/D or mouse. Catch 5 before time runs out.',true);
   st.innerHTML='<div id="catcher"><div id="paddle"></div></div>';
@@ -2389,6 +2432,132 @@ function miniExpenses(n,t){
       if(it.amount<=thresh){idx++;render();}else{done=true;stop();fail(n,'$'+it.amount+' is over budget! Should reject. [E]');}};
     document.getElementById('expRej').onclick=()=>{if(done)return;
       if(it.amount>thresh){idx++;render();}else{done=true;stop();fail(n,'$'+it.amount+' is within budget! Should approve. [E]');}};};
+  render();}
+
+
+// RUBBERBAND — hold and release at the right stretch level
+function miniRubberband(n,t){
+  const target=t.target||65;const tol=t.tol||10;let stretch=0,growing=false,done=false,snapped=false;
+  const st=openMini('RUBBER BAND','Stretch to the green zone ('+Math.max(0,target-tol)+'–'+(target+tol)+'%) and release!');
+  st.innerHTML='<div style="text-align:center;margin-top:10px"><div style="width:200px;height:24px;background:#1a2a1a;border:2px solid #3a5a3a;margin:0 auto;border-radius:12px;position:relative;overflow:hidden"><div id="rbFill" style="height:100%;background:#c9a86b;border-radius:12px;width:0;transition:width .03s"></div><div id="rbZone" style="position:absolute;top:0;height:100%;background:rgba(80,200,80,.25);border-left:2px solid #4adf30;border-right:2px solid #4adf30"></div></div><div id="rbPct" style="color:#c9a86b;margin-top:8px;font-family:monospace;font-size:20px">0%</div><button id="rbBtn" class="miniBtn" style="margin-top:10px;font-size:14px">🔴 HOLD TO STRETCH</button></div>';
+  const zone=document.getElementById('rbZone');zone.style.left=Math.max(0,target-tol)+'%';zone.style.width=(tol*2)+'%';
+  const fill=document.getElementById('rbFill');const pct=document.getElementById('rbPct');
+  let raf;const upd=()=>{if(done)return;if(growing){stretch=Math.min(100,stretch+0.7);}
+    fill.style.width=stretch+'%';pct.textContent=Math.round(stretch)+'%';
+    fill.style.background=stretch>90?'#e86b4a':stretch>(target+tol)?'#e8a03c':'#c9a86b';
+    if(stretch>=100){done=true;snapped=true;cancelAnimationFrame(raf);fail(n,'SNAP! Stretched too far! [E]');return;}
+    raf=requestAnimationFrame(upd);};
+  raf=requestAnimationFrame(upd);
+  const btn=document.getElementById('rbBtn');
+  btn.onmousedown=btn.ontouchstart=(e)=>{e.preventDefault();growing=true;};
+  const release=()=>{if(done||!growing)return;growing=false;done=true;cancelAnimationFrame(raf);
+    if(Math.abs(stretch-target)<=tol)miniWin(n,t);
+    else fail(n,'Stretch at '+Math.round(stretch)+'% — needed '+Math.max(0,target-tol)+'–'+(target+tol)+'%. [E]');};
+  btn.onmouseup=btn.ontouchend=release;}
+
+// COFFEEORDER — remember coffee orders and select the right ones
+function miniCoffeeOrder(n,t){
+  const drinks=['Espresso','Latte','Cappuccino','Americano','Mocha','Flat White','Macchiato','Cortado'];
+  const count=t.count||3;const order=shuffle([...drinks]).slice(0,count);
+  let phase='memorize',picked=[],done=false;
+  const st=openMini('COFFEE ORDER','Memorize the order!');
+  st.innerHTML='<div style="text-align:center;margin-top:8px"><div style="color:#e8a03c;font-size:14px;margin-bottom:8px">☕ Remember this order:</div><div id="coList" style="font-size:16px;color:#c9a86b;line-height:2">'+order.map(d=>'<div>'+d+'</div>').join('')+'</div><div style="color:#888;margin-top:8px;font-size:11px">Memorizing... 4s</div></div>';
+  setTimeout(()=>{if(done)return;phase='pick';
+    const opts=shuffle([...drinks]).slice(0,6);order.forEach(o=>{if(!opts.includes(o))opts.push(o);});
+    const shuf=shuffle(opts);
+    st.innerHTML='<div style="text-align:center;margin-top:6px"><div style="color:#e8a03c;margin-bottom:6px">Pick the '+count+' drinks in order:</div><div id="coPicked" style="color:#4adf30;margin-bottom:6px;min-height:20px"></div><div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center" id="coBtns"></div><div id="coMsg" style="margin-top:6px;color:#e86b4a;font-size:11px"></div></div>';
+    shuf.forEach(d=>{const b=document.createElement('button');b.textContent='☕ '+d;b.className='miniBtn';b.dataset.drink=d;
+      b.onclick=()=>{if(done)return;
+        if(d===order[picked.length]){picked.push(d);b.disabled=true;b.style.opacity=.3;
+          document.getElementById('coPicked').textContent=picked.join(' → ');
+          if(picked.length>=order.length){done=true;miniWin(n,t);}}
+        else{done=true;fail(n,'Wrong! Expected '+order[picked.length]+'. [E]');}};
+      document.getElementById('coBtns').appendChild(b);});
+  },4000);}
+
+// NAMECARD — sort business cards alphabetically
+function miniNamecard(n,t){
+  const names=t.names||['Anderson','Baker','Chen','Davis','Evans'];const correct=[...names].sort();
+  const shuf=shuffle([...names]);let placed=[],done=false;
+  const st=openMini('BUSINESS CARDS','Arrange alphabetically.',true);
+  const stop=countdown(12,()=>{if(!done)fail(n,'Too slow! [E]');});
+  const render=()=>{st.innerHTML='<div style="text-align:center;margin-top:6px"><div style="color:#c9a86b;margin-bottom:4px;font-size:11px">Placed: '+placed.join(', ')+'</div><div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center" id="ncBtns"></div><div id="ncMsg" style="margin-top:6px;color:#e86b4a;font-size:11px"></div></div>';
+    shuf.filter(x=>!placed.includes(x)).forEach(nm=>{const b=document.createElement('button');b.textContent='🪪 '+nm;b.className='miniBtn';
+      b.onclick=()=>{if(done)return;
+        if(nm===correct[placed.length]){placed.push(nm);if(placed.length>=correct.length){done=true;stop();miniWin(n,t);}else render();}
+        else{document.getElementById('ncMsg').textContent='Not alphabetical! Next should be: '+correct[placed.length];}};
+      document.getElementById('ncBtns').appendChild(b);});};
+  render();}
+
+// PINGPONG — time your clicks for a rally
+function miniPingPong(n,t){
+  const rallies=t.rallies||5;let pos=0,speed=0.04,dir=1,score=0,done=false;
+  const st=openMini('PING PONG','Hit the ball when it reaches the paddle! ('+rallies+' rallies)');
+  st.innerHTML='<div style="text-align:center;margin-top:10px"><div style="width:220px;height:30px;background:#1a3a1a;border:2px solid #3a5a3a;margin:0 auto;position:relative;border-radius:4px"><div id="ppBall" style="position:absolute;width:14px;height:14px;background:#e8a03c;border-radius:50%;top:8px;left:0;transition:none"></div><div style="position:absolute;right:0;top:2px;width:8px;height:26px;background:#4adf30;border-radius:2px"></div><div style="position:absolute;left:0;top:2px;width:8px;height:26px;background:#4adf30;border-radius:2px"></div></div><div id="ppScore" style="color:#c9a86b;margin-top:8px;font-family:monospace">0/'+rallies+'</div><button id="ppHit" class="miniBtn" style="margin-top:8px;font-size:14px">🏓 HIT</button></div>';
+  const ball=document.getElementById('ppBall');
+  let raf;const anim=()=>{if(done)return;pos+=speed*dir;
+    if(pos>1){pos=1;dir=-1;speed=Math.min(0.08,speed+0.003);}
+    if(pos<0){pos=0;dir=1;speed=Math.min(0.08,speed+0.003);}
+    ball.style.left=(pos*206)+'px';raf=requestAnimationFrame(anim);};
+  raf=requestAnimationFrame(anim);
+  document.getElementById('ppHit').onclick=()=>{if(done)return;
+    const atEdge=(dir===1&&pos>0.88)||(dir===-1&&pos<0.12);
+    if(atEdge){score++;dir*=-1;document.getElementById('ppScore').textContent=score+'/'+rallies;
+      if(score>=rallies){done=true;cancelAnimationFrame(raf);miniWin(n,t);}}
+    else{done=true;cancelAnimationFrame(raf);fail(n,'Missed! Ball was in the middle. [E]');}};}
+
+// FIREWALL — let good packets through, block bad ones
+function miniFirewall(n,t){
+  const rounds=t.rounds||6;const goodPorts=['80','443','22','3000'];const badPorts=['6666','1337','4444','31337'];
+  let idx=0,done=false;
+  const st=openMini('FIREWALL','Allow safe ports, block suspicious ones!',true);
+  const stop=countdown(15,()=>{if(!done)fail(n,'Firewall timeout! [E]');});
+  const pool=shuffle([...goodPorts,...badPorts]).slice(0,rounds);
+  const render=()=>{if(idx>=pool.length){done=true;stop();miniWin(n,t);return;}
+    const port=pool[idx];const isGood=goodPorts.includes(port);
+    st.innerHTML='<div style="text-align:center;margin-top:12px"><div style="color:#c9a86b;font-size:11px;margin-bottom:6px">Packet '+(idx+1)+'/'+pool.length+'</div><div style="font-size:32px;color:#e8a03c;font-family:monospace;margin:10px 0">:'+port+'</div><div style="display:flex;gap:10px;justify-content:center"><button class="miniBtn" id="fwAllow">✅ Allow</button><button class="miniBtn" id="fwBlock">🚫 Block</button></div></div>';
+    document.getElementById('fwAllow').onclick=()=>{if(done)return;if(isGood){idx++;render();}else{done=true;stop();fail(n,'Port :'+port+' is malicious! Should block. [E]');}};
+    document.getElementById('fwBlock').onclick=()=>{if(done)return;if(!isGood){idx++;render();}else{done=true;stop();fail(n,'Port :'+port+' is safe! Should allow. [E]');}};};
+  render();}
+
+// RECEIPT — add up items and type the total
+function miniReceipt(n,t){
+  const items=t.items||[{name:'Pens',price:4},{name:'Paper',price:12},{name:'Toner',price:28},{name:'Staples',price:3},{name:'Folders',price:8}];
+  const total=items.reduce((s,i)=>s+i.price,0);let done=false;
+  const st=openMini('RECEIPT','Add up the receipt and type the total.',true);
+  const stop=countdown(15,()=>{if(!done)fail(n,'Time\'s up! [E]');});
+  let html='<div style="text-align:center;margin-top:6px"><div style="text-align:left;display:inline-block;background:#1a2a1a;padding:10px 16px;border-radius:4px;border:1px solid #3a5a3a;font-family:monospace">';
+  items.forEach(i=>{html+='<div style="display:flex;justify-content:space-between;gap:20px;color:#c9a86b"><span>'+i.name+'</span><span>$'+i.price+'</span></div>';});
+  html+='<div style="border-top:1px solid #3a5a3a;margin-top:6px;padding-top:6px;color:#e8a03c;font-weight:bold">Total: $???</div></div>';
+  html+='<div style="margin-top:10px"><input id="rcInput" type="number" style="background:#1a2a1a;border:2px solid #3a5a3a;color:#c9a86b;padding:6px 10px;font-size:16px;font-family:monospace;text-align:center;width:80px;border-radius:4px" autofocus></div><div id="rcMsg" style="margin-top:6px;color:#e86b4a;font-size:11px"></div></div>';
+  st.innerHTML=html;
+  const inp=document.getElementById('rcInput');setTimeout(()=>inp.focus(),50);
+  inp.addEventListener('keydown',e=>{if(done)return;if(e.key==='Enter'){
+    const val=parseInt(inp.value);
+    if(val===total){done=true;stop();miniWin(n,t);}
+    else{document.getElementById('rcMsg').textContent='Wrong! Try again.';inp.value='';}}});}
+
+// SCHEDULE — place meetings without time conflicts
+function miniSchedule(n,t){
+  const slots=['9:00','10:00','11:00','13:00','14:00','15:00','16:00'];
+  const meetings=t.meetings||[{name:'Standup',slot:'9:00'},{name:'Client Call',slot:'11:00'},{name:'Review',slot:'14:00'},{name:'1-on-1',slot:'16:00'}];
+  const shuf=shuffle([...meetings]);let placed={},done=false,selMeeting=null;
+  const st=openMini('SCHEDULE','Place each meeting in its correct time slot.',true);
+  const stop=countdown(15,()=>{if(!done)fail(n,'Calendar closed! [E]');});
+  const render=()=>{
+    const remaining=shuf.filter(m=>!Object.values(placed).includes(m.name));
+    if(remaining.length===0){done=true;stop();miniWin(n,t);return;}
+    let html='<div style="margin-top:4px"><div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-bottom:8px">';
+    remaining.forEach(m=>{html+='<button class="miniBtn meetBtn" data-name="'+m.name+'" style="font-size:11px;'+(selMeeting===m.name?'border-color:#e8a03c':'')+'">📅 '+m.name+'</button>';});
+    html+='</div><div style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center">';
+    slots.forEach(s=>{const taken=placed[s];html+='<div class="miniBtn slotBtn" data-slot="'+s+'" style="font-size:11px;padding:6px 8px;cursor:'+(taken?'default':'pointer')+';opacity:'+(taken?'.4':'1')+'">'+s+(taken?' ✓':'')+'</div>';});
+    html+='</div><div id="schMsg" style="margin-top:6px;color:#e86b4a;text-align:center;font-size:11px"></div></div>';
+    st.innerHTML=html;
+    st.querySelectorAll('.meetBtn').forEach(b=>{b.onclick=()=>{selMeeting=b.dataset.name;render();};});
+    st.querySelectorAll('.slotBtn').forEach(b=>{b.onclick=()=>{if(done||!selMeeting||placed[b.dataset.slot])return;
+      const m=shuf.find(x=>x.name===selMeeting);
+      if(m&&m.slot===b.dataset.slot){placed[b.dataset.slot]=m.name;selMeeting=null;render();}
+      else{document.getElementById('schMsg').textContent=selMeeting+' doesn\'t go at '+b.dataset.slot+'!';}};});};
   render();}
 
 
