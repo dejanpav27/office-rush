@@ -903,21 +903,27 @@ function openDialog(who,txt,choices){dialogOpen=true;
 function closeDialog(){dialogOpen=false;document.getElementById('dialog').style.display='none';}
 
 /* ---- minigame framework ---- */
+let _countdownCalled=false,_autoTimerStop=null;
+const MINI_TIMER={reflex:10,hold:10,stopwatch:10,mash:10,timing:10,simon:12,
+  wordle:90,minesweeper:90,merge2048:90,flowfree:60,hidden:60,typingtest:60,tetris:90,pipe:60,
+  crossword:45,wordsearch:45,pingpong:30,cableroute:20,maze:20};
 function openMini(title,desc,useTimer){miniOpen=true;
+  _countdownCalled=false;
   setMiniBackdrop();
   document.getElementById('miniTitle').textContent=title;document.getElementById('miniDesc').textContent=desc;
   const st=document.getElementById('miniStage');st.innerHTML='';
   document.getElementById('mini').style.display='flex';
-  const tm=document.getElementById('miniTimer');tm.style.display=useTimer?'block':'none';
-  if(useTimer)document.getElementById('miniTimerFill').style.width='100%';
+  const tm=document.getElementById('miniTimer');tm.style.display='block';
+  document.getElementById('miniTimerFill').style.width='100%';
   return st;}
 function closeMini(){miniOpen=false;document.getElementById('mini').style.display='none';
+  if(_autoTimerStop){_autoTimerStop();_autoTimerStop=null;}
   if(activeKeyHandler){document.removeEventListener('keydown',activeKeyHandler);activeKeyHandler=null;}}
 function fail(n,msg){if(!testMode){week.streak=0;week.dayFails++;updateHUD();}const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('bad');setTimeout(()=>{b.classList.remove('bad');closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);},380);}else{closeMini();openDialog(n.name,msg,[{label:'Ok',fn:closeDialog}]);}}
 function miniWin(n,t){const b=document.getElementById('miniBox');if(miniOpen&&b){b.classList.add('win');setTimeout(()=>{b.classList.remove('win');closeMini();finish(n,t);},470);}else{closeMini();finish(n,t);}}
 function setKey(fn){if(activeKeyHandler)document.removeEventListener('keydown',activeKeyHandler);
   activeKeyHandler=fn;document.addEventListener('keydown',fn);}
-function countdown(sec,onExpire){const fill=document.getElementById('miniTimerFill');let start=Date.now();
+function countdown(sec,onExpire){_countdownCalled=true;const fill=document.getElementById('miniTimerFill');let start=Date.now();
   const iv=setInterval(()=>{const el=(Date.now()-start)/1000;const left=Math.max(0,sec-el);
     fill.style.width=(left/sec*100)+'%';if(left<=0){clearInterval(iv);onExpire();}},50);return ()=>clearInterval(iv);}
 
@@ -937,7 +943,8 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   filing:miniFiling,phonetree:miniPhoneTree,waterplant:miniWaterPlant,shredder:miniShredder,
   stapler:miniStapler,expenses:miniExpenses,
   rubberband:miniRubberband,coffeeorder:miniCoffeeOrder,namecard:miniNamecard,
-  pingpong:miniPingPong,firewall:miniFirewall,receipt:miniReceipt,schedule:miniSchedule})[t.type](n,t);}
+  pingpong:miniPingPong,firewall:miniFirewall,receipt:miniReceipt,schedule:miniSchedule})[t.type](n,t);
+  if(!_countdownCalled&&miniOpen){const _s=MINI_TIMER[t.type]||15;_autoTimerStop=countdown(_s,()=>{if(miniOpen)fail(n,'Time\'s up! [E]');});}}
 
 function miniCatch(n,t){const st=openMini('CATCH','A/D or mouse. Catch 5 before time runs out.',true);
   st.innerHTML='<div id="catcher"><div id="paddle"></div></div>';
