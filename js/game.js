@@ -660,6 +660,44 @@ document.getElementById('modePlay').onclick=()=>{renderSlots();showScreen('userS
 document.getElementById('modeTest').onclick=()=>{document.getElementById('modeScreen').style.display='none';startTest();};
 document.getElementById('modeLeaderboard').onclick=()=>{renderLeaderboard();showScreen('leaderboardScreen');};
 document.getElementById('lbBack').onclick=()=>showScreen('modeScreen');
+/* ── title screen decorations ── */
+(function decorateTitle(){
+  const ms=document.getElementById('modeScreen');if(!ms)return;
+  const dec=document.createElement('div');dec.id='titleDecor';ms.appendChild(dec);
+  /* sticky notes */
+  const notes=[
+    {x:'3%',y:'12%',rot:'-4deg',cls:'yellow',txt:'8 characters\n229 tasks\n100 mini-games'},
+    {x:'85%',y:'8%',rot:'5deg',cls:'pink',txt:'Don\'t forget:\nNino is watching!'},
+    {x:'88%',y:'72%',rot:'-3deg',cls:'green',txt:'Survive\nthe week!'},
+    {x:'2%',y:'75%',rot:'6deg',cls:'blue',txt:'Tip: press F\nfor special action'}
+  ];
+  notes.forEach(n=>{
+    const el=document.createElement('div');el.className='titleNote '+n.cls;
+    el.style.cssText='left:'+n.x+';top:'+n.y+';--rot:'+n.rot;
+    el.textContent=n.txt;dec.appendChild(el);
+  });
+  /* paperclips */
+  [{x:'6%',y:'25%',rot:'12deg'},{x:'92%',y:'20%',rot:'-8deg'},{x:'80%',y:'88%',rot:'25deg'}].forEach(c=>{
+    const el=document.createElement('div');el.className='titleClip';
+    el.style.cssText='left:'+c.x+';top:'+c.y+';transform:rotate('+c.rot+')';dec.appendChild(el);
+  });
+  /* character sprites peeking from bottom */
+  const peekIds=['dejan','teonem','nina','daniel'];
+  const peekPos=['8%','28%','68%','88%'];
+  peekIds.forEach((id,i)=>{
+    const img=SPRITES[id];if(!img)return;
+    const cv=document.createElement('canvas');cv.width=60;cv.height=80;
+    cv.className='titleSprite';
+    cv.style.cssText='left:'+peekPos[i]+';bottom:-10px;width:60px;height:80px';
+    const cx=cv.getContext('2d');cx.imageSmoothingEnabled=false;
+    function paint(){cx.clearRect(0,0,60,80);
+      if(img.complete&&img.naturalWidth>0){
+        const w=img.naturalWidth,h=img.naturalHeight,dh=75,dw=w*(dh/h);
+        cx.drawImage(img,30-dw/2,78-dh,dw,dh);}}
+    paint();if(img.complete)paint();else img.addEventListener('load',paint);
+    dec.appendChild(cv);
+  });
+})();
 document.getElementById('firedBack').onclick=backToUserMenu;
 
 /* user select */
