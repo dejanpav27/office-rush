@@ -2,6 +2,7 @@
   :root{
     --paper:#f6e7c1;--paper2:#eed9a9;--wood:#8a5a33;--wood2:#6b431f;--woodlite:#c8955c;
     --inkbrown:#4a2e14;--accent:#d97a3d;--green:#5a9e4b;--teal:#3f9e8f;--gold:#e8b93c;--red:#c94f4f;
+    --cork:#a0804a;--cork2:#8a6a3a;--paperdark:#e0d098;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html,body{height:100%;background:#2b1d12;color:var(--inkbrown);
@@ -9,13 +10,18 @@
   #wrap{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#0f0c17}
   canvas{image-rendering:pixelated;border:none;border-radius:0;
     box-shadow:0 0 0 3px var(--woodlite),0 24px 70px rgba(0,0,0,.7)}
-  /* wooden HUD */
+
+  /* ══════════════════════════════════ */
+  /*  WOODEN HUD                       */
+  /* ══════════════════════════════════ */
   #hud{position:fixed;top:10px;left:10px;right:10px;display:flex;
     justify-content:space-between;align-items:flex-start;pointer-events:none;z-index:5}
   .panel{background:#efe0bd;border:3px solid var(--wood2);
     padding:6px 10px;border-radius:8px;font-size:12px;line-height:1.4;color:var(--inkbrown);
-    box-shadow:0 4px 12px rgba(0,0,0,.6);pointer-events:auto}
-  #tasks{max-width:200px;max-height:60vh;overflow:auto}
+    box-shadow:0 4px 12px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.3);pointer-events:auto;
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 14px,rgba(100,70,30,.04) 14px,rgba(100,70,30,.04) 15px)}
+  #tasks{max-width:200px;max-height:60vh;overflow:auto;
+    border-left:4px solid var(--red);padding-left:8px}
   #tasks.min{max-height:none}
   #tasks.min .taskBody{display:none}
   #tasks h3{color:var(--wood2);font-size:11px;letter-spacing:1px;margin-bottom:3px;
@@ -30,46 +36,51 @@
   #timer{font-size:18px;color:var(--wood2);font-weight:bold}
   #score{font-size:11px;color:var(--green);font-weight:bold}
   #carry{font-size:10px;color:var(--accent);margin-top:3px;min-height:12px;font-weight:bold}
-  /* dialog: stardew paper */
+
+  /* ══════════════════════════════════ */
+  /*  DIALOG: stardew paper            */
+  /* ══════════════════════════════════ */
   #dialog{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);
     width:min(660px,92vw);background:var(--paper);border:5px solid var(--wood2);outline:2px solid var(--woodlite);
-    border-radius:10px;padding:16px 18px;z-index:8;display:none;box-shadow:0 10px 30px rgba(0,0,0,.6)}
+    border-radius:10px;padding:16px 18px;z-index:8;display:none;
+    box-shadow:0 10px 30px rgba(0,0,0,.6),inset 0 1px 0 rgba(255,255,255,.4);
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(100,70,30,.035) 18px,rgba(100,70,30,.035) 19px)}
   #dialog .who{color:var(--accent);font-weight:bold;font-size:15px;letter-spacing:1px;margin-bottom:6px}
   #dialog .txt{font-size:14px;line-height:1.6;color:var(--inkbrown)}
   #dialog .hint{margin-top:10px;font-size:11px;color:#9a7a4d}
   #dialog .choices{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;pointer-events:auto}
+
+  /* ══════════════════════════════════ */
+  /*  BUTTONS                          */
+  /* ══════════════════════════════════ */
   .btn{background:var(--accent);color:#fff8ea;border:3px solid var(--wood2);padding:8px 14px;border-radius:8px;
     font-family:inherit;font-weight:bold;font-size:13px;cursor:pointer;pointer-events:auto;
-    box-shadow:0 3px 0 var(--wood2)}
-  .btn:hover{filter:brightness(1.08)}
+    box-shadow:0 3px 0 var(--wood2),inset 0 1px 0 rgba(255,255,255,.2);
+    text-shadow:0 1px 1px rgba(0,0,0,.3)}
+  .btn:hover{filter:brightness(1.08);transform:translateY(-1px);box-shadow:0 4px 0 var(--wood2),inset 0 1px 0 rgba(255,255,255,.2)}
   .btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--wood2)}
-  .btn.ghost{background:var(--paper2);color:#8a6b3f}
-  /* minigame */
+  .btn.ghost{background:var(--paper2);color:#8a6b3f;text-shadow:none}
+
+  /* ══════════════════════════════════ */
+  /*  MINIGAME POPUP (untouched)       */
+  /* ══════════════════════════════════ */
   #mini{position:fixed;inset:0;z-index:12;display:none;flex-direction:column;align-items:center;justify-content:center;background:#0c0a07;overflow:hidden}
   #miniBg{position:absolute;inset:-60px;background-size:cover;background-position:center;
     filter:blur(7px) brightness(.8) saturate(.92);transform:scale(1.05);z-index:0}
   #mini::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 35%,rgba(10,8,5,.08),rgba(6,4,2,.42) 88%);z-index:1}
-  #monWrap{position:relative;z-index:2}
-  /* ===== CRT MONITOR SHELL ===== */
   #monWrap{position:relative;z-index:2;display:flex;justify-content:center;animation:crtOn .5s ease}
   @keyframes crtOn{0%{transform:scale(.9);opacity:0}55%{transform:scale(1.01)}100%{transform:scale(1);opacity:1}}
-  /* real CRT monitor photo (js/monitor-data.js) as the frame */
   #monitor{position:relative;width:min(720px,92vw);aspect-ratio:780/643;
     background-size:100% 100%;background-repeat:no-repeat;
     filter:drop-shadow(0 26px 50px rgba(0,0,0,.6))}
-  /* the Win95 window — fills the photo's transparent window cutout exactly */
   #miniBox{position:absolute;left:11.79%;top:15.40%;right:23.21%;bottom:32.35%;overflow:hidden;text-align:center;
     display:flex;flex-direction:column;
-    background:#0d1310;
-    box-shadow:none}
-  /* the phosphor picture area */
+    background:#0d1310;box-shadow:none}
   #winbar,#screenBody{position:relative;z-index:2}
   #miniBox > #winbar{border-radius:16px 16px 0 0}
   #miniBox{--glass:linear-gradient(#eef3ec,#dbe6db)}
-  /* inner glass tint (behind content) */
   #miniBox::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
     background:radial-gradient(120% 120% at 50% 40%,rgba(120,255,180,.05),transparent 55%)}
-  /* scanlines + curvature vignette + phosphor bleed + glare — OVER content */
   #miniBox::after{content:'';position:absolute;inset:0;z-index:5;pointer-events:none;
     background:
       linear-gradient(120deg,rgba(255,255,255,.22),rgba(255,255,255,0) 32%,rgba(255,255,255,0) 72%,rgba(255,255,255,.06)),
@@ -80,18 +91,15 @@
   @keyframes crtFlicker{0%,100%{opacity:1}47%{opacity:.965}52%{opacity:.99}}
   #miniBox.win{animation:miniWin .5s ease}
   #miniBox.bad{animation:miniShake .38s ease}
-  /* Win95-style title bar */
   #winbar{display:flex;align-items:center;justify-content:space-between;padding:4px 5px 4px 8px;
     background:linear-gradient(90deg,#00007b,#1084d0);border:2px solid;border-color:#dfdfdf #404040 #404040 #dfdfdf}
   #miniTitle{font-size:12px;font-weight:bold;letter-spacing:1px;color:#fff;text-transform:uppercase;text-shadow:0 1px 0 rgba(0,0,0,.4)}
   .winx{width:18px;height:16px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;color:#000;
     background:#c3c3c3;border:2px solid;border-color:#fff #404040 #404040 #fff;line-height:1}
-  /* screen desktop */
   #screenBody{flex:1;padding:18px 20px 20px;background:linear-gradient(#dfeadf,#cfe0d6);
     border:2px solid;border-color:#404040 #dfdfdf #dfdfdf #404040;
     display:flex;flex-direction:column;justify-content:center;overflow:auto}
   #miniBox p{color:#20321f;font-size:12.5px;margin:0 auto 15px;max-width:400px;line-height:1.55}
-  /* Win95 beveled buttons — scoped to the screen */
   #miniBox .btn{background:#c3c3c3;color:#000;border:2px solid;border-color:#fff #404040 #404040 #fff;border-radius:0;
     box-shadow:inset 1px 1px 0 #dfdfdf,inset -1px -1px 0 #808080;text-shadow:none;font-weight:bold}
   #miniBox .btn:hover{filter:none;background:#cccccc}
@@ -103,127 +111,36 @@
     background:linear-gradient(90deg,var(--green),var(--gold));
     background-size:200% 100%;transition:width .05s linear;
     box-shadow:0 0 8px rgba(232,185,60,.5)}
+
+  /* ══════════════════════════════════ */
+  /*  MINIGAME COMPONENTS              */
+  /* ══════════════════════════════════ */
   .simBtn{width:54px;height:54px;border-radius:10px;border:3px solid var(--wood2);cursor:pointer;transition:.08s;box-shadow:0 3px 0 var(--wood2)}
   .simBtn.lit{filter:brightness(1.7);transform:scale(1.1)}
   .opt{padding:12px 16px;border-radius:8px;border:3px solid var(--wood);cursor:pointer;color:var(--inkbrown);
     background:var(--paper2);font-family:inherit;font-size:13px;transition:.1s;box-shadow:0 3px 0 var(--wood2)}
   .opt:hover{background:#ffefc8;transform:translateY(-2px)}
-  /* ==== ROUND 1 — POLISHED MECHANIC STYLES ==== */
-  @keyframes miniPop{0%{transform:scale(.86);opacity:0}100%{transform:scale(1);opacity:1}}
-  @keyframes miniWin{0%,100%{box-shadow:0 18px 50px rgba(0,0,0,.72)}40%{box-shadow:0 0 0 4px var(--green),0 0 40px rgba(90,158,75,.8),0 18px 50px rgba(0,0,0,.72)}}
-  @keyframes miniShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
-  @keyframes nmScanline{0%{top:-10%}100%{top:110%}}
-  @keyframes nmPulse{0%,100%{transform:scale(1);opacity:.85}50%{transform:scale(1.18);opacity:1}}
-  @keyframes nmPlace{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
-  @keyframes nmShine{0%{background-position:-140% 0}100%{background-position:240% 0}}
-
-  .nmWrap{width:100%;display:flex;flex-direction:column;align-items:center;position:relative}
-  .nmRow{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-
-  /* --- generic "screen" (park / scan): dark inset device with scanline --- */
-  .nmScreen{position:relative;border:5px solid var(--wood2);border-radius:12px;overflow:hidden;
-    box-shadow:inset 0 0 24px rgba(0,0,0,.75),0 6px 0 var(--wood2),0 12px 22px rgba(0,0,0,.4)}
-  .nmScreen::after{content:'';position:absolute;left:0;right:0;height:14%;pointer-events:none;
-    background:linear-gradient(rgba(120,255,180,0),rgba(120,255,180,.14),rgba(120,255,180,0));
-    animation:nmScanline 2.6s linear infinite;z-index:1}
-
-  /* --- 1. DRAGFILE --- */
-  .nmFile{width:58px;height:58px;border-radius:12px;border:3px solid var(--wood2);display:flex;align-items:center;justify-content:center;
-    font-size:26px;cursor:grab;box-shadow:0 4px 0 var(--wood2),inset 0 2px 4px rgba(255,255,255,.35);touch-action:none;transition:transform .1s}
-  .nmFile:active{cursor:grabbing;transform:scale(1.08)}
-  .nmFolder{width:66px;height:56px;border:4px dashed rgba(0,0,0,.35);border-radius:12px;display:flex;align-items:center;justify-content:center;
-    font-size:30px;background:linear-gradient(#e7d3a6,#d3b57e);box-shadow:inset 0 3px 8px rgba(0,0,0,.18)}
-  .nmFolder.lit{border-style:solid;transform:scale(1.06);box-shadow:0 0 14px currentColor,inset 0 3px 8px rgba(0,0,0,.18);animation:nmPlace .25s}
-
-  /* --- 2. CALENDAR --- */
-  .nmGrid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;padding:8px;border:4px solid var(--wood2);border-radius:12px;
-    background:linear-gradient(#f3e6c4,#e7d3a6);box-shadow:inset 0 2px 6px rgba(0,0,0,.14)}
-  .nmSlot{height:34px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:.12s;
-    background:linear-gradient(#c7e8ba,#a9d698);border:2px solid #6f9a5e;color:#3a5a2c;box-shadow:0 2px 0 #6f9a5e}
-  .nmSlot:hover:not(.busy):not(.set){transform:translateY(-2px);filter:brightness(1.06)}
-  .nmSlot.busy{background:repeating-linear-gradient(45deg,#e0a3a3,#e0a3a3 6px,#d38f8f 6px,#d38f8f 12px);border-color:#a35;color:#7a2a2a;cursor:not-allowed;box-shadow:0 2px 0 #a35}
-  .nmSlot.set{background:linear-gradient(var(--teal),#2f8578);border-color:#1f5a52;color:#fff;box-shadow:0 2px 0 #1f5a52;animation:nmPlace .25s}
-  .nmMeetBlk{padding:8px 14px;border-radius:10px;cursor:pointer;font-size:13px;font-weight:bold;color:#4a2e14;
-    background:linear-gradient(var(--gold),#d5a326);border:3px solid var(--wood2);box-shadow:0 4px 0 var(--wood2);transition:.1s}
-  .nmMeetBlk:hover{transform:translateY(-2px)}
-  .nmMeetBlk.lit{transform:scale(1.1) translateY(-2px);box-shadow:0 0 14px var(--gold),0 4px 0 var(--wood2)}
-
-  /* --- 3. PARK / lot --- */
-  .nmLot{position:relative;width:300px;height:174px;border:5px solid var(--wood2);border-radius:12px;overflow:hidden;
-    background:
-      repeating-linear-gradient(0deg,transparent,transparent 28px,rgba(255,255,255,.05) 28px,rgba(255,255,255,.05) 30px),
-      linear-gradient(#6f6f6f,#5c5c5c);
-    box-shadow:inset 0 0 26px rgba(0,0,0,.6),0 6px 0 var(--wood2)}
-  .nmBay{position:absolute;width:62px;height:62px;border:3px dashed #ffe86b;border-radius:6px;
-    box-shadow:0 0 14px rgba(255,232,107,.55);background:rgba(255,232,107,.08)}
-  .nmObs{position:absolute;width:24px;height:62px;border-radius:5px;background:linear-gradient(#5c3a1e,#3a2410);
-    background-image:repeating-linear-gradient(-45deg,#e8b93c,#e8b93c 5px,#3a2410 5px,#3a2410 10px);border:2px solid #2a1808}
-  .nmCar{position:absolute;font-size:28px;line-height:1;width:32px;height:32px;text-align:center;
-    filter:drop-shadow(0 3px 3px rgba(0,0,0,.5));transition:transform .06s;z-index:2}
-
-  /* --- 4. SCAN --- */
-  .nmScan{position:relative;width:262px;height:152px;border:5px solid var(--wood2);border-radius:12px;overflow:hidden;
-    background:radial-gradient(circle at 50% 40%,#2c2c2c,#161616);
-    box-shadow:inset 0 0 26px rgba(0,0,0,.85),0 6px 0 var(--wood2)}
-  .nmScan::after{content:'';position:absolute;left:0;right:0;height:16%;pointer-events:none;z-index:1;
-    background:linear-gradient(rgba(120,255,180,0),rgba(120,255,180,.16),rgba(120,255,180,0));animation:nmScanline 2.4s linear infinite}
-  .nmCode{position:absolute;width:62px;height:62px;border:2px solid #fff;border-radius:4px;
-    background:repeating-conic-gradient(#0a0a0a 0 25%,#f2f2f2 0 50%) 0/21px 21px}
-  .nmRet{position:absolute;width:60px;height:60px;border-radius:8px;z-index:2;
-    box-shadow:inset 0 0 0 3px #ff5a5a;transition:box-shadow .12s}
-  .nmRet::before,.nmRet::after{content:'';position:absolute;width:14px;height:14px;border:3px solid #ff5a5a}
-  .nmRet::before{left:-3px;top:-3px;border-right:0;border-bottom:0}
-  .nmRet::after{right:-3px;bottom:-3px;border-left:0;border-top:0}
-  .nmRet.lit{box-shadow:inset 0 0 0 3px #6bff8a,0 0 18px #6bff8a}
-  .nmRet.lit::before,.nmRet.lit::after{border-color:#6bff8a}
-  .nmLockBar{position:absolute;bottom:8px;left:8px;right:8px;height:11px;background:#000;border-radius:6px;overflow:hidden;z-index:2;border:1px solid #444}
-  #nmLockF{height:100%;width:0;background:linear-gradient(90deg,#3f9e8f,#6bff8a);box-shadow:0 0 8px #6bff8a;transition:width .06s}
-
-  /* --- 5. RECIPE / 6. CASH chips --- */
-  #nmRec{text-align:center;margin-bottom:10px;font-size:14px;color:#4a2e14;
-    background:linear-gradient(#f3e6c4,#e7d3a6);border:3px solid var(--wood2);border-radius:10px;padding:8px 12px;box-shadow:inset 0 2px 5px rgba(0,0,0,.12)}
-  #nmTot{font-size:26px;font-weight:bold;color:var(--accent);margin-bottom:8px;text-shadow:0 2px 0 rgba(0,0,0,.12)}
-  #nmDen .btn,#nmBtns .btn{min-width:52px;border-radius:50px}
-
-  /* --- 7. PROOFREAD --- */
-  #nmSent{font-size:17px;line-height:2;text-align:center;max-width:360px;color:#4a2e14;
-    background:linear-gradient(#fbf3d8,#f3e6c4);border:4px solid var(--wood2);border-radius:12px;padding:16px 18px;box-shadow:inset 0 2px 6px rgba(0,0,0,.1)}
-  .nmWord{cursor:pointer;padding:2px 5px;border-radius:6px;transition:.1s}
-  .nmWord:hover{background:var(--gold);transform:translateY(-1px)}
-
-  /* --- 8. DOCSORT --- */
-  .nmDoc{position:relative;display:inline-block;min-width:140px;padding:22px 18px;font-size:17px;font-weight:bold;
-    background:linear-gradient(160deg,#fdf6df,#f2e4bc);border:4px solid var(--wood2);border-radius:8px;
-    box-shadow:0 6px 0 var(--wood2),0 10px 18px rgba(0,0,0,.3)}
-  .nmDoc::after{content:'';position:absolute;top:0;right:0;border-width:0 16px 16px 0;border-style:solid;border-color:transparent var(--paper2) transparent transparent}
-  #nmCnt{font-size:12px;color:#8a6b3f;letter-spacing:1px}
-
-  /* --- 9. JAM --- */
-  #nmArrow{font-size:56px;line-height:1;margin-bottom:8px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3));animation:nmPulse 1s ease-in-out infinite;color:var(--accent)}
-  #nmJbar{width:100%;height:28px;background:#c9a976;border:3px solid var(--wood2);border-radius:8px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.28)}
+  .opt.ok{background:var(--green);color:#fff;border-color:var(--green)}
+  .opt.bad{background:var(--red);color:#fff;border-color:var(--red)}
+  @keyframes miniWin{0%{box-shadow:0 0 0 rgba(90,158,75,0)}50%{box-shadow:0 0 40px rgba(90,158,75,.7)}100%{box-shadow:0 0 0 rgba(90,158,75,0)}}
+  @keyframes miniShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+  @keyframes nmPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+  @keyframes nmShine{0%{background-position:200% 50%}100%{background-position:0 50%}}
   #nmJfill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--green));box-shadow:0 0 8px rgba(90,158,75,.5);transition:width .07s}
-
-  /* --- 10. SCRUB --- */
   .nmPanel{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;width:288px;height:156px;padding:4px;
     border:5px solid var(--wood2);border-radius:12px;cursor:crosshair;touch-action:none;
     background:linear-gradient(135deg,#cfe3f0,#a9c8dd);box-shadow:inset 0 0 20px rgba(0,0,0,.2),0 6px 0 var(--wood2)}
   .nmDirt{border-radius:4px;transition:.15s;
     background:radial-gradient(circle at 30% 30%,#9a8a68,#6f5f42);box-shadow:inset 0 0 6px rgba(0,0,0,.4)}
   .nmDirt.ok{background:linear-gradient(135deg,#eaf5ff,#cfe3f0);box-shadow:inset 0 0 8px rgba(255,255,255,.6)}
-
-  /* --- 11. INSPECT --- */
   .nmCarBox{position:relative;width:292px;height:146px;border:5px solid var(--wood2);border-radius:12px;font-size:66px;
     display:flex;align-items:center;justify-content:center;cursor:crosshair;
-    background:
-      repeating-linear-gradient(90deg,rgba(0,0,0,.04) 0 2px,transparent 2px 40px),
-      linear-gradient(#e7eef4,#cdd9e2);
+    background:repeating-linear-gradient(90deg,rgba(0,0,0,.04) 0 2px,transparent 2px 40px),linear-gradient(#e7eef4,#cdd9e2);
     box-shadow:inset 0 0 22px rgba(0,0,0,.12),0 6px 0 var(--wood2)}
   .nmSpot{position:absolute;width:24px;height:24px;border-radius:50%;cursor:pointer;
     background:rgba(201,79,79,.28);border:2px dashed #c94f4f;display:flex;align-items:center;justify-content:center;
     color:#fff;font-size:14px;font-weight:bold;animation:nmPulse 1.4s ease-in-out infinite}
   .nmSpot.ok{background:var(--red);border-style:solid;animation:none;box-shadow:0 0 10px rgba(201,79,79,.7)}
-
-  /* --- 12. CIRCUIT --- */
   #nmCirc{gap:0;padding:6px;border:5px solid var(--wood2);border-radius:12px;
     background:radial-gradient(circle at 50% 50%,#2c2c2c,#181818);box-shadow:inset 0 0 22px rgba(0,0,0,.8),0 6px 0 var(--wood2)}
   .nmTile{width:56px;height:56px;background:linear-gradient(#3a3a3a,#242424);border:2px solid #111;
@@ -232,7 +149,6 @@
   .nmWireBar{width:100%;height:12px;background:#555;border-radius:3px;transition:.2s}
   .nmTile.conn .nmWireBar{background:linear-gradient(90deg,#e8b93c,#fff2b0,#e8b93c);
     background-size:200% 100%;box-shadow:0 0 10px rgba(232,185,60,.8);animation:nmShine 1.4s linear infinite}
-
   #barWrap{position:relative;width:100%;height:38px;background:#d9bd8a;border-radius:8px;overflow:hidden;border:3px solid var(--wood2)}
   #barZone{position:absolute;top:0;height:100%;background:rgba(90,158,75,.45);border-left:3px solid var(--green);border-right:3px solid var(--green)}
   #barCursor{position:absolute;top:0;width:5px;height:100%;background:var(--red)}
@@ -251,61 +167,147 @@
   #paddle{position:absolute;bottom:6px;width:60px;height:12px;background:var(--teal);border-radius:6px;border:2px solid var(--wood2)}
   .wordScram{font-size:26px;letter-spacing:6px;color:var(--accent);margin-bottom:8px;font-weight:bold}
   .quickBtn{padding:18px 26px;font-size:20px;border-radius:10px;border:4px solid var(--gold);background:var(--paper2);color:var(--wood2);cursor:pointer;font-family:inherit;font-weight:bold;box-shadow:0 4px 0 var(--wood2)}
-  /* screens */
-  .screen{position:fixed;inset:0;background:linear-gradient(#3a2717,#20130a);z-index:20;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;overflow:auto}
+
+  /* ══════════════════════════════════ */
+  /*  SCREENS — cork board + paper     */
+  /* ══════════════════════════════════ */
+  .screen{position:fixed;inset:0;z-index:20;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;overflow:auto;
+    /* cork board texture */
+    background:
+      repeating-linear-gradient(0deg,rgba(60,40,15,.03) 0 1px,transparent 1px 4px),
+      repeating-linear-gradient(90deg,rgba(60,40,15,.02) 0 1px,transparent 1px 6px),
+      radial-gradient(ellipse at 15% 25%,rgba(80,50,20,.08),transparent 40%),
+      radial-gradient(ellipse at 82% 72%,rgba(80,50,20,.06),transparent 35%),
+      linear-gradient(var(--cork),var(--cork2));
+    border:6px solid var(--cork2);
+    box-shadow:inset 0 0 60px rgba(40,20,5,.2)}
   .screen h1{font-size:clamp(34px,6vw,60px);letter-spacing:4px;color:var(--gold);margin-bottom:8px;
-    text-shadow:4px 4px 0 var(--wood2), -2px -2px 0 #00000055}
+    text-shadow:4px 4px 0 var(--wood2),-2px -2px 0 #00000055}
   .screen h2{color:var(--woodlite);font-size:16px;letter-spacing:3px;margin-bottom:24px}
   .screen p{color:#d9bd8a;max-width:580px;line-height:1.7;margin-bottom:8px;font-size:14px}
+
+  /* ── character & slot cards: pinned paper look ── */
   .chars{display:flex;gap:16px;margin:24px 0;flex-wrap:wrap;justify-content:center}
-  .char{background:var(--paper);border:4px solid var(--wood2);outline:2px solid var(--woodlite);border-radius:12px;
-    padding:16px 20px;cursor:pointer;transition:all .15s;min-width:170px;box-shadow:0 8px 20px rgba(0,0,0,.5)}
-  .char:hover{transform:translateY(-5px) scale(1.02)}
+  .char{background:var(--paper);border:3px solid var(--wood2);border-radius:10px;
+    padding:16px 20px;cursor:pointer;transition:all .2s;min-width:170px;
+    box-shadow:3px 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.5);
+    background-image:
+      repeating-linear-gradient(0deg,transparent,transparent 16px,rgba(100,70,30,.03) 16px,rgba(100,70,30,.03) 17px);
+    position:relative;transform:rotate(var(--rot,0deg))}
+  .char:nth-child(odd){--rot:-0.8deg}
+  .char:nth-child(even){--rot:0.6deg}
+  .char:nth-child(3n){--rot:1.2deg}
+  .char:nth-child(4n){--rot:-1deg}
+  /* pushpin decoration */
+  .char::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+    width:14px;height:14px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#e86050,#c94f4f 60%,#8a2020);
+    box-shadow:0 2px 4px rgba(0,0,0,.4);z-index:2}
+  .char:hover{transform:rotate(0deg) translateY(-5px) scale(1.03);
+    box-shadow:4px 8px 20px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.5)}
   .char canvas{border:none;box-shadow:none;image-rendering:pixelated;margin-bottom:6px}
   .char .n{font-weight:bold;font-size:16px;letter-spacing:1px;color:var(--inkbrown)}
   .char .d{color:#7a5b34;font-size:11px;margin-top:4px;line-height:1.4}
   .controls{margin-top:20px;color:#c9a86b;font-size:12px}
-  kbd{background:var(--paper);border:2px solid var(--wood2);border-radius:4px;padding:2px 7px;font-size:11px;margin:0 2px;color:var(--inkbrown);font-weight:bold}
+  kbd{background:var(--paper);border:2px solid var(--wood2);border-radius:4px;padding:2px 7px;font-size:11px;margin:0 2px;color:var(--inkbrown);font-weight:bold;
+    box-shadow:0 2px 0 var(--wood2)}
 
-/* ── HANDOVER minigame: wrong-step shake + done state ── */
-@keyframes shk{
-  0%,100%{transform:translateX(0)}
-  25%{transform:translateX(-4px)}
-  75%{transform:translateX(4px)}
-}
-.shake{animation:shk .3s}
-.done{text-decoration:line-through}
+  /* ── title screen special: wood desk behind paper ── */
+  #modeScreen{
+    background:
+      repeating-linear-gradient(0deg,rgba(30,15,5,.04) 0 2px,transparent 2px 5px),
+      radial-gradient(ellipse at 78% 75%,rgba(100,70,30,.12),transparent 30%),
+      linear-gradient(#3a2717,#20130a)!important;
+    border:none!important;box-shadow:none!important}
+  #modeScreen h1{font-size:clamp(38px,7vw,68px)}
 
-/* ── PAUSE overlay ── */
-#pauseOverlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
-  background:rgba(15,12,23,.72);backdrop-filter:blur(2px)}
-#pauseOverlay .pauseBox{background:var(--paper);border:5px solid var(--wood2);outline:2px solid var(--woodlite);
-  border-radius:12px;padding:28px 34px;display:flex;flex-direction:column;gap:12px;align-items:stretch;
-  min-width:220px;box-shadow:0 24px 70px rgba(0,0,0,.7)}
-#pauseOverlay h2{color:var(--wood2);text-align:center;letter-spacing:3px;font-size:20px;margin-bottom:6px}
-#pauseOverlay .btn.ghost{background:var(--paper2);color:var(--wood2)}
-#pauseOverlay .pauseHint{text-align:center;font-size:11px;color:#9a7a4d;margin-top:4px}
+  /* ── HANDOVER minigame: wrong-step shake + done state ── */
+  @keyframes shk{0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)}}
+  .shake{animation:shk .3s}
+  .done{text-decoration:line-through}
 
-/* ── save slots ── */
-.slotDel{margin-top:8px;font-size:10px;color:var(--red);cursor:pointer;opacity:.7}
-.slotDel:hover{opacity:1;text-decoration:underline}
-#userStats{padding:14px 18px}
-#newGameName:focus{outline:2px solid var(--accent)}
+  /* ══════════════════════════════════ */
+  /*  PAUSE overlay                    */
+  /* ══════════════════════════════════ */
+  #pauseOverlay{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;
+    background:rgba(15,12,23,.72);backdrop-filter:blur(2px)}
+  #pauseOverlay .pauseBox{background:var(--paper);border:5px solid var(--wood2);outline:2px solid var(--woodlite);
+    border-radius:12px;padding:28px 34px;display:flex;flex-direction:column;gap:12px;align-items:stretch;
+    min-width:220px;box-shadow:0 24px 70px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.4);
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 16px,rgba(100,70,30,.035) 16px,rgba(100,70,30,.035) 17px);
+    position:relative}
+  /* pushpin on pause box */
+  #pauseOverlay .pauseBox::before{content:'';position:absolute;top:-7px;left:50%;transform:translateX(-50%);
+    width:14px;height:14px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#e8a050,var(--accent) 60%,#8a4a10);
+    box-shadow:0 2px 4px rgba(0,0,0,.4);z-index:2}
+  #pauseOverlay h2{color:var(--wood2);text-align:center;letter-spacing:3px;font-size:20px;margin-bottom:6px}
+  #pauseOverlay .btn.ghost{background:var(--paper2);color:var(--wood2)}
+  #pauseOverlay .pauseHint{text-align:center;font-size:11px;color:#9a7a4d;margin-top:4px}
 
-/* ── LEADERBOARD ── */
-#lbList .lbRow{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px solid var(--border,#c9a86b44);font-size:13px}
-#lbList .lbRow:last-child{border-bottom:none}
-#lbList .lbRank{width:24px;font-weight:bold;color:var(--wood2);text-align:right}
-#lbList .lbName{flex:1;color:var(--inkbrown)}
-#lbList .lbScore{font-weight:bold;color:var(--gold)}
-#lbList .lbEmpty{padding:18px;text-align:center;color:#9a7a4d;font-size:13px}
+  /* ══════════════════════════════════ */
+  /*  SAVE SLOTS                       */
+  /* ══════════════════════════════════ */
+  .slot-stat{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:3px 0;
+    border-bottom:1px dashed rgba(138,90,51,.25)}
+  .slot-stat:last-of-type{border-bottom:none}
+  .slotDel{margin-top:10px;font-size:10px;color:var(--red);cursor:pointer;opacity:.6;
+    text-align:center;padding:2px 8px;border:1px dashed var(--red);border-radius:4px}
+  .slotDel:hover{opacity:1;background:rgba(201,79,79,.1)}
+  .empty-slot{border-style:dashed!important;opacity:.75}
+  .empty-slot:hover{opacity:1}
+  #userStats{padding:14px 18px}
+  #newGameName{background:var(--paper);border:3px solid var(--wood);border-radius:6px;
+    padding:8px 12px;font-family:inherit;font-size:14px;color:var(--inkbrown);width:200px}
+  #newGameName:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(217,122,61,.25)}
 
-/* ── FIRED CINEMATIC ── */
-#firedScreen{background:linear-gradient(#1a0a06,#0d0403)!important}
-#firedInner{display:flex;flex-direction:column;align-items:center;gap:10px;animation:firedIn .6s ease}
-#firedNino{font-size:72px;animation:ninoBob 1.4s ease-in-out infinite}
-#firedScreen h1{color:#e03030;letter-spacing:6px;font-size:clamp(28px,5vw,52px);text-shadow:0 0 30px #e0303088}
-#firedScreen p{color:#c9a86b;max-width:440px;text-align:center;line-height:1.7;font-size:14px}
-@keyframes firedIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
-@keyframes ninoBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+  /* ══════════════════════════════════ */
+  /*  LEADERBOARD                      */
+  /* ══════════════════════════════════ */
+  #lbList{background:var(--paper);border:3px solid var(--wood2);border-radius:10px;
+    padding:4px 0;min-width:280px;
+    box-shadow:3px 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.4);
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 16px,rgba(100,70,30,.03) 16px,rgba(100,70,30,.03) 17px);
+    position:relative}
+  #lbList::before{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);
+    width:14px;height:14px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#f0d050,var(--gold) 60%,#8a6a10);
+    box-shadow:0 2px 4px rgba(0,0,0,.4);z-index:2}
+  #lbList .lbRow{display:flex;align-items:center;gap:10px;padding:9px 14px;border-bottom:1px dashed rgba(138,90,51,.2);font-size:13px}
+  #lbList .lbRow:last-child{border-bottom:none}
+  #lbList .lbRank{width:24px;font-weight:bold;color:var(--wood2);text-align:right}
+  #lbList .lbName{flex:1;color:var(--inkbrown)}
+  #lbList .lbScore{font-weight:bold;color:var(--gold)}
+  #lbList .lbEmpty{padding:18px;text-align:center;color:#9a7a4d;font-size:13px}
+
+  /* ══════════════════════════════════ */
+  /*  FIRED CINEMATIC                  */
+  /* ══════════════════════════════════ */
+  #firedScreen{background:linear-gradient(#1a0a06,#0d0403)!important;border:none!important;box-shadow:none!important}
+  #firedInner{display:flex;flex-direction:column;align-items:center;gap:10px;animation:firedIn .6s ease}
+  #firedNino{font-size:72px;animation:ninoBob 1.4s ease-in-out infinite}
+  #firedScreen h1{color:#e03030;letter-spacing:6px;font-size:clamp(28px,5vw,52px);text-shadow:0 0 30px #e0303088}
+  #firedScreen p{color:#c9a86b;max-width:440px;text-align:center;line-height:1.7;font-size:14px}
+  /* fired stats panel */
+  #firedScreen .firedStats{background:var(--paper);border:3px solid var(--wood2);border-radius:10px;
+    padding:12px 20px;min-width:220px;margin:12px 0;
+    box-shadow:2px 3px 10px rgba(0,0,0,.4);position:relative}
+  #firedScreen .firedStats::after{content:'FIRED';position:absolute;bottom:8px;right:12px;
+    font-size:10px;font-weight:bold;letter-spacing:2px;color:rgba(201,79,79,.4);
+    border:2px solid rgba(201,79,79,.3);padding:2px 8px;transform:rotate(-8deg)}
+  @keyframes firedIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
+  @keyframes ninoBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+
+  /* ══════════════════════════════════ */
+  /*  END OF DAY                       */
+  /* ══════════════════════════════════ */
+  #end .endStats{background:var(--paper);border:3px solid var(--wood2);border-radius:10px;
+    padding:14px 20px;min-width:240px;margin:14px 0;
+    box-shadow:3px 4px 12px rgba(0,0,0,.4),inset 0 1px 0 rgba(255,255,255,.4);
+    background-image:repeating-linear-gradient(0deg,transparent,transparent 16px,rgba(100,70,30,.03) 16px,rgba(100,70,30,.03) 17px);
+    position:relative}
+  /* SURVIVED stamp */
+  #end .endStats::after{content:'✓';position:absolute;top:6px;right:10px;
+    font-size:20px;color:rgba(90,158,75,.5);font-weight:bold}
+
