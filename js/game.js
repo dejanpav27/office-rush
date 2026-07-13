@@ -178,7 +178,10 @@ const POOLS={
    {type:'namecard',names:['Babic','Cvijanovic','Djordjevic','Jovanovic','Markovic'],ask:"Sort these client business cards alphabetically. Gotta look organized.",reward:'"Sorted. Rolodex game strong."'},
    {type:'receipt',items:[{name:'Fuel',price:55},{name:'Toll',price:12},{name:'Parking',price:8},{name:'Lunch',price:32},{name:'Coffee',price:5}],ask:"Add up today's road trip expenses for the report.",reward:'"112 dinara... wait, that\'s euros. Either way, approved."'},
    {type:'schedule',meetings:[{name:'Cold call',slot:'9:00'},{name:'Client demo',slot:'11:00'},{name:'Lunch deal',slot:'13:00'},{name:'Follow-up',slot:'15:00'}],ask:"Schedule my sales day. Don't double-book me.",reward:'"Perfect calendar. Time to hit the road."'},
-   {type:'coffeeorder',count:4,ask:"Buying coffee for the whole client meeting. Remember who gets what.",reward:'"Four coffees, four happy clients. That\'s how deals happen."'}
+   {type:'coffeeorder',count:4,ask:"Buying coffee for the whole client meeting. Remember who gets what.",reward:'"Four coffees, four happy clients. That\'s how deals happen."'},
+   {type:'firewall',rounds:5,ask:"Office VPN acting up. Check which ports are legit.",reward:'"Network clean. Back to selling from the parking lot."'},
+   {type:'rubberband',target:70,tol:10,ask:"Price negotiation — stretch the offer to 70%. Don't break it.",reward:'"Clean stretch. Client says yes."'},
+   {type:'receipt',items:[{name:'Demo car wash',price:15},{name:'Client gift',price:40},{name:'Gas',price:55},{name:'Snacks',price:10}],ask:"Road trip expenses. Add them up before Nino asks.",reward:'"120. Submitted. Nino won\'t blink."'}
  ]},
  steve:{desc:'Beard, vape, sells in Croatia',home:{x:4,y:2},pool:[
    {type:'fetch',item:'vape',itemLabel:'vape',ask:"Left my vape by the entrance. No fog, no deals.",reward:'*huge cloud* "Now we do business."'},
@@ -225,7 +228,11 @@ const POOLS={
    {type:'firewall',rounds:5,ask:"*vapor* IT asked to check the VPN. Allow legit ports, block the rest.",reward:'*vapor* "Secured. Even the firewall vapes."'},
    {type:'receipt',items:[{name:'Vape juice',price:18},{name:'Coils',price:12},{name:'Battery',price:25},{name:'Case',price:15}],ask:"*vapor* Vape supply receipt. Add it up before the wife checks.",reward:'*vapor* "70 total. Reasonable. Don\'t tell anyone."'},
    {type:'namecard',names:['Babic','Horvat','Kovacevic','Petrovic','Tomic'],ask:"*vapor* Sort the Croatian client cards. Alphabetical. Professional.",reward:'*vapor* "Sorted. Every card in place."'},
-   {type:'schedule',meetings:[{name:'Morning vape',slot:'9:00'},{name:'Client call',slot:'11:00'},{name:'Site visit',slot:'14:00'},{name:'Report',slot:'16:00'}],ask:"*vapor* Schedule the day. No double-booking the vape breaks.",reward:'*vapor* "Calendar locked. Efficient."'}
+   {type:'schedule',meetings:[{name:'Morning vape',slot:'9:00'},{name:'Client call',slot:'11:00'},{name:'Site visit',slot:'14:00'},{name:'Report',slot:'16:00'}],ask:"*vapor* Schedule the day. No double-booking the vape breaks.",reward:'*vapor* "Calendar locked. Efficient."'},
+   {type:'coffeeorder',count:3,ask:"*vapor* Three Croatians need coffee. Remember who gets what.",reward:'*vapor* "Three happy clients. Vape break earned."'},
+   {type:'elevator',floor:5,ask:"*vapor* Meeting on floor 5. Nail the stop.",reward:'*vapor* "Smooth arrival. Professional."'},
+   {type:'rubberband',target:50,tol:10,ask:"*vapor* Margin negotiation — stretch to 50%. Don't snap.",reward:'*vapor* "Perfect margin. Deal holds."'},
+   {type:'waterplant',target:55,tol:10,ask:"*vapor* Office fern by the window. Water it. Don't drown it.",reward:'*vapor* "Green and healthy. Like my vape juice."'}
  ]},
  brana:{desc:'Watches everyone (secretly)',home:{x:3,y:9},pool:[
    {type:'fetch',item:'logsheet',itemLabel:'attendance log',ask:"Bring that sheet by the entrance. I do not track people... just get it.",reward:'*hides it* "I did not ask for this. But I did."'},
@@ -324,7 +331,10 @@ const POOLS={
    {type:'schedule',meetings:[{name:'Payroll Run',slot:'9:00'},{name:'Tax Filing',slot:'11:00'},{name:'Audit Prep',slot:'14:00'},{name:'Bank Transfer',slot:'16:00'}],ask:"...schedule the finance day. No overlaps.",reward:'"...all scheduled. Quietly."'},
    {type:'namecard',names:['Accounting','Finance','HR','Legal','Payroll'],ask:"...sort the department folders alphabetically.",reward:'"...sorted. As always."'},
    {type:'rubberband',target:45,tol:8,ask:"...budget tolerance band. Stretch to 45%. Carefully.",reward:'"...within tolerance. Budget holds."'},
-   {type:'coffeeorder',count:3,ask:"...three payroll clerks need coffee before the run. Remember the orders.",reward:'"...delivered. They can focus now."'}
+   {type:'coffeeorder',count:3,ask:"...three payroll clerks need coffee before the run. Remember the orders.",reward:'"...delivered. They can focus now."'},
+   {type:'pingpong',rallies:4,ask:"...break room. Quick rally. Quietly.",reward:'"...four rallies. Back to payroll."'},
+   {type:'firewall',rounds:5,ask:"...payroll server ports. Allow the safe ones.",reward:'"...secured. Salaries are safe."'},
+   {type:'password',pw:'AUDIT',ask:"...audit system locked. Unscramble the password.",reward:'"...back in. Quietly."'}
  ]},
  pedja:{desc:'Ex-waiter, 2m tall, rookie',home:{x:4,y:3},pool:[
    {type:'timing',ask:"Holding a glass on the top shelf — say NOW at the right moment.",reward:'*hops down* "No tip, but we are good."'},
