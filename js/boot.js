@@ -107,7 +107,11 @@
         </div>
         <img id="crtMonitorImg" src="img/monitor.png" alt="">
       </div>
+      <button id="muteBtn" title="Toggle sound">🔊</button>
     `;
+    document.body.appendChild(wrap);
+
+    document.addEventListener('click', ()=>{ if(window.ORaudio) getAC(); }, {once:true});
     document.body.appendChild(wrap);
   }
 
@@ -370,6 +374,7 @@
 
     hideCRT();
     setHudVisible(true);
+    if(window.ORaudio) window.ORaudio.playGame();
 
     if (testMode) {
       if (typeof startTest === 'function') startTest();
@@ -435,6 +440,7 @@
     await sleep(400);
 
     await revealCRT();
+    if(window.ORaudio) window.ORaudio.playMenu();
 
     fade.classList.remove('fade-in');
   }
@@ -475,18 +481,36 @@
     await runBios(content);
     await runLoading(content);
     await showMainMenu(content);
+    if(window.ORaudio) window.ORaudio.playMenu();
 
     // intercept all showScreen('modeScreen') calls
     patchShowScreen();
 
-    // neutralize old onclick handlers that game.js attaches to stub divs
-    // (they're empty divs now, but game.js still does getElementById().onclick = ...)
-    setTimeout(() => {
-      ['modePlay','modeTest','modeLeaderboard'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.onclick = null;
-      });
-    }, 200);
+    // mute button
+    const muteBtn = document.getElementById('muteBtn');
+    if(muteBtn) muteBtn.addEventListener('click', ()=>{
+      if(window.ORaudio){
+        const nowMuted = !window.ORaudio.toggle();
+        muteBtn.textContent = nowMuted ? '🔇' : '🔊';
+      }
+    });
+
+    // patch game end screens to switch music
+    setTimeout(()=>{
+      const origShowFired = window.showFired;
+      if(typeof window.showEndOfDay === 'function'){
+        const orig = window.showEndOfDay;
+        window.showEndOfDay = function(){ orig.apply(this,arguments); if(window.ORaudio) window.ORaudio.playEnd(); };
+      }
+      if(typeof window.showWeekWin === 'function'){
+        const orig = window.showWeekWin;
+        window.showWeekWin = function(){ orig.apply(this,arguments); if(window.ORaudio) window.ORaudio.playEnd(); };
+      }
+      if(typeof window.showFired === 'function'){
+        const orig = window.showFired;
+        window.showFired = function(){ orig.apply(this,arguments); if(window.ORaudio) window.ORaudio.playEnd(); };
+      }
+    }, 500);
   }
 
   if (document.readyState === 'loading') {

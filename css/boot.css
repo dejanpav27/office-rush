@@ -97,3 +97,13 @@
 
 #crtFade { position:fixed; inset:0; background:#000; opacity:0; pointer-events:none; z-index:10000; transition:opacity .6s ease; }
 #crtFade.fade-in { opacity:1; pointer-events:all; }
+
+/* mute button */
+#muteBtn {
+  position:absolute; bottom:16px; right:20px;
+  background:rgba(0,0,0,.4); border:1px solid #333;
+  color:#888; font-size:16px; padding:4px 8px;
+  cursor:pointer; z-index:20; border-radius:4px;
+  transition:color .2s;
+}
+#muteBtn:hover { color:#ccc; }
