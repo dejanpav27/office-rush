@@ -214,111 +214,105 @@
     box-shadow:0 2px 0 var(--wood2)}
 
   /* ══════════════════════════════════ */
-  /*  TITLE SCREEN: desk + chalkboard */
+  /*  TITLE SCREEN: pixel-art desk     */
   /* ══════════════════════════════════ */
   #modeScreen{
     background:
-      radial-gradient(ellipse 55% 40% at 50% -5%,rgba(232,185,60,.14),transparent),
-      radial-gradient(circle at 82% 18%,transparent 22px,rgba(100,65,25,.07) 23px,rgba(100,65,25,.03) 28px,transparent 30px),
-      radial-gradient(circle at 8% 82%,transparent 14px,rgba(100,65,25,.05) 15px,rgba(100,65,25,.02) 19px,transparent 21px),
-      repeating-linear-gradient(2deg,
-        rgba(60,30,10,.06) 0 1px,transparent 1px 8px,
-        rgba(45,22,8,.04) 8px 9px,transparent 9px 14px,
-        rgba(70,35,12,.03) 14px 15px,transparent 15px 22px),
-      radial-gradient(ellipse 3% 5% at 72% 55%,rgba(35,15,5,.14),rgba(50,25,10,.05) 60%,transparent),
-      radial-gradient(ellipse 2% 4% at 18% 40%,rgba(35,15,5,.11),rgba(50,25,10,.04) 60%,transparent),
-      linear-gradient(180deg,#3a2717 0%,#2d1c10 40%,#20130a 100%)!important;
-    border:none!important;
-    box-shadow:inset 0 0 120px rgba(0,0,0,.35)!important;
-    padding:0!important;overflow:hidden!important;
-    min-height:100vh!important;height:100%!important}
+      radial-gradient(ellipse 90% 90% at 50% 50%,transparent 50%,rgba(0,0,0,.6) 100%),
+      radial-gradient(ellipse 60% 50% at 50% -10%,rgba(200,160,80,.2),transparent 70%),
+      repeating-linear-gradient(1deg,
+        rgba(0,0,0,.08) 0 1px,transparent 1px 6px,
+        rgba(0,0,0,.05) 6px 7px,transparent 7px 12px),
+      radial-gradient(ellipse 5% 8% at 75% 60%,rgba(0,0,0,.25),transparent 70%),
+      radial-gradient(ellipse 3% 6% at 20% 45%,rgba(0,0,0,.18),transparent 70%),
+      linear-gradient(180deg,#2c1a0c 0%,#1c0e06 60%,#120804 100%)!important;
+    border:none!important;box-shadow:none!important;
+    padding:0!important;overflow:hidden!important}
 
-  /* ── desk decorations: absolute layer over entire screen ── */
+  /* desk decorations */
   #deskDecor{position:absolute;inset:0;pointer-events:none;z-index:1}
-  .deskItem{position:absolute}
+  .deskItem{position:absolute;image-rendering:pixelated}
 
-  .deskNote{padding:7px 9px;font-size:10px;font-weight:bold;color:#3a2a0a;line-height:1.4;
-    transform:rotate(var(--rot,0deg));box-shadow:2px 3px 8px rgba(0,0,0,.4);
-    font-family:'Courier New',monospace;white-space:pre-line}
-  .deskNote--yellow{background:#ffe96e;border-bottom:3px solid #d9c030}
-  .deskNote--orange{background:#ffb347;border-bottom:3px solid #d9883a}
-  .deskNote--blue{background:#7ec8f0;border-bottom:3px solid #4a90c0;color:#1a3050}
+  .deskNote{padding:8px 10px;font-size:10px;font-weight:bold;color:#1a1208;line-height:1.5;
+    transform:rotate(var(--rot,0deg));font-family:'Courier New',monospace;
+    border-bottom:4px solid var(--nb,#b89a00);box-shadow:3px 3px 0 rgba(0,0,0,.55)}
+  .deskNote--yellow{background:#f5e040;--nb:#c8b000}
+  .deskNote--orange{background:#f0a030;--nb:#c07000;color:#1a0e00}
+  .deskNote--blue{background:#60b8e8;--nb:#2870b0;color:#08203a}
 
-  .deskMug{font-size:44px;line-height:1}
-  .deskPlant{font-size:32px;line-height:1}
-  .deskPens{font-size:20px;letter-spacing:1px;line-height:1}
-  .deskStapler{font-size:26px;line-height:1}
-  .deskKeyboard{font-size:38px;line-height:1;opacity:.55}
+  .deskMug{font-size:42px;line-height:1;filter:drop-shadow(3px 3px 0 rgba(0,0,0,.65))}
+  .deskPlant{font-size:32px;line-height:1;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.55))}
+  .deskPens{font-size:20px;line-height:1;filter:drop-shadow(2px 2px 0 rgba(0,0,0,.5))}
+  .deskKeyboard{font-size:36px;line-height:1;opacity:.4;filter:drop-shadow(0 3px 0 rgba(0,0,0,.7))}
 
-  .deskMonitor{width:82px;height:58px;background:#12202e;border:4px solid #4a5a6a;border-radius:4px;
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:3px 4px 10px rgba(0,0,0,.6),inset 0 0 16px rgba(0,80,180,.15)}
-  .monScreen{color:#50a8ff;font-size:16px;font-weight:bold;position:relative;display:inline-block}
-  .monBadge{position:absolute;top:-9px;right:-16px;background:#d02828;color:#fff;
-    font-size:9px;font-weight:bold;padding:1px 4px;border-radius:6px;min-width:14px;text-align:center;
-    box-shadow:0 1px 4px rgba(0,0,0,.4)}
+  .deskMonitor{width:80px;height:62px;background:#0a1828;border:4px solid #506070;
+    outline:2px solid #28404e;box-shadow:3px 3px 0 rgba(0,0,0,.8);
+    display:flex;align-items:center;justify-content:center}
+  .monScreen{color:#40a0ff;font-size:16px;font-weight:bold;position:relative;display:inline-block;
+    text-shadow:0 0 8px #40a0ff,0 0 16px rgba(64,160,255,.4)}
+  .monBadge{position:absolute;top:-10px;right:-18px;background:#c02020;color:#fff;
+    font-size:9px;font-weight:bold;padding:1px 4px;min-width:14px;text-align:center;
+    box-shadow:2px 2px 0 rgba(0,0,0,.6)}
 
-  /* ── chalkboard: flexbox center child of .screen ── */
+  /* chalkboard */
   #chalkBoard{position:relative;z-index:5;flex-shrink:0;
-    width:min(800px,76vw);
+    width:min(820px,78vw);
     background:
-      radial-gradient(circle at 28% 18%,rgba(255,255,255,.025),transparent 38%),
-      radial-gradient(circle at 72% 74%,rgba(255,255,255,.015),transparent 32%),
-      linear-gradient(180deg,#1e2420 0%,#161a17 55%,#101310 100%);
-    border:12px solid #7a4a1e;
-    outline:3px solid #4a2a0c;
-    border-radius:4px;
+      repeating-linear-gradient(0deg,rgba(255,255,255,.018) 0 1px,transparent 1px 3px),
+      repeating-linear-gradient(90deg,rgba(255,255,255,.012) 0 1px,transparent 1px 4px),
+      radial-gradient(circle at 20% 18%,rgba(255,255,255,.05) 0%,transparent 28%),
+      radial-gradient(circle at 78% 76%,rgba(255,255,255,.035) 0%,transparent 22%),
+      linear-gradient(160deg,#1c2820 0%,#131d17 55%,#0e1610 100%);
+    border:14px solid #8a5020;
+    outline:4px solid #3e1e06;
     box-shadow:
-      0 0 0 2px rgba(180,130,70,.4),
-      8px 12px 48px rgba(0,0,0,.65),
-      inset 0 0 80px rgba(0,0,0,.45);
-    padding:clamp(18px,3.5vw,38px) clamp(14px,2.5vw,32px)}
+      inset 0 0 0 3px #b06828,
+      inset 0 0 0 5px #7a4416,
+      6px 6px 0 rgba(0,0,0,.7),
+      9px 9px 0 rgba(0,0,0,.3);
+    padding:clamp(16px,3vw,36px) clamp(12px,2.5vw,30px)}
 
-  /* wood grain on frame */
-  #chalkBoard::after{content:'';position:absolute;inset:-12px;
-    border:12px solid transparent;
-    border-image:repeating-linear-gradient(90deg,
-      rgba(255,200,100,.08) 0 2px,transparent 2px 8px,
-      rgba(200,140,60,.06) 8px 10px,transparent 10px 18px) 1;
-    pointer-events:none;border-radius:4px}
+  #chalkBoard::after{content:'';position:absolute;inset:-14px;pointer-events:none;
+    background:repeating-linear-gradient(90deg,
+      rgba(255,190,80,.07) 0 2px,transparent 2px 9px,
+      rgba(190,120,40,.05) 9px 11px,transparent 11px 18px)}
 
   #chalkInner{display:flex;flex-direction:column;align-items:center;text-align:center}
 
-  #modeScreen h1{font-size:clamp(30px,5.5vw,60px);color:#e8b93c;letter-spacing:3px;margin-bottom:2px;
-    text-shadow:3px 3px 0 #4a2e08,-1px -1px 0 rgba(0,0,0,.6),0 0 40px rgba(232,185,60,.15)}
-  #modeScreen h2{color:#b89050;font-size:clamp(11px,1.8vw,15px);letter-spacing:4px;margin-bottom:4px;
-    text-shadow:none}
-  .chalkSub{color:#888070!important;font-size:12px!important;letter-spacing:1px;
-    margin-bottom:clamp(10px,2vw,20px)!important;font-style:italic;max-width:none!important}
+  #modeScreen h1{font-size:clamp(28px,5vw,58px);color:#e8b020;letter-spacing:4px;margin-bottom:0;
+    text-shadow:4px 0 0 #6a3800,0 4px 0 #6a3800,4px 4px 0 #6a3800,5px 5px 0 rgba(0,0,0,.45)}
+  #modeScreen h2{color:#a07838;font-size:clamp(10px,1.6vw,14px);letter-spacing:5px;margin-bottom:4px;
+    text-shadow:2px 2px 0 rgba(0,0,0,.7)}
+  .chalkSub{color:#686858!important;font-size:11px!important;letter-spacing:2px;
+    margin-bottom:clamp(10px,2vw,20px)!important;font-style:italic;max-width:none!important;
+    text-shadow:1px 1px 0 rgba(0,0,0,.6)}
 
-  /* ── mode cards ── */
-  .modeCards{display:flex;gap:clamp(8px,1.8vw,18px);flex-wrap:wrap;justify-content:center}
+  /* mode cards */
+  .modeCards{display:flex;gap:clamp(10px,2vw,20px);flex-wrap:wrap;justify-content:center}
 
   .modeCard{position:relative;
     background:
-      repeating-linear-gradient(0deg,transparent,transparent 16px,rgba(100,70,30,.04) 16px,rgba(100,70,30,.04) 17px),
-      linear-gradient(170deg,#f6e7c1 0%,#eedcaa 60%,#e4d09a 100%);
-    border:3px solid var(--wood2);border-radius:8px;
-    padding:20px 16px 14px;cursor:pointer;
-    width:clamp(140px,18vw,190px);
-    box-shadow:3px 5px 14px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.5);
-    transition:transform .18s,box-shadow .18s;transform:rotate(var(--crot,0deg))}
-  .modeCard:nth-child(1){--crot:-1.2deg}
-  .modeCard:nth-child(2){--crot:0.4deg}
-  .modeCard:nth-child(3){--crot:-0.7deg}
-  .modeCard:hover{transform:rotate(0deg) translateY(-6px) scale(1.04);
-    box-shadow:4px 10px 24px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.5)}
+      repeating-linear-gradient(0deg,transparent,transparent 17px,rgba(80,50,10,.1) 17px,rgba(80,50,10,.1) 18px),
+      linear-gradient(160deg,#f4e4b8 0%,#ebda9e 55%,#e0cc8a 100%);
+    border:4px solid #6b431f;outline:2px solid #3a2008;border-radius:0;
+    padding:22px 16px 14px;cursor:pointer;
+    width:clamp(145px,18vw,188px);
+    box-shadow:4px 4px 0 rgba(0,0,0,.65),7px 7px 0 rgba(0,0,0,.25);
+    transition:transform .1s,box-shadow .1s;transform:rotate(var(--crot,0deg))}
+  .modeCard:nth-child(1){--crot:-1.5deg}
+  .modeCard:nth-child(2){--crot:0.5deg}
+  .modeCard:nth-child(3){--crot:-1deg}
+  .modeCard:hover{transform:rotate(0deg) translateY(-5px);
+    box-shadow:4px 9px 0 rgba(0,0,0,.65),7px 12px 0 rgba(0,0,0,.25)}
 
-  .modePin{position:absolute;top:-7px;left:50%;transform:translateX(-50%);
-    width:14px;height:14px;border-radius:50%;
-    background:radial-gradient(circle at 38% 35%,#f06050,#c03030 55%,#701010);
-    box-shadow:0 2px 5px rgba(0,0,0,.5);z-index:3}
-  .modePin::after{content:'';position:absolute;top:2px;left:3px;
-    width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.4)}
+  .modePin{position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+    width:14px;height:14px;border-radius:50%;background:#c02020;
+    box-shadow:2px 2px 0 rgba(0,0,0,.7),inset -3px -3px 0 rgba(0,0,0,.2),inset 3px 3px 0 rgba(255,80,60,.35);
+    z-index:3}
 
-  .modeIcon{font-size:18px;margin-bottom:3px;opacity:.65;color:var(--inkbrown)}
-  .modeLabel{font-weight:bold;font-size:14px;letter-spacing:1.5px;color:var(--inkbrown);margin-bottom:5px}
-  .modeDesc{color:#7a5b34;font-size:10.5px;line-height:1.5}
+  .modeIcon{font-size:18px;margin-bottom:3px;opacity:.7}
+  .modeLabel{font-weight:bold;font-size:13px;letter-spacing:2px;color:#3a1e08;margin-bottom:6px}
+  .modeDesc{color:#7a5828;font-size:10px;line-height:1.55}
 
   #titleDecor{display:none!important}
 
