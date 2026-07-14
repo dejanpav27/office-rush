@@ -1,8 +1,13 @@
-/* OFFICE RUSH — CRT Boot Sequence — boot.js */
+/* OFFICE RUSH — CRT Boot Sequence — boot.js
+   Handles: boot → loading → main menu → game transition
+   All showScreen('modeScreen') calls are intercepted and redirected to CRT.
+*/
 (function () {
   'use strict';
 
-  /* ── audio ── */
+  /* ══════════════════════════════════════
+     AUDIO
+  ══════════════════════════════════════ */
   let _ac = null;
   function getAC() {
     if (!_ac) _ac = new (window.AudioContext || window.webkitAudioContext)();
@@ -31,7 +36,19 @@
     } catch(e) {}
   }
   function navBeep()     { beep(660, 0.07, 0.04, 'square'); }
-  function confirmBeep() { beep(440, 0.05, 0.05, 'square'); setTimeout(()=>beep(880,0.1,0.05,'square'),55); }
+  function confirmBeep() { beep(440, 0.05, 0.04, 'square'); setTimeout(()=>beep(880,0.1,0.04,'square'),55); }
+  function powerOffBeep() {
+    try {
+      const ac = getAC(), o = ac.createOscillator(), g = ac.createGain();
+      o.connect(g); g.connect(ac.destination);
+      o.type = 'sine';
+      o.frequency.setValueAtTime(200, ac.currentTime);
+      o.frequency.exponentialRampToValueAtTime(30, ac.currentTime + 0.4);
+      g.gain.setValueAtTime(0.06, ac.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.45);
+      o.start(); o.stop(ac.currentTime + 0.45);
+    } catch(e) {}
+  }
   function hddClick() {
     try {
       const ac = getAC(), buf = ac.createBuffer(1, ac.sampleRate*0.03, ac.sampleRate);
@@ -45,21 +62,40 @@
     } catch(e) {}
   }
 
-  /* ── helpers ── */
+  /* ══════════════════════════════════════
+     HELPERS
+  ══════════════════════════════════════ */
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-  /* ── build DOM ── */
+  // days for transition text
+  const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+  function currentDayName() {
+    // try to get from game state, fallback to Monday
+    try {
+      if (typeof week !== 'undefined' && week && week.day !== undefined) {
+        return DAYS[week.day] || 'Monday';
+      }
+    } catch(e) {}
+    return 'Monday';
+  }
+
+  /* ══════════════════════════════════════
+     DOM SETUP
+  ══════════════════════════════════════ */
   function buildDOM() {
-    // permanently hide modeScreen — monitor is the main menu now
+    // permanently hide modeScreen
     const ms = document.getElementById('modeScreen');
-    if (ms) { ms.style.display = 'none'; ms.style.setProperty('display','none','important'); }
+    if (ms) ms.setAttribute('style', 'display:none!important');
+
+    // hide HUD and dialog until game starts
+    setHudVisible(false);
 
     // fade overlay
     const fade = document.createElement('div');
     fade.id = 'crtFade';
     document.body.appendChild(fade);
 
-    // main wrapper
+    // main CRT wrapper
     const wrap = document.createElement('div');
     wrap.id = 'crtWrap';
     wrap.innerHTML = `
@@ -75,7 +111,17 @@
     document.body.appendChild(wrap);
   }
 
-  /* ── typing effect ── */
+  function setHudVisible(visible) {
+    const v = visible ? 'visible' : 'hidden';
+    const hud = document.getElementById('hud');
+    const dlg = document.getElementById('dialog');
+    if (hud) hud.style.visibility = v;
+    if (dlg) dlg.style.visibility = v;
+  }
+
+  /* ══════════════════════════════════════
+     TYPING EFFECT
+  ══════════════════════════════════════ */
   async function typeLine(container, text, charDelay) {
     charDelay = charDelay || 35;
     const el = document.createElement('div');
@@ -85,14 +131,16 @@
       el.textContent = text.slice(0, i + 1);
       await sleep(charDelay);
     }
-    // colorize tags
+    // colorize
     el.innerHTML = text
       .replace(/\[OK\]/g,    '<span class="ok">[OK]</span>')
       .replace(/\[ERROR\]/g, '<span class="err">[ERROR]</span>');
     return el;
   }
 
-  /* ── BIOS ── */
+  /* ══════════════════════════════════════
+     BIOS SEQUENCE
+  ══════════════════════════════════════ */
   const BIOS = [
     { t:'GROMIX BIOS v2.4',                      d:18 },
     { t:'--------------------------------',        d:10 },
@@ -117,11 +165,13 @@
     const cur = document.createElement('span');
     cur.className = 'biosCursor';
     content.lastChild.appendChild(cur);
-    await sleep(1000);
+    await sleep(700);
     cur.remove();
   }
 
-  /* ── loading ── */
+  /* ══════════════════════════════════════
+     LOADING SCREEN
+  ══════════════════════════════════════ */
   async function runLoading(content) {
     content.innerHTML = '';
     const wrap = document.createElement('div');
@@ -145,7 +195,9 @@
     sub.className = 'loadSub';
     sub.textContent = 'Please wait...';
 
-    wrap.appendChild(title); wrap.appendChild(barWrap); wrap.appendChild(sub);
+    wrap.appendChild(title);
+    wrap.appendChild(barWrap);
+    wrap.appendChild(sub);
     content.appendChild(wrap);
 
     hddClick();
@@ -158,18 +210,20 @@
       if (i % 7 === 0) hddClick();
     }
     sub.textContent = 'Done.';
-    await sleep(450);
+    await sleep(350);
   }
 
-  /* ── main menu ── */
+  /* ══════════════════════════════════════
+     MAIN MENU
+  ══════════════════════════════════════ */
   const MENU_ITEMS = [
-    { label: 'START WEEK',  action: 'play'        },
-    { label: 'PRACTICE',    action: 'test'        },
-    { label: 'LEADERBOARD', action: 'leaderboard' },
-    { label: 'SETTINGS',    action: 'settings'    },
-    { label: 'EXIT',        action: 'exit'        },
+    { label:'START WEEK',  action:'play'        },
+    { label:'PRACTICE',    action:'test'        },
+    { label:'LEADERBOARD', action:'leaderboard' },
+    { label:'SETTINGS',    action:'settings'    },
+    { label:'EXIT',        action:'exit'        },
   ];
-  let menuIndex = 0;
+  let menuIndex  = 0;
   let menuActive = false;
   let _keyHandler = null;
 
@@ -206,32 +260,26 @@
 
     const footer = document.createElement('div');
     footer.className = 'menuFooter';
-    footer.textContent = 'Employee #142 logged in.';
+    const now = new Date();
+    footer.textContent = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')} — Employee #142 logged in.`;
     menu.appendChild(footer);
 
     container.appendChild(menu);
   }
 
-  function selectMenu(container) {
-    menuActive = false;
+  function detachKeys() {
     if (_keyHandler) { window.removeEventListener('keydown', _keyHandler); _keyHandler = null; }
-    const action = MENU_ITEMS[menuIndex].action;
-    confirmBeep();
-    if      (action === 'play')        transitionToGame(container, false);
-    else if (action === 'test')        transitionToGame(container, true);
-    else if (action === 'leaderboard') { hideCRT(); if(typeof renderLeaderboard==='function') renderLeaderboard(); showGameScreen('leaderboardScreen'); }
-    else if (action === 'settings')    { menuActive = true; attachKeys(container); }
-    else if (action === 'exit')        location.reload();
   }
 
   function attachKeys(container) {
+    detachKeys();
     _keyHandler = (e) => {
       if (!menuActive) return;
-      if (e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
         e.preventDefault();
         menuIndex = (menuIndex - 1 + MENU_ITEMS.length) % MENU_ITEMS.length;
         navBeep(); renderMenu(container);
-      } else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+      } else if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
         e.preventDefault();
         menuIndex = (menuIndex + 1) % MENU_ITEMS.length;
         navBeep(); renderMenu(container);
@@ -243,96 +291,181 @@
     window.addEventListener('keydown', _keyHandler);
   }
 
+  function selectMenu(container) {
+    menuActive = false;
+    detachKeys();
+    confirmBeep();
+    const action = MENU_ITEMS[menuIndex].action;
+    if      (action === 'play')        transitionToGame(container, false);
+    else if (action === 'test')        transitionToGame(container, true);
+    else if (action === 'leaderboard') {
+      showCRTOff(); // power-off anim
+      setTimeout(() => {
+        hideCRT();
+        if (typeof renderLeaderboard === 'function') renderLeaderboard();
+        gameShowScreen('leaderboardScreen');
+      }, 400);
+    }
+    else if (action === 'settings') { menuActive = true; attachKeys(container); } // placeholder
+    else if (action === 'exit')     location.reload();
+  }
+
   async function showMainMenu(content) {
     content.innerHTML = '';
     menuIndex = 0;
     renderMenu(content);
-    await sleep(100);
+    await sleep(80);
     menuActive = true;
     attachKeys(content);
   }
 
-  /* ── transition to game ── */
+  /* ══════════════════════════════════════
+     POWER-OFF ANIMATION
+  ══════════════════════════════════════ */
+  function showCRTOff() {
+    powerOffBeep();
+    const screen = document.getElementById('crtScreen');
+    if (screen) {
+      screen.style.transition = 'transform 0.35s ease-in, opacity 0.35s ease-in';
+      screen.style.transform = 'scaleY(0.04) scaleX(0.95)';
+      screen.style.opacity = '0';
+    }
+  }
+
+  function resetCRTScreen() {
+    const screen = document.getElementById('crtScreen');
+    if (screen) {
+      screen.style.transition = '';
+      screen.style.transform = '';
+      screen.style.opacity = '';
+    }
+  }
+
+  /* ══════════════════════════════════════
+     GAME TRANSITION
+  ══════════════════════════════════════ */
   async function transitionToGame(container, testMode) {
+    detachKeys();
     container.innerHTML = '';
+
+    const dayName = currentDayName();
     const t = document.createElement('div');
     t.id = 'crtTransition';
     t.innerHTML = `
       <div class="transText">Starting new week...</div>
       <div class="transSpinner">\u29d6</div>
-      <div class="transText">Loading Monday...</div>
+      <div class="transText">Loading ${dayName}...</div>
     `;
     container.appendChild(t);
 
     hddClick();
-    await sleep(1800);
+    await sleep(1600);
 
-    // fade to black
+    // power-off + fade
+    showCRTOff();
+    await sleep(350);
     const fade = document.getElementById('crtFade');
     fade.classList.add('fade-in');
-    await sleep(650);
+    await sleep(500);
 
-    // hide CRT, show game
     hideCRT();
-    document.getElementById('hud').style.visibility = 'visible';
-    document.getElementById('dialog').style.visibility = 'visible';
+    setHudVisible(true);
+
     if (testMode) {
-      document.getElementById('modeScreen').style.display = 'none';
       if (typeof startTest === 'function') startTest();
     } else {
       if (typeof renderSlots === 'function') renderSlots();
-      showGameScreen('userSelect');
+      gameShowScreen('userSelect');
     }
+
     fade.classList.remove('fade-in');
   }
 
+  /* ══════════════════════════════════════
+     CRT SHOW / HIDE
+  ══════════════════════════════════════ */
   function hideCRT() {
     const w = document.getElementById('crtWrap');
     if (w) w.classList.add('hidden');
   }
 
-  function showGameScreen(id) {
-    if (typeof showScreen === 'function') { showScreen(id); return; }
-    // fallback
-    const screens = ['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end','leaderboardScreen','firedScreen'];
-    screens.forEach(s => {
-      const el = document.getElementById(s);
-      if (el) el.style.display = (s === id) ? 'flex' : 'none';
-    });
+  function showCRT() {
+    resetCRTScreen();
+    const w = document.getElementById('crtWrap');
+    if (w) w.classList.remove('hidden');
+    setHudVisible(false);
   }
 
-  /* ── intercept all showScreen('modeScreen') calls → show CRT instead ── */
+  // show CRT with power-on effect
+  async function revealCRT() {
+    showCRT();
+    crtPowerSound();
+    const screen = document.getElementById('crtScreen');
+    if (screen) {
+      screen.classList.remove('poweron');
+      void screen.offsetWidth; // reflow to restart animation
+      screen.classList.add('poweron');
+    }
+    const content = document.getElementById('crtContent');
+    if (content) await showMainMenu(content);
+  }
+
+  /* ══════════════════════════════════════
+     GAME SCREEN HELPER
+  ══════════════════════════════════════ */
+  function gameShowScreen(id) {
+    // use game.js showScreen but never for modeScreen
+    if (id === 'modeScreen') { returnToMenu(); return; }
+    if (typeof showScreen === 'function') { showScreen(id); }
+  }
+
+  /* ══════════════════════════════════════
+     RETURN TO MENU (from anywhere in game)
+  ══════════════════════════════════════ */
+  async function returnToMenu() {
+    // hide all game screens
+    const SCREENS = ['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end','leaderboardScreen','firedScreen'];
+    SCREENS.forEach(s => { const el = document.getElementById(s); if(el) el.style.display='none'; });
+    const po = document.getElementById('pauseOverlay');
+    if (po) po.style.display = 'none';
+
+    // fade to black
+    const fade = document.getElementById('crtFade');
+    fade.classList.add('fade-in');
+    await sleep(400);
+
+    await revealCRT();
+
+    fade.classList.remove('fade-in');
+  }
+
+  /* ══════════════════════════════════════
+     INTERCEPT showScreen('modeScreen')
+  ══════════════════════════════════════ */
   function patchShowScreen() {
-    // wait for game.js to define showScreen, then wrap it
     const interval = setInterval(() => {
       if (typeof window.showScreen === 'function') {
         clearInterval(interval);
         const orig = window.showScreen;
         window.showScreen = function(id) {
           if (id === 'modeScreen') {
-            // hide all game screens
-            const screens = ['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end','leaderboardScreen','firedScreen'];
-            screens.forEach(s => { const el = document.getElementById(s); if(el) el.style.display='none'; });
-            // bring CRT back
-            const wrap = document.getElementById('crtWrap');
-            if (wrap) {
-              wrap.classList.remove('hidden');
-              const content = document.getElementById('crtContent');
-              if (content) showMainMenu(content);
-            }
+            returnToMenu();
           } else {
             orig(id);
           }
         };
       }
-    }, 100);
+    }, 50);
   }
 
-  /* ── main boot flow ── */
+  /* ══════════════════════════════════════
+     BOOT FLOW
+  ══════════════════════════════════════ */
   async function boot() {
     buildDOM();
     await sleep(200);
 
+    // power on
     crtPowerSound();
     const screen = document.getElementById('crtScreen');
     screen.classList.add('poweron');
@@ -343,7 +476,7 @@
     await runLoading(content);
     await showMainMenu(content);
 
-    // intercept showScreen('modeScreen') → show CRT
+    // intercept all showScreen('modeScreen') calls
     patchShowScreen();
   }
 
@@ -352,4 +485,5 @@
   } else {
     boot();
   }
+
 })();
