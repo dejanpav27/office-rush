@@ -54,7 +54,7 @@
   position: absolute; inset: 0; z-index: 12; pointer-events: none; border-radius: 3px;
   background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 55%, rgba(0,0,0,.65) 100%);
 }
-#crtContent { position: absolute; inset: 0; padding: 7% 8% 5%; z-index: 5; overflow: hidden; }
+#crtContent { position: absolute; inset: 0; padding: 4% 5% 3%; z-index: 5; overflow: hidden; }
 
 @keyframes crtFlicker { 0%,100%{opacity:1} 93%{opacity:.78} 94%{opacity:1} 96%{opacity:.9} 97%{opacity:1} }
 #crtScreen { animation: crtFlicker 5s infinite; }
@@ -67,7 +67,7 @@
 }
 #crtScreen.poweron { animation: crtPowerOn .7s ease-out forwards, crtFlicker 5s .7s infinite; }
 
-.biosLine { color:#00cc44; font-size:clamp(7px,1.05vw,12px); line-height:1.75; white-space:pre; text-shadow:0 0 5px rgba(0,204,68,.65); letter-spacing:.3px; }
+.biosLine { color:#00cc44; font-size:clamp(9px,1.4vw,15px); line-height:1.8; white-space:pre; text-shadow:0 0 5px rgba(0,204,68,.65); letter-spacing:.3px; }
 .biosLine .ok  { color:#00ff66; text-shadow:0 0 7px rgba(0,255,102,.9); }
 .biosLine .err { color:#ff4444; text-shadow:0 0 7px rgba(255,68,68,.85); }
 
@@ -75,25 +75,25 @@
 .biosCursor { display:inline-block; width:7px; height:1em; background:#00cc44; margin-left:2px; vertical-align:middle; animation:blink .8s step-end infinite; }
 
 #crtLoading { display:flex; flex-direction:column; gap:8%; }
-.loadTitle { color:#00cc44; font-size:clamp(8px,1.15vw,13px); text-shadow:0 0 7px rgba(0,204,68,.8); letter-spacing:1px; }
-.loadBarWrap { width:100%; height:12px; border:1px solid #004422; background:#000d00; position:relative; }
+.loadTitle { color:#00cc44; font-size:clamp(10px,1.5vw,16px); text-shadow:0 0 7px rgba(0,204,68,.8); letter-spacing:1px; }
+.loadBarWrap { width:100%; height:16px; border:1px solid #004422; background:#000d00; position:relative; }
 .loadBarFill { height:100%; background:#00cc44; width:0%; box-shadow:0 0 8px rgba(0,204,68,.7); transition:width .05s linear; }
 .loadBarText { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:8px; font-weight:bold; color:#00ff66; letter-spacing:1px; }
-.loadSub { color:#008833; font-size:clamp(7px,1vw,11px); letter-spacing:1px; }
+.loadSub { color:#008833; font-size:clamp(9px,1.3vw,14px); letter-spacing:1px; }
 
 #crtMenu { display:flex; flex-direction:column; }
-.menuHeader { color:#00cc44; font-size:clamp(7px,1vw,11px); text-shadow:0 0 5px rgba(0,204,68,.6); margin-bottom:3%; padding-bottom:2%; border-bottom:1px solid #003a1a; }
-.menuItem { color:#007722; font-size:clamp(8px,1.15vw,13px); line-height:2.0; cursor:pointer; padding-left:4%; white-space:nowrap; user-select:none; }
+.menuHeader { color:#00cc44; font-size:clamp(9px,1.3vw,14px); text-shadow:0 0 5px rgba(0,204,68,.6); margin-bottom:3%; padding-bottom:2%; border-bottom:1px solid #003a1a; }
+.menuItem { color:#007722; font-size:clamp(11px,1.6vw,18px); line-height:2.1; cursor:pointer; padding-left:4%; white-space:nowrap; user-select:none; }
 .menuItem.active { color:#00ff66; text-shadow:0 0 8px rgba(0,255,102,.85); background:rgba(0,255,102,.07); }
 .menuItem.active::before { content:'> '; }
 .menuItem:not(.active)::before { content:'  '; }
-.menuHint { margin-top:4%; color:#004422; font-size:clamp(6px,.85vw,9px); letter-spacing:.4px; }
-.menuFooter { margin-top:2%; color:#005522; font-size:clamp(6px,.85vw,9px); border-top:1px solid #002a12; padding-top:2%; }
+.menuHint { margin-top:4%; color:#004422; font-size:clamp(8px,1.1vw,12px); letter-spacing:.4px; }
+.menuFooter { margin-top:2%; color:#005522; font-size:clamp(8px,1.1vw,12px); border-top:1px solid #002a12; padding-top:2%; }
 
 #crtTransition { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:6%; }
-.transText { color:#00cc44; font-size:clamp(8px,1.15vw,13px); text-shadow:0 0 8px rgba(0,204,68,.8); letter-spacing:1px; text-align:center; }
+.transText { color:#00cc44; font-size:clamp(11px,1.6vw,18px); text-shadow:0 0 8px rgba(0,204,68,.8); letter-spacing:1px; text-align:center; }
 @keyframes spin { to { transform:rotate(360deg); } }
-.transSpinner { color:#006622; font-size:clamp(12px,1.6vw,18px); animation:spin 1s linear infinite; display:inline-block; }
+.transSpinner { color:#006622; font-size:clamp(16px,2.2vw,26px); animation:spin 1s linear infinite; display:inline-block; }
 
 #crtFade { position:fixed; inset:0; background:#000; opacity:0; pointer-events:none; z-index:10000; transition:opacity .6s ease; }
 #crtFade.fade-in { opacity:1; pointer-events:all; }
