@@ -111,7 +111,9 @@
     `;
     document.body.appendChild(wrap);
 
-    document.addEventListener('click', ()=>{ if(window.ORaudio) getAC(); }, {once:true});
+    document.addEventListener('click', ()=>{
+      if(window.ORaudio) window.ORaudio.start();
+    }, {once:true});
     document.body.appendChild(wrap);
   }
 
