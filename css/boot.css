@@ -7,6 +7,9 @@
 }
 #crtWrap.hidden { display: none; }
 
+/* hide HUD and dialog until game starts */
+#hud, #dialog { visibility: hidden; }
+
 #crtBg {
   position: absolute; inset: 0;
   background: url('../img/background.png') center center / cover no-repeat;

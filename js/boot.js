@@ -274,6 +274,8 @@
 
     // hide CRT, show game
     hideCRT();
+    document.getElementById('hud').style.visibility = 'visible';
+    document.getElementById('dialog').style.visibility = 'visible';
     if (testMode) {
       document.getElementById('modeScreen').style.display = 'none';
       if (typeof startTest === 'function') startTest();
