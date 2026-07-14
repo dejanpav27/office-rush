@@ -1,0 +1,245 @@
+/* ═══════════════════════════════════════════
+   OFFICE RUSH — CRT Boot Sequence
+   boot.css — loaded before style.css takes over
+   ═══════════════════════════════════════════ */
+
+/* ── CRT wrapper: full screen black ── */
+#crtWrap {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+#crtWrap.hidden {
+  display: none;
+}
+
+/* ── The monitor bezel ── */
+#crtBezel {
+  position: relative;
+  width: min(740px, 90vw);
+  height: min(500px, 70vh);
+  background: #1a1a1a;
+  border: 6px solid #2a2a2a;
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 2px #111,
+    0 0 40px rgba(0, 255, 80, 0.08),
+    0 20px 60px rgba(0,0,0,.8),
+    inset 0 0 20px rgba(0,0,0,.9);
+}
+
+/* ── The screen inside the bezel ── */
+#crtScreen {
+  position: absolute;
+  inset: 16px;
+  background: #000d00;
+  border-radius: 4px;
+  overflow: hidden;
+  cursor: default;
+}
+
+/* ── Phosphor glow layer ── */
+#crtScreen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 40%,
+    rgba(0, 255, 60, 0.04) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* ── Scanlines ── */
+#crtScreen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.18) 2px,
+    rgba(0, 0, 0, 0.18) 4px
+  );
+  pointer-events: none;
+  z-index: 11;
+}
+
+/* ── Screen curvature vignette ── */
+#crtVignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 60%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 12;
+  border-radius: 4px;
+}
+
+/* ── Content area inside screen ── */
+#crtContent {
+  position: absolute;
+  inset: 0;
+  padding: 28px 32px;
+  z-index: 5;
+  overflow: hidden;
+}
+
+/* ── Flicker animation ── */
+@keyframes crtFlicker {
+  0%   { opacity: 1; }
+  92%  { opacity: 1; }
+  93%  { opacity: 0.7; }
+  94%  { opacity: 1; }
+  96%  { opacity: 0.85; }
+  97%  { opacity: 1; }
+}
+#crtScreen {
+  animation: crtFlicker 4s infinite;
+}
+
+/* ── Power-on flash ── */
+@keyframes crtPowerOn {
+  0%   { opacity: 0; transform: scaleY(0.02) scaleX(0.9); }
+  15%  { opacity: 1; transform: scaleY(0.02) scaleX(1); }
+  30%  { opacity: 1; transform: scaleY(1) scaleX(1); }
+  100% { opacity: 1; transform: scaleY(1) scaleX(1); }
+}
+#crtScreen.poweron {
+  animation: crtPowerOn 0.6s ease-out forwards, crtFlicker 4s 0.6s infinite;
+}
+
+/* ── BIOS text ── */
+.biosLine {
+  color: #00cc44;
+  font-size: clamp(11px, 1.5vw, 14px);
+  line-height: 1.9;
+  white-space: pre;
+  text-shadow: 0 0 6px rgba(0, 204, 68, 0.7);
+  letter-spacing: 0.5px;
+}
+
+.biosLine.dim {
+  color: #008833;
+  text-shadow: none;
+}
+
+.biosLine .ok {
+  color: #00ff66;
+  text-shadow: 0 0 8px rgba(0, 255, 102, 0.9);
+}
+
+.biosLine .err {
+  color: #ff4444;
+  text-shadow: 0 0 8px rgba(255, 68, 68, 0.8);
+}
+
+.biosLine .warn {
+  color: #ffaa00;
+  text-shadow: 0 0 8px rgba(255, 170, 0, 0.8);
+}
+
+/* cursor blink */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.biosCursor {
+  display: inline-block;
+  width: 8px;
+  height: 14px;
+  background: #00cc44;
+  margin-left: 2px;
+  vertical-align: middle;
+  animation: blink 0.8s step-end infinite;
+}
+
+/* ── Loading screen ── */
+#crtLoading {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.loadTitle {
+  color: #00cc44;
+  font-size: clamp(12px, 1.8vw, 16px);
+  text-shadow: 0 0 8px rgba(0, 204, 68, 0.8);
+  letter-spacing: 1px;
+}
+
+.loadBarWrap {
+  width: 100%;
+  height: 18px;
+  border: 2px solid #004422;
+  background: #000d00;
+  position: relative;
+}
+
+.loadBarFill {
+  height: 100%;
+  background: #00cc44;
+  width: 0%;
+  transition: width 0.05s linear;
+  box-shadow: 0 0 10px rgba(0, 204, 68, 0.6);
+}
+
+.loadBarText {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-size: 11px;
+  font-weight: bold;
+  mix-blend-mode: difference;
+  color: #00ff66;
+  letter-spacing: 1px;
+}
+
+.loadSub {
+  color: #008833;
+  font-size: clamp(10px, 1.4vw, 12px);
+  letter-spacing: 1px;
+}
+
+/* ── bezel bottom label ── */
+#crtLabel {
+  position: absolute;
+  bottom: -28px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #333;
+  font-size: 10px;
+  letter-spacing: 3px;
+  white-space: nowrap;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── fade to black overlay ── */
+#crtFade {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+  transition: opacity 0.6s ease;
+}
+#crtFade.fade-in {
+  opacity: 1;
+  pointer-events: all;
+}
