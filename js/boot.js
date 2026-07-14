@@ -100,6 +100,10 @@
     wrap.id = 'crtWrap';
     wrap.innerHTML = `
       <div id="crtBg"></div>
+      <div id="crtLogo">
+        <div id="crtLogoTitle">OFFICE RUSH</div>
+        <div id="crtLogoSub">✦ TASK BOARD EDITION ✦</div>
+      </div>
       <div id="crtMonitorWrap">
         <div id="crtScreen">
           <div id="crtVignette"></div>

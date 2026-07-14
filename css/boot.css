@@ -2,7 +2,7 @@
 
 #crtWrap {
   position: fixed; inset: 0; z-index: 9999;
-  display: flex; align-items: center; justify-content: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   overflow: hidden; font-family: 'Courier New', Courier, monospace;
 }
 #crtWrap.hidden { display: none; }
@@ -97,6 +97,36 @@
 
 #crtFade { position:fixed; inset:0; background:#000; opacity:0; pointer-events:none; z-index:10000; transition:opacity .6s ease; }
 #crtFade.fade-in { opacity:1; pointer-events:all; }
+
+/* logo above monitor */
+#crtLogo {
+  text-align: center;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+#crtLogoTitle {
+  font-family: inherit;
+  font-size: clamp(28px, 4vw, 56px);
+  font-weight: bold;
+  letter-spacing: 6px;
+  color: #e8b020;
+  text-shadow:
+    4px 0 0 #6a3800,
+    0 4px 0 #6a3800,
+    4px 4px 0 #6a3800,
+    5px 5px 0 rgba(0,0,0,.5),
+    0 0 40px rgba(232,176,32,.15);
+  line-height: 1;
+}
+
+#crtLogoSub {
+  font-size: clamp(10px, 1.2vw, 14px);
+  letter-spacing: 4px;
+  color: #a07838;
+  margin-top: 4px;
+  text-shadow: 2px 2px 0 rgba(0,0,0,.6);
+}
 
 /* mute button */
 #muteBtn {
