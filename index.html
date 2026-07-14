@@ -28,12 +28,46 @@
   </div></div>
 </div></div>
 <div class="screen" id="modeScreen">
-  <h1>OFFICE RUSH</h1><h2>&#9670; TASK BOARD EDITION &#9670;</h2>
-  <p>Choose a mode.</p>
-  <div class="chars" style="margin-top:20px">
-    <div class="char" id="modePlay" style="min-width:190px"><div class="n">&#9654; PLAY</div><div class="d">Pick a character, clear the whole board before the shift ends.</div></div>
-    <div class="char" id="modeTest" style="min-width:190px"><div class="n">&#128295; TEST</div><div class="d">No timer. Every NPC has every task — try each mini-game freely.</div></div>
-    <div class="char" id="modeLeaderboard" style="min-width:190px"><div class="n">&#127942; SCORES</div><div class="d">Top 10 best scores across all players on this device.</div></div>
+  <!-- desk decorations -->
+  <div id="deskDecor">
+    <div class="deskItem deskNote deskNote--yellow" style="left:2%;top:8%;--rot:-6deg">TASKS<br>WAIT FOR<br>NO ONE!</div>
+    <div class="deskItem deskNote deskNote--orange" style="left:1%;bottom:10%;--rot:4deg">DON'T<br>BE LATE!</div>
+    <div class="deskItem deskMug" style="left:3%;bottom:28%">☕</div>
+    <div class="deskItem deskCalendar" style="left:5%;top:32%"><span class="calGrid">📅</span></div>
+    <div class="deskItem deskPlant" style="left:2%;top:42%">🪴</div>
+    <div class="deskItem deskMonitor" style="right:2%;top:6%"><div class="monScreen">✉ <span class="monBadge">3</span></div></div>
+    <div class="deskItem deskNote deskNote--blue" style="right:2%;top:34%;--rot:3deg">MEETING<br>15:00!</div>
+    <div class="deskItem deskPens" style="right:4%;top:52%">🖊️🖍️✏️</div>
+    <div class="deskItem deskStapler" style="right:3%;bottom:22%">📎</div>
+    <div class="deskItem deskKeyboard" style="bottom:3%;left:50%;transform:translateX(-50%)">⌨️</div>
+  </div>
+  <!-- chalkboard -->
+  <div id="chalkBoard">
+    <div id="chalkInner">
+      <h1>OFFICE RUSH</h1>
+      <h2>✦ TASK BOARD EDITION ✦</h2>
+      <p class="chalkSub">Choose a mode.</p>
+      <div class="modeCards">
+        <div class="modeCard" id="modePlay">
+          <div class="modePin"></div>
+          <div class="modeIcon">▶</div>
+          <div class="modeLabel">PLAY</div>
+          <div class="modeDesc">Pick a character, clear the whole board before the shift ends.</div>
+        </div>
+        <div class="modeCard" id="modeTest">
+          <div class="modePin"></div>
+          <div class="modeIcon">⚙</div>
+          <div class="modeLabel">TEST</div>
+          <div class="modeDesc">No timer. Every NPC has every task — try each mini-game freely.</div>
+        </div>
+        <div class="modeCard" id="modeLeaderboard">
+          <div class="modePin"></div>
+          <div class="modeIcon">🏆</div>
+          <div class="modeLabel">SCORES</div>
+          <div class="modeDesc">Top 10 best scores across all players on this device.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <div class="screen" id="leaderboardScreen" style="display:none">
