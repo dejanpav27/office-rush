@@ -18,7 +18,7 @@
       const ac = getAC(), o = ac.createOscillator(), g = ac.createGain();
       o.connect(g); g.connect(ac.destination);
       o.type = type || 'square'; o.frequency.value = freq;
-      g.gain.setValueAtTime(vol || 0.05, ac.currentTime);
+      g.gain.setValueAtTime(vol || 0.18, ac.currentTime);
       g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + dur);
       o.start(); o.stop(ac.currentTime + dur);
     } catch(e) {}
@@ -30,13 +30,13 @@
       o.type = 'sawtooth';
       o.frequency.setValueAtTime(40, ac.currentTime);
       o.frequency.exponentialRampToValueAtTime(200, ac.currentTime + 0.45);
-      g.gain.setValueAtTime(0.07, ac.currentTime);
+      g.gain.setValueAtTime(0.18, ac.currentTime);
       g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime + 0.55);
       o.start(); o.stop(ac.currentTime + 0.55);
     } catch(e) {}
   }
-  function navBeep()     { beep(660, 0.07, 0.04, 'square'); }
-  function confirmBeep() { beep(440, 0.05, 0.04, 'square'); setTimeout(()=>beep(880,0.1,0.04,'square'),55); }
+  function navBeep()     { beep(660, 0.07, 0.18, 'square'); }
+  function confirmBeep() { beep(440, 0.05, 0.20, 'square'); setTimeout(()=>beep(880,0.1,0.20,'square'),55); }
   function powerOffBeep() {
     try {
       const ac = getAC(), o = ac.createOscillator(), g = ac.createGain();
@@ -56,7 +56,7 @@
       for (let i=0;i<d.length;i++) d[i]=(Math.random()*2-1)*0.25;
       const src = ac.createBufferSource(), g = ac.createGain();
       src.buffer = buf; src.connect(g); g.connect(ac.destination);
-      g.gain.setValueAtTime(0.07, ac.currentTime);
+      g.gain.setValueAtTime(0.22, ac.currentTime);
       g.gain.exponentialRampToValueAtTime(0.0001, ac.currentTime+0.05);
       src.start();
     } catch(e) {}

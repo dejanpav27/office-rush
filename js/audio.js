@@ -88,13 +88,14 @@ window.ORaudio = {
     if(currentTrack === 'game') return;
     init();
     currentTrack = 'game';
-    startAmbience();
+    if(ambEl) fadeVolume(ambEl, 0.42, 800);
+    if(ambEl && ambEl.paused) ambEl.play().catch(()=>{});
     // game music same track, slightly louder
     if(musicEl){
       if(musicEl.paused){
-        startMusic(0.48);
+        startMusic(0.22);
       } else {
-        fadeVolume(musicEl, 0.48, 600);
+        fadeVolume(musicEl, 0.22, 600);
       }
     }
   },
