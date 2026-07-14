@@ -26,11 +26,11 @@
   image-rendering: pixelated;
 }
 
-/* Screen sits behind monitor PNG, over the white opening.
-   Measured: left=20%, top=9%, width=52.8%, height=45.5% */
+/* Screen sits behind monitor PNG, over the transparent opening.
+   Measured: bezel left=22.9%, top=11.6%, right=68.0%, bottom=57.0% */
 #crtScreen {
   position: absolute;
-  left: 20.0%; top: 9.0%; width: 52.8%; height: 45.5%;
+  left: 22.9%; top: 11.6%; width: 45.1%; height: 45.4%;
   z-index: 2; background: #000d00; overflow: hidden; border-radius: 3px;
 }
 #crtScreen::before {
