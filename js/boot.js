@@ -240,7 +240,7 @@
     MENU_ITEMS.forEach((item, i) => {
       const el = document.createElement('div');
       el.className = 'menuItem' + (i === menuIndex ? ' active' : '');
-      el.textContent = (i === menuIndex ? '> ' : '  ') + item.label;
+      el.textContent = item.label;
       el.addEventListener('mouseover', () => {
         if (!menuActive) return;
         if (menuIndex !== i) { menuIndex = i; navBeep(); renderMenu(container); }

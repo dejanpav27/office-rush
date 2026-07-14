@@ -54,7 +54,7 @@
   position: absolute; inset: 0; z-index: 12; pointer-events: none; border-radius: 3px;
   background: radial-gradient(ellipse 100% 100% at 50% 50%, transparent 55%, rgba(0,0,0,.65) 100%);
 }
-#crtContent { position: absolute; inset: 0; padding: 5% 6% 4%; z-index: 5; overflow: hidden; display:flex; flex-direction:column; box-sizing:border-box; }
+#crtContent { position: absolute; inset: 0; padding: 6% 8% 6%; z-index: 5; overflow: hidden; display:flex; flex-direction:column; justify-content:center; box-sizing:border-box; }
 
 @keyframes crtFlicker { 0%,100%{opacity:1} 93%{opacity:.78} 94%{opacity:1} 96%{opacity:.9} 97%{opacity:1} }
 #crtScreen { animation: crtFlicker 5s infinite; }
@@ -67,7 +67,7 @@
 }
 #crtScreen.poweron { animation: crtPowerOn .7s ease-out forwards, crtFlicker 5s .7s infinite; }
 
-.biosLine { color:#00cc44; font-size:clamp(8px,1.15vw,13px); line-height:1.65; white-space:pre; text-shadow:0 0 5px rgba(0,204,68,.65); letter-spacing:.3px; }
+.biosLine { color:#00cc44; font-size:clamp(9px,1.25vw,14px); line-height:1.7; white-space:pre; text-shadow:0 0 5px rgba(0,204,68,.65); letter-spacing:.3px; }
 .biosLine .ok  { color:#00ff66; text-shadow:0 0 7px rgba(0,255,102,.9); }
 .biosLine .err { color:#ff4444; text-shadow:0 0 7px rgba(255,68,68,.85); }
 
@@ -82,8 +82,8 @@
 .loadSub { color:#008833; font-size:clamp(8px,1.1vw,12px); letter-spacing:1px; }
 
 #crtMenu { display:flex; flex-direction:column; overflow:hidden; }
-.menuHeader { color:#00cc44; font-size:clamp(8px,1.1vw,12px); text-shadow:0 0 5px rgba(0,204,68,.6); margin-bottom:3%; padding-bottom:2%; border-bottom:1px solid #003a1a; }
-.menuItem { color:#007722; font-size:clamp(9px,1.3vw,15px); line-height:1.95; cursor:pointer; padding-left:4%; white-space:nowrap; user-select:none; }
+.menuHeader { color:#00cc44; font-size:clamp(9px,1.2vw,13px); text-shadow:0 0 5px rgba(0,204,68,.6); margin-bottom:3%; padding-bottom:2%; border-bottom:1px solid #003a1a; }
+.menuItem { color:#007722; font-size:clamp(10px,1.5vw,17px); line-height:2.0; cursor:pointer; padding-left:4%; white-space:nowrap; user-select:none; }
 .menuItem.active { color:#00ff66; text-shadow:0 0 8px rgba(0,255,102,.85); background:rgba(0,255,102,.07); }
 .menuItem.active::before { content:'> '; }
 .menuItem:not(.active)::before { content:'  '; }
