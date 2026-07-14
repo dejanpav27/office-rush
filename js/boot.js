@@ -478,6 +478,15 @@
 
     // intercept all showScreen('modeScreen') calls
     patchShowScreen();
+
+    // neutralize old onclick handlers that game.js attaches to stub divs
+    // (they're empty divs now, but game.js still does getElementById().onclick = ...)
+    setTimeout(() => {
+      ['modePlay','modeTest','modeLeaderboard'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.onclick = null;
+      });
+    }, 200);
   }
 
   if (document.readyState === 'loading') {
