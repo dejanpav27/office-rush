@@ -94,24 +94,24 @@
 
   /* ── BIOS ── */
   const BIOS = [
-    { t:'GROMIX BIOS v2.4',                      d:32 },
-    { t:'--------------------------------',        d:20 },
+    { t:'GROMIX BIOS v2.4',                      d:18 },
+    { t:'--------------------------------',        d:10 },
     { t:'',                                        d:0  },
-    { t:'Memory Check............... [OK]',        d:26 },
-    { t:'Video System............... [OK]',        d:26 },
-    { t:'Employees Module........... [OK]',        d:26 },
-    { t:'Coffee Machine............. [OK]',        d:26 },
-    { t:'Boss AI Initialization..... [ERROR]',     d:26 },
-    { t:'Retrying................... [OK]',        d:26 },
+    { t:'Memory Check............... [OK]',        d:14 },
+    { t:'Video System............... [OK]',        d:14 },
+    { t:'Employees Module........... [OK]',        d:14 },
+    { t:'Coffee Machine............. [OK]',        d:14 },
+    { t:'Boss AI Initialization..... [ERROR]',     d:14 },
+    { t:'Retrying................... [OK]',        d:14 },
     { t:'',                                        d:0  },
-    { t:'Booting Office Rush...',                  d:38 },
+    { t:'Booting Office Rush...',                  d:20 },
   ];
 
   async function runBios(content) {
     for (const line of BIOS) {
       await typeLine(content, line.t, line.d);
       if (line.t) hddClick();
-      await sleep(line.t ? 300 : 80);
+      await sleep(line.t ? 120 : 40);
     }
     // blinking cursor at end
     const cur = document.createElement('span');
@@ -149,7 +149,7 @@
     content.appendChild(wrap);
 
     hddClick();
-    const steps = 38, stepTime = 900 / steps;
+    const steps = 38, stepTime = 2400 / steps;
     for (let i = 1; i <= steps; i++) {
       await sleep(stepTime + Math.random()*18 - 9);
       const pct = Math.round((i/steps)*100);
