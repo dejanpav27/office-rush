@@ -9,7 +9,8 @@
 
 #crtBg {
   position: absolute; inset: 0;
-  background: #000;
+  background: url('../img/background.png') center center / cover no-repeat;
+  filter: blur(3px) brightness(0.42); transform: scale(1.06);
 }
 
 #crtMonitorWrap {
@@ -25,8 +26,14 @@
   image-rendering: pixelated;
 }
 
-/* Screen sits behind monitor PNG, over the transparent opening.
-   Measured: bezel left=22.9%, top=11.6%, right=68.0%, bottom=57.0% */
+#crtMonitorWrap::before {
+  content: '';
+  position: absolute;
+  left: 22.9%; top: 11.6%; width: 45.1%; height: 45.4%;
+  background: #000;
+  z-index: 1;
+  border-radius: 3px;
+}
 #crtScreen {
   position: absolute;
   left: 22.9%; top: 11.6%; width: 45.1%; height: 45.4%;
