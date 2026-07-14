@@ -253,6 +253,151 @@
     padding:8px 12px;font-family:inherit;font-size:14px;color:var(--inkbrown);width:200px}
   #newGameName:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(217,122,61,.25)}
 
+  /* ══════════════════════════════════════════
+     USER SELECT SCREEN — cork board style
+  ══════════════════════════════════════════ */
+  #userSelect{
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 30%,rgba(200,160,80,.08),transparent),
+      radial-gradient(circle at 20% 80%,rgba(0,0,0,.12),transparent 40%),
+      radial-gradient(circle at 80% 20%,rgba(0,0,0,.08),transparent 40%),
+      /* cork texture dots */
+      radial-gradient(circle at 15% 25%,rgba(160,110,50,.08) 1px,transparent 2px),
+      radial-gradient(circle at 45% 65%,rgba(140,90,30,.06) 1px,transparent 2px),
+      radial-gradient(circle at 75% 35%,rgba(170,120,55,.07) 1px,transparent 2px),
+      linear-gradient(160deg,#4a3218 0%,#3a2410 50%,#2e1c0a 100%)!important;
+    padding:32px 24px!important}
+
+  #userSelect h1{font-size:clamp(22px,3.5vw,36px)!important;margin-bottom:4px!important}
+  #userSelect h2{margin-bottom:16px!important;font-size:13px!important}
+
+  /* slot cards — enhance existing .char */
+  #slotList .char{
+    background:
+      repeating-linear-gradient(0deg,transparent,transparent 18px,rgba(80,50,10,.06) 18px,rgba(80,50,10,.06) 19px),
+      linear-gradient(170deg,#f8edc8 0%,#f0e0aa 60%,#e8d490 100%);
+    border:4px solid var(--wood2);
+    border-radius:0;
+    box-shadow:4px 4px 0 rgba(0,0,0,.5),6px 6px 0 rgba(0,0,0,.2);
+    min-width:180px!important;
+    padding:20px 18px 14px!important}
+
+  #slotList .char::before{
+    width:16px;height:16px;top:-8px;
+    background:radial-gradient(circle at 35% 35%,#f07060,#d04040 60%,#901818);
+    box-shadow:2px 2px 0 rgba(0,0,0,.5)}
+
+  #slotList .char:hover{
+    transform:rotate(0deg) translateY(-6px)!important;
+    box-shadow:4px 10px 0 rgba(0,0,0,.5),6px 12px 0 rgba(0,0,0,.2)!important}
+
+  #slotList .char .n{
+    font-size:15px;letter-spacing:2px;border-bottom:1px solid rgba(120,80,30,.2);
+    padding-bottom:8px;margin-bottom:8px}
+
+  #slotList .slot-stat{font-size:11px;padding:2px 0;color:#6a4a1e}
+  #slotList .slot-stat b{color:#3a1e08}
+
+  #slotList .slotDel{
+    margin-top:10px;font-size:10px;color:#a03030;cursor:pointer;
+    opacity:.5;letter-spacing:.5px;padding:4px 0;text-align:center;
+    border-top:1px dashed rgba(160,48,48,.2)}
+  #slotList .slotDel:hover{opacity:1}
+
+  #slotList .empty-slot{
+    background:
+      repeating-linear-gradient(45deg,transparent,transparent 6px,rgba(120,80,30,.04) 6px,rgba(120,80,30,.04) 7px),
+      linear-gradient(170deg,#f0e4c0 0%,#e8d8a8 100%);
+    border-style:dashed!important;border-color:rgba(120,80,30,.4)!important;
+    opacity:.8;box-shadow:none!important}
+  #slotList .empty-slot:hover{opacity:1;box-shadow:4px 4px 0 rgba(0,0,0,.3)!important}
+  #slotList .empty-slot .n{color:#8a6030;font-size:13px;letter-spacing:1px}
+
+  #userSelectBack{
+    margin-top:20px!important;
+    background:rgba(0,0,0,.3)!important;
+    border-color:rgba(120,80,30,.4)!important;
+    color:#c9a86b!important}
+
+  /* ══════════════════════════════════════════
+     NEW GAME SCREEN — typewriter feel
+  ══════════════════════════════════════════ */
+  #newGame{
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 40%,rgba(200,160,80,.06),transparent),
+      linear-gradient(160deg,#4a3218 0%,#2e1c0a 100%)!important}
+
+  #newGame h1{font-size:clamp(22px,3.5vw,36px)!important}
+  #newGame h2{font-size:13px!important;margin-bottom:28px!important}
+
+  /* big styled input */
+  #newGame #newGameName{
+    font-family:'Courier New',monospace!important;
+    font-size:22px!important;font-weight:bold;
+    padding:14px 20px!important;
+    width:min(320px,82vw)!important;
+    background:#f8edc8!important;
+    border:4px solid var(--wood2)!important;
+    border-bottom:6px solid var(--wood2)!important;
+    border-radius:0!important;
+    color:#3a1e08!important;
+    letter-spacing:3px;text-transform:uppercase;
+    box-shadow:4px 4px 0 rgba(0,0,0,.4)!important}
+  #newGame #newGameName:focus{
+    outline:none!important;
+    border-color:var(--accent)!important;
+    box-shadow:4px 4px 0 rgba(0,0,0,.4),0 0 0 3px rgba(217,122,61,.2)!important}
+  #newGame #newGameName::placeholder{
+    color:#b89060;letter-spacing:1px;font-size:16px;font-weight:normal;text-transform:none}
+
+  /* ══════════════════════════════════════════
+     USER MENU SCREEN — employee file card
+  ══════════════════════════════════════════ */
+  #userMenu{
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 30%,rgba(200,160,80,.07),transparent),
+      linear-gradient(160deg,#4a3218 0%,#2e1c0a 100%)!important}
+
+  #userMenu h1{font-size:clamp(24px,4vw,42px)!important;margin-bottom:2px!important}
+  #userMenu h2{font-size:12px!important;margin-bottom:20px!important;opacity:.7}
+
+  /* stats panel — file card style */
+  #userStats{
+    background:
+      repeating-linear-gradient(0deg,transparent,transparent 22px,rgba(80,50,10,.07) 22px,rgba(80,50,10,.07) 23px),
+      linear-gradient(170deg,#f8edc8,#f0e0aa);
+    border:4px solid var(--wood2)!important;
+    border-radius:0!important;
+    padding:16px 22px!important;
+    box-shadow:4px 4px 0 rgba(0,0,0,.4);
+    min-width:240px;max-width:300px}
+
+  /* red top margin line like a real notepad */
+  #userStats::before{
+    content:'';display:block;width:2px;position:absolute;
+    top:0;bottom:0;left:36px;background:rgba(200,60,60,.25)}
+
+  #userStats div{
+    font-size:13px;line-height:2;color:#5a3e1a;
+    border-bottom:1px solid rgba(100,70,30,.1);padding-left:8px}
+  #userStats div:last-child{border-bottom:none}
+  #userStats b{color:#2a1408}
+
+  /* action buttons */
+  #userPlay{min-width:140px}
+  #userShop{min-width:140px}
+
+  /* ══════════════════════════════════════════
+     SHOP SCREEN
+  ══════════════════════════════════════════ */
+  #shopScreen{
+    background:linear-gradient(160deg,#4a3218 0%,#2e1c0a 100%)!important}
+  #shopScreen h1{font-size:clamp(22px,3.5vw,36px)!important}
+  #shopScreen .panel{
+    background:linear-gradient(170deg,#f8edc8,#f0e0aa);
+    border:4px solid var(--wood2)!important;border-radius:0!important;
+    box-shadow:4px 4px 0 rgba(0,0,0,.4)}
+
   /* ══════════════════════════════════ */
   /*  LEADERBOARD                      */
   /* ══════════════════════════════════ */

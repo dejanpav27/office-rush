@@ -52,22 +52,24 @@
   <button class="btn ghost" id="startBack" style="margin-top:18px">&laquo; Back</button>
 </div>
 <div class="screen" id="userSelect" style="display:none">
-  <h1>OFFICE RUSH</h1><h2>&#9670; SELECT SAVE SLOT &#9670;</h2>
+  <h1>OFFICE RUSH</h1>
+  <h2>&#9670; SELECT SAVE SLOT &#9670;</h2>
   <div class="chars" id="slotList"></div>
-  <button class="btn ghost" id="userSelectBack" style="margin-top:18px">&laquo; Back</button>
+  <button class="btn ghost" id="userSelectBack">&laquo; Back to menu</button>
 </div>
 <div class="screen" id="newGame" style="display:none">
-  <h1>NEW GAME</h1><h2>&#9670; ENTER YOUR NAME &#9670;</h2>
-  <input id="newGameName" maxlength="14" placeholder="Your name" autocomplete="off"
-    style="font-family:inherit;font-size:18px;padding:10px 14px;border:4px solid var(--wood2);outline:2px solid var(--woodlite);border-radius:10px;background:var(--paper);color:var(--inkbrown);text-align:center;width:min(280px,80vw)">
-  <div style="margin-top:18px;display:flex;gap:12px">
-    <button class="btn" id="newGameCreate">Create</button>
+  <h1>NEW EMPLOYEE</h1>
+  <h2>&#9670; ENTER YOUR NAME &#9670;</h2>
+  <input id="newGameName" maxlength="14" placeholder="Your name" autocomplete="off">
+  <div style="margin-top:20px;display:flex;gap:12px;justify-content:center">
+    <button class="btn" id="newGameCreate">&#9654; Start</button>
     <button class="btn ghost" id="newGameBack">&laquo; Back</button>
   </div>
 </div>
 <div class="screen" id="userMenu" style="display:none">
-  <h1 id="userMenuName">PLAYER</h1><h2>&#9670; MAIN MENU &#9670;</h2>
-  <div class="panel" id="userStats" style="max-width:340px;margin-bottom:20px"></div>
+  <h1 id="userMenuName">PLAYER</h1>
+  <h2>&#9670; EMPLOYEE FILE &#9670;</h2>
+  <div id="userStats" style="margin-bottom:20px;position:relative"></div>
   <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
     <button class="btn" id="userPlay">&#9654; Play week</button>
     <button class="btn" id="userShop">&#128722; Shop</button>
