@@ -149,7 +149,7 @@
     content.appendChild(wrap);
 
     hddClick();
-    const steps = 38, stepTime = 1680 / steps;
+    const steps = 38, stepTime = 900 / steps;
     for (let i = 1; i <= steps; i++) {
       await sleep(stepTime + Math.random()*18 - 9);
       const pct = Math.round((i/steps)*100);

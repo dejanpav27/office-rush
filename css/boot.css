@@ -9,13 +9,12 @@
 
 #crtBg {
   position: absolute; inset: 0;
-  background: url('../img/background.png') center center / cover no-repeat;
-  filter: blur(3px) brightness(0.42); transform: scale(1.06);
+  background: #000;
 }
 
 #crtMonitorWrap {
   position: relative;
-  width: min(900px, 82vw);
+  width: min(1100px, 94vw);
   aspect-ratio: 1536 / 1024;
   flex-shrink: 0;
 }
