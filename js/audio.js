@@ -17,7 +17,7 @@ function init(){
   // ambience — always looping quietly in background
   ambEl = new Audio('audio/ambience.mp3');
   ambEl.loop = true;
-  ambEl.volume = 0.18;
+  ambEl.volume = 0.55;
 
   // music
   musicEl = new Audio('audio/music.mp3');
@@ -88,7 +88,7 @@ window.ORaudio = {
     if(currentTrack === 'game') return;
     init();
     currentTrack = 'game';
-    if(ambEl) fadeVolume(ambEl, 0.42, 800);
+    if(ambEl) fadeVolume(ambEl, 0.65, 800);
     if(ambEl && ambEl.paused) ambEl.play().catch(()=>{});
     // game music same track, slightly louder
     if(musicEl){
@@ -124,7 +124,7 @@ window.ORaudio = {
   unmute(){
     muted = false;
     if(musicEl && !musicEl.paused) fadeVolume(musicEl, 0.45, 400);
-    if(ambEl && !ambEl.paused) fadeVolume(ambEl, 0.18, 400);
+    if(ambEl && !ambEl.paused) fadeVolume(ambEl, 0.55, 400);
   },
 
   toggle(){
