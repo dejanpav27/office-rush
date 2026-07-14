@@ -32,14 +32,14 @@
 #crtMonitorWrap::before {
   content: '';
   position: absolute;
-  left: 22.9%; top: 11.6%; width: 45.1%; height: 45.4%;
+  left: 20.0%; top: 8.5%; width: 49.5%; height: 51.0%;
   background: #000;
   z-index: 1;
   border-radius: 3px;
 }
 #crtScreen {
   position: absolute;
-  left: 22.9%; top: 11.6%; width: 45.1%; height: 45.4%;
+  left: 20.0%; top: 8.5%; width: 49.5%; height: 51.0%;
   z-index: 2; background: #000d00; overflow: hidden; border-radius: 3px;
 }
 #crtScreen::before {
