@@ -15,8 +15,8 @@
 
 #crtMonitorWrap {
   position: relative;
-  width: min(680px, 68vw);
-  aspect-ratio: 1402 / 1122;
+  width: min(900px, 82vw);
+  aspect-ratio: 1536 / 1024;
   flex-shrink: 0;
 }
 

@@ -50,9 +50,9 @@
 
   /* ── build DOM ── */
   function buildDOM() {
-    // hide modeScreen immediately
+    // permanently hide modeScreen — monitor is the main menu now
     const ms = document.getElementById('modeScreen');
-    if (ms) ms.style.display = 'none';
+    if (ms) { ms.style.display = 'none'; ms.style.setProperty('display','none','important'); }
 
     // fade overlay
     const fade = document.createElement('div');
@@ -149,7 +149,7 @@
     content.appendChild(wrap);
 
     hddClick();
-    const steps = 38, stepTime = 2100 / steps;
+    const steps = 38, stepTime = 1680 / steps;
     for (let i = 1; i <= steps; i++) {
       await sleep(stepTime + Math.random()*18 - 9);
       const pct = Math.round((i/steps)*100);
@@ -219,8 +219,8 @@
     confirmBeep();
     if      (action === 'play')        transitionToGame(container, false);
     else if (action === 'test')        transitionToGame(container, true);
-    else if (action === 'leaderboard') { hideCRT(); showGameScreen('leaderboardScreen'); }
-    else if (action === 'settings')    { /* future */ menuActive = true; attachKeys(container); }
+    else if (action === 'leaderboard') { hideCRT(); if(typeof renderLeaderboard==='function') renderLeaderboard(); showGameScreen('leaderboardScreen'); }
+    else if (action === 'settings')    { menuActive = true; attachKeys(container); }
     else if (action === 'exit')        location.reload();
   }
 
@@ -299,22 +299,31 @@
     });
   }
 
-  /* ── leaderboard back button patch ── */
-  function patchLeaderboardBack() {
-    const btn = document.getElementById('lbBack');
-    if (btn) {
-      const orig = btn.onclick;
-      btn.onclick = () => {
-        showGameScreen('none'); // hide all
-        // show CRT again with menu
-        const w = document.getElementById('crtWrap');
-        if (w) {
-          w.classList.remove('hidden');
-          const content = document.getElementById('crtContent');
-          if (content) showMainMenu(content);
-        }
-      };
-    }
+  /* ── intercept all showScreen('modeScreen') calls → show CRT instead ── */
+  function patchShowScreen() {
+    // wait for game.js to define showScreen, then wrap it
+    const interval = setInterval(() => {
+      if (typeof window.showScreen === 'function') {
+        clearInterval(interval);
+        const orig = window.showScreen;
+        window.showScreen = function(id) {
+          if (id === 'modeScreen') {
+            // hide all game screens
+            const screens = ['modeScreen','userSelect','newGame','userMenu','shopScreen','start','end','leaderboardScreen','firedScreen'];
+            screens.forEach(s => { const el = document.getElementById(s); if(el) el.style.display='none'; });
+            // bring CRT back
+            const wrap = document.getElementById('crtWrap');
+            if (wrap) {
+              wrap.classList.remove('hidden');
+              const content = document.getElementById('crtContent');
+              if (content) showMainMenu(content);
+            }
+          } else {
+            orig(id);
+          }
+        };
+      }
+    }, 100);
   }
 
   /* ── main boot flow ── */
@@ -332,8 +341,8 @@
     await runLoading(content);
     await showMainMenu(content);
 
-    // patch leaderboard back after game.js loaded
-    setTimeout(patchLeaderboardBack, 500);
+    // intercept showScreen('modeScreen') → show CRT
+    patchShowScreen();
   }
 
   if (document.readyState === 'loading') {
