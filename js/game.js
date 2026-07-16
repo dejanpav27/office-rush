@@ -64,7 +64,7 @@ const LOOKS={
 };
 
 const SPRITES={};
-Object.keys(SPRITE_B64).forEach(id=>{const im=new Image();im.src='data:image/png;base64,'+SPRITE_B64[id];SPRITES[id]=im;});
+['dejan','teonem','steve','brana','sonja','pedja','nina','nino','daniel'].forEach(id=>{const im=new Image();im.src='img/sprites/'+id+'.png';SPRITES[id]=im;});
 
 function drawSprite(g,cx,cy,id,scale,bob,flip){
   const img=SPRITES[id];const s=(scale||2);const b=bob||0;
