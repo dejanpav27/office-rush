@@ -85,7 +85,7 @@ const POOLS={
    {type:'inspect',ask:"Client returning the demo car — find every scratch and dent before he claims it was there before.",reward:'"Four scratches. Two definitely his. Documentation saves lives."'},
    {type:'arrange',items:[['🔑','keys'],['📋','contract'],['🪪','id']],hint:'Lay out the handover items in the exact order.',ask:"Set up the delivery table before the client arrives — keys, contract, ID in my exact order.",reward:'"Perfect setup. First impressions close deals."'},
    {type:'barcode',ask:"New stock just arrived from the importer — scan each VIN barcode. Steady hand.",reward:'"All logged. Inventory updated. Clean."'},
-   {type:'safe',ask:"Commission envelope's in the office safe — crack it before Nino gets back.",reward:'"Opened. Commission secured. Teonem was never here."'},
+   {type:'crack',ask:"Commission envelope's in the office safe — crack it before Nino gets back.",reward:'"Opened. Commission secured. Teonem was never here."'},
    {type:'spy',ask:"Competitor's price list is on the table — find the Golf price before they notice.",reward:'"Got it. We\'re cheaper by 800. Beautiful."'},
    {type:'flowfree',size:5,pairs:[{color:'#e03030',from:[0,0],to:[4,3]},{color:'#2e7d46',from:[0,4],to:[3,0]},{color:'#1565c0',from:[1,2],to:[4,1]},{color:'#b07d18',from:[0,2],to:[4,4]}],ask:"Route the client calls through the switchboard — connect every line without crossing them.",reward:'"All lines clear. Every client reached. Beautiful."'},
    {type:'merge2048',target:128,ask:"Budget spreadsheet — merge the numbers until you hit the quarterly target.",reward:'"128k. Nailed it. Commission incoming."'},

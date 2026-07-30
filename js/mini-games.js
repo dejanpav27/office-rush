@@ -6,7 +6,7 @@ const MINI_TIMER={reflex:10,hold:10,stopwatch:10,mash:10,timing:10,simon:12,
   wordle:90,minesweeper:90,merge2048:90,flowfree:60,hidden:60,typingtest:60,tetris:90,pipe:60,
   crossword:45,wordsearch:45,pingpong:30,cableroute:20,maze:20};
 
-function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:miniType,memory:miniMemory,
+function runMini(n,t){const _mini=({timing:miniTiming,simon:miniSimon,mash:miniMash,type:miniType,memory:miniMemory,
   choose:miniChoose,scramble:miniScramble,catch:miniCatch,reflex:miniReflex,math:miniMath,
   sequence:miniSequence,avoid:miniAvoid,whack:miniWhack,dodge:miniDodge,colormatch:miniColorMatch,
   count:miniCount,rhythm:miniRhythm,slider:miniSlider,lockpick:miniLockpick,sortorder:miniSortOrder,
@@ -22,7 +22,13 @@ function runMini(n,t){({timing:miniTiming,simon:miniSimon,mash:miniMash,type:min
   filing:miniFiling,phonetree:miniPhoneTree,waterplant:miniWaterPlant,shredder:miniShredder,
   stapler:miniStapler,expenses:miniExpenses,
   rubberband:miniRubberband,coffeeorder:miniCoffeeOrder,namecard:miniNamecard,
-  pingpong:miniPingPong,firewall:miniFirewall,receipt:miniReceipt,schedule:miniSchedule})[t.type](n,t);
+  pingpong:miniPingPong,firewall:miniFirewall,receipt:miniReceipt,schedule:miniSchedule})[t.type];
+  if(typeof _mini!=='function'){
+    console.error('runMini: nepoznat tip taska ->',t.type,t);
+    openDialog(n.name,'Something glitched with this one. Skipping it.',
+      [{label:'Ok',fn:()=>{closeDialog();finish(n,t);}}]);
+    return;}
+  _mini(n,t);
   if(!_countdownCalled&&miniOpen){const _s=MINI_TIMER[t.type]||15;_autoTimerStop=countdown(_s,()=>{if(miniOpen)fail(n,'Time\'s up! [E]');});}}
 
 
